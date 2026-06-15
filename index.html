@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultra-Premium Cinematic Loader</title>
+    <style>
+        /* --- Cinematic Dark Void Reset --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0f172a; /* Pitch dark deep space background */
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            perspective: 1000px; /* 3D depth ke liye */
+        }
+
+        /* --- Master Premium Loader (No Text, No Box) --- */
+        .luxury-universe {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform-style: preserve-3d;
+        }
+
+        /* Common ring styles for perfect alignment */
+        .ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid transparent;
+        }
+
+        /* 1. Outer Orbit (Gold/Bronze Luxury) */
+        .ring-outer {
+            width: 120px;
+            height: 120px;
+            border-top-color: #d4af37; /* Premium Metallic Gold */
+            border-bottom-color: rgba(212, 175, 55, 0.1);
+            animation: rotate3D-outer 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4));
+        }
+
+        /* 2. Middle Orbit (Deep Royal Cyan/Blue) */
+        .ring-middle {
+            width: 90px;
+            height: 90px;
+            border-left-color: #00f2fe; /* Electric Cyan */
+            border-right-color: rgba(0, 242, 254, 0.1);
+            animation: rotate3D-middle 1.5s ease-in-out infinite;
+            filter: drop-shadow(0 0 12px rgba(0, 242, 254, 0.5));
+        }
+
+        /* 3. Inner Core (Neon Magenta/Purple - Hyper Speed) */
+        .ring-inner {
+            width: 60px;
+            height: 60px;
+            border-top-color: #ff007f; /* Luxury Pink/Neon */
+            border-bottom-color: rgba(255, 0, 127, 0.1);
+            animation: rotate3D-inner 1s linear infinite;
+            filter: drop-shadow(0 0 10px rgba(255, 0, 127, 0.6));
+        }
+
+        /* 4. Center Micro-Singularity (The Glow Source) */
+        .core-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 0 20px 6px #ffffff, 
+                        0 0 40px 15px #00f2fe, 
+                        0 0 60px 30px #ff007f;
+            animation: pulseCore 1.5s ease-in-out infinite;
+        }
+
+        /* --- Pure Cinematic 3D Rotations --- */
+        @keyframes rotate3D-outer {
+            0% { transform: rotateX(45deg) rotateY(45deg) rotateZ(0deg); }
+            100% { transform: rotateX(45deg) rotateY(45deg) rotateZ(360deg); }
+        }
+
+        @keyframes rotate3D-middle {
+            0% { transform: rotateX(60deg) rotateY(-45deg) rotateZ(360deg); }
+            100% { transform: rotateX(60deg) rotateY(-45deg) rotateZ(0deg); }
+        }
+
+        @keyframes rotate3D-inner {
+            0% { transform: rotateX(-45deg) rotateY(60deg) rotateZ(0deg); }
+            100% { transform: rotateX(-45deg) rotateY(60deg) rotateZ(360deg); }
+        }
+
+        @keyframes pulseCore {
+            0%, 100% { transform: scale(0.8); opacity: 0.7; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+
+        /* Smooth Screen Fade out at transition */
+        .page-fade-out {
+            opacity: 0;
+            transform: scale(1.1);
+            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="luxury-universe" id="loader">
+        <div class="ring ring-outer"></div>
+        <div class="ring ring-middle"></div>
+        <div class="ring ring-inner"></div>
+        <div class="core-dot"></div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const loader = document.getElementById("loader");
+
+            // Isko poori tarah real loading par chhorne ke bajaye hum 2.5 seconds ka 
+            // ek premium cinematic delay de rahe hain taake user ko look feel ho.
+            setTimeout(() => {
+                // Pehle loader ko smoothly fade out karenge
+                document.body.classList.add("page-fade-out");
+                
+                // Jaise hi fade out complete hoga, instantly home.html par redirect
+                setTimeout(() => {
+                    window.location.href = "home.html";
+                }, 800); // Animation duration match karne ke liye
+                
+            }, 2500); // 2.5 seconds tak loader dikhega (Aap isse kam ya zyada kar sakte hain)
+        });
+    </script>
+
+</body>
+</html>

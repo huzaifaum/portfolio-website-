@@ -1,0 +1,686 @@
+<!-- admin.html - Complete Updated File with Contact Inbox -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Royal Admin | Huzaifa Umer Ansari</title>
+    <link rel="icon" href="Huzaifa web developer logo design.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        :root {
+            --bg-primary: #0a0c15;
+            --bg-elevated: #11131f;
+            --bg-card: rgba(18, 22, 35, 0.65);
+            --border-gold: rgba(212, 175, 55, 0.25);
+            --accent-gold: #d4af37;
+            --accent-glow: rgba(212, 175, 55, 0.2);
+            --text-primary: #ffffff;
+            --text-secondary: #a3a8c2;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --glass-backdrop: blur(14px);
+        }
+
+        body.light {
+            --bg-primary: #f4f6fc;
+            --bg-elevated: #ffffff;
+            --bg-card: rgba(255,255,255,0.85);
+            --border-gold: rgba(212, 175, 55, 0.4);
+            --text-primary: #0a0c15;
+            --text-secondary: #4a5568;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background 0.3s, color 0.2s;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at 25% 40%, rgba(212,175,55,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0a0c15 0%, #151a2c 100%);
+            padding: 20px;
+            position: relative;
+        }
+        .royal-card {
+            background: rgba(17, 19, 31, 0.75);
+            backdrop-filter: blur(18px);
+            border-radius: 2rem;
+            border: 1px solid var(--border-gold);
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 440px;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(212,175,55,0.1);
+            transition: transform 0.2s;
+        }
+        .royal-card h2 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #fff, #d4af37);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        .gold-input {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid var(--border-gold);
+            border-radius: 1.5rem;
+            color: white;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .gold-input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+        .gold-btn {
+            background: linear-gradient(95deg, #d4af37, #b8932c);
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 2rem;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #0a0c15;
+        }
+        .gold-btn:hover { transform: scale(0.98); filter: brightness(1.05); }
+
+        .admin-container {
+            display: none;
+            width: 100%;
+            min-height: 100vh;
+        }
+        .royal-header {
+            background: var(--bg-elevated);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-gold);
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 40;
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .logo-area img {
+            height: 45px;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));
+        }
+        .brand {
+            font-weight: 700;
+            font-size: 1.3rem;
+            letter-spacing: -0.3px;
+            background: linear-gradient(120deg, #fff, #d4af37);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .session-chip {
+            background: rgba(212,175,55,0.12);
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            border: 0.5px solid var(--border-gold);
+            color: var(--text-secondary);
+        }
+        .icon-btn {
+            background: transparent;
+            border: none;
+            font-size: 1.3rem;
+            color: var(--text-primary);
+            cursor: pointer;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            transition: 0.2s;
+        }
+        .icon-btn:hover {
+            background: var(--accent-glow);
+            color: var(--accent-gold);
+        }
+        .logout-premium {
+            background: rgba(239,68,68,0.15);
+            padding: 0.4rem 1.2rem;
+            border-radius: 2rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #ef4444;
+            border: none;
+            cursor: pointer;
+        }
+        .mobile-toggle {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--accent-gold);
+            cursor: pointer;
+            display: none;
+        }
+        .royal-sidebar {
+            width: 280px;
+            background: var(--bg-elevated);
+            border-right: 1px solid var(--border-gold);
+            backdrop-filter: blur(8px);
+            padding: 2rem 1rem;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            z-index: 30;
+        }
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.85rem 1.2rem;
+            margin-bottom: 0.5rem;
+            border-radius: 1.2rem;
+            font-weight: 500;
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.95rem;
+        }
+        .nav-item i {
+            width: 24px;
+            font-size: 1.2rem;
+        }
+        .nav-item.active, .nav-item:hover {
+            background: var(--accent-glow);
+            color: var(--accent-gold);
+            border-left: 3px solid var(--accent-gold);
+        }
+        .dashboard-layout {
+            display: flex;
+            flex: 1;
+        }
+        .dashboard-main {
+            flex: 1;
+            padding: 1.8rem 2rem;
+            overflow-x: auto;
+        }
+        .premium-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        .project-card, .blog-card {
+            background: var(--bg-card);
+            backdrop-filter: var(--glass-backdrop);
+            border-radius: 1.5rem;
+            border: 1px solid var(--border-gold);
+            overflow: hidden;
+            transition: all 0.25s;
+        }
+        .project-card:hover, .blog-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-gold);
+            box-shadow: 0 20px 30px -15px rgba(0,0,0,0.3);
+        }
+        .img-royal {
+            width: 100%;
+            aspect-ratio: 16/10;
+            object-fit: cover;
+            background: #1e1f2c;
+        }
+        .card-body {
+            padding: 1.2rem;
+        }
+        .card-actions {
+            display: flex;
+            gap: 0.6rem;
+            margin-top: 1rem;
+        }
+        .btn-sm {
+            padding: 0.3rem 0.9rem;
+            border-radius: 2rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-edit { background: var(--warning); color: #0a0c15; }
+        .btn-delete { background: var(--danger); color: white; }
+        .btn-view { background: var(--accent-gold); color: #0a0c15; }
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .add-btn-gold {
+            background: var(--accent-gold);
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 2rem;
+            font-weight: 700;
+            display: flex;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+        .modal-modern {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .modal-content-modern {
+            background: var(--bg-elevated);
+            border-radius: 1.8rem;
+            max-width: 550px;
+            width: 90%;
+            padding: 1.8rem;
+            border: 1px solid var(--border-gold);
+        }
+        @media (max-width: 820px) {
+            .mobile-toggle { display: block; }
+            .royal-sidebar {
+                position: fixed;
+                left: -280px;
+                top: 0;
+                height: 100vh;
+                z-index: 200;
+                transition: left 0.3s ease;
+                box-shadow: 2rem 0 2rem rgba(0,0,0,0.3);
+            }
+            .royal-sidebar.mobile-open {
+                left: 0;
+            }
+            .dashboard-layout {
+                flex-direction: column;
+            }
+            .dashboard-main {
+                padding: 1rem;
+            }
+            .royal-header .logo-area .brand, 
+            .royal-header .session-chip {
+                display: none;
+            }
+            .royal-header {
+                padding: 0.6rem 1rem;
+            }
+            .header-actions {
+                gap: 0.5rem;
+            }
+        }
+        @media (max-width: 580px) {
+            .premium-grid { grid-template-columns: 1fr; }
+        }
+        .overlay-mobile {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(2px);
+            z-index: 150;
+            display: none;
+        }
+        .overlay-mobile.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<div id="loginPage" class="login-page">
+    <div class="royal-card">
+        <div style="text-align:center;"><img src="Huzaifa web developer logo design.png" style="height: 70px;"></div>
+        <h2>Royal Access</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Admin dashboard · secure entry</p>
+        <input type="text" id="loginUser" class="gold-input" placeholder="Username" autocomplete="off">
+        <input type="password" id="loginPass" class="gold-input" placeholder="Password" style="margin-top: 1rem;">
+        <button class="gold-btn" style="margin-top: 1.8rem;" onclick="handleLogin()">Enter <i class="fas fa-crown"></i></button>
+        <div id="loginError" class="error" style="color:#ef4444; margin-top:1rem; text-align:center;"></div>
+    </div>
+</div>
+
+<div id="adminPanel" class="admin-container">
+    <div class="royal-header">
+        <div class="logo-area">
+            <img src="Huzaifa web developer logo design.png" alt="logo">
+            <span class="brand">Huzaifa Empire</span>
+        </div>
+        <div class="header-actions">
+            <span class="session-chip" id="sessionTimeDisplay"><i class="far fa-clock"></i> --:--</span>
+            <button class="icon-btn" onclick="toggleTheme()"><i class="fas fa-sun"></i></button>
+            <button class="logout-premium" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Exit</button>
+            <button class="mobile-toggle" id="mobileMenuToggleBtn"><i class="fas fa-bars"></i></button>
+        </div>
+    </div>
+    <div class="dashboard-layout">
+        <div class="royal-sidebar" id="royalSidebar">
+            <button class="nav-item active" data-tab="blogs"><i class="fas fa-blog"></i> Blog Vault</button>
+            <button class="nav-item" data-tab="projects"><i class="fas fa-folder"></i> Project Treasury</button>
+            <button class="nav-item" data-tab="contacts"><i class="fas fa-envelope"></i> Contact Inbox</button>
+            <button class="nav-item" data-tab="settings"><i class="fas fa-cog"></i> Royal Settings</button>
+        </div>
+        <div class="dashboard-main" id="dynamicContent"></div>
+    </div>
+</div>
+<div id="mobileOverlay" class="overlay-mobile"></div>
+
+<script>
+    const MASTER_PROJECTS = [
+        { id: "p1", name: "Batterij Lease Plan", url: "https://batterijleaseplan.nl/", img: "screencapture-batterijplannederland-nl-2026-06-14-14_28_06.png" },
+        { id: "p2", name: "Datanox", url: "https://www.datanox.io", img: "screencapture-datanox-io-2026-06-14-17_42_50.png" },
+        { id: "p3", name: "Digiwebrix Property", url: "https://property.digiwebrix.com", img: "screencapture-property-digiwebrix-2026-06-14-14_28_36.png" },
+        { id: "p4", name: "Test & Tag Australia", url: "https://testandtagaustralia.com.au/", img: "screencapture-testandtagaustralia-au-2026-06-14-14_27_15.png" },
+        { id: "p5", name: "Easy Visa", url: "https://www.easyvisainternational.com/", img: "screencapture-easyvisainternational-2026-06-14-14_29_26.png" },
+        { id: "p6", name: "Lusso Suites", url: "https://lussosuitesa.com", img: "screencapture-lussosuitesa-2026-06-14-14_29_56.png" },
+        { id: "p7", name: "Nour House", url: "https://nour-house.fi", img: "screencapture-nour-house-fi-2026-06-14-14_30_37.png" },
+        { id: "p8", name: "The White Company", url: "https://www.thewhitecompany.com/", img: "screencapture-thewhitecompany-uk-2026-06-14-14_31_15.png" },
+        { id: "p9", name: "Nureh", url: "https://nureh.pk/", img: "screencapture-nureh-pk-2026-06-14-14_31_54.png" },
+        { id: "p10", name: "Sokamal", url: "https://www.sokamal.com/", img: "screencapture-sokamal-2026-06-14-14_32_51.png" },
+        { id: "p11", name: "Equator Stores", url: "https://equatorstores.com/", img: "screencapture-equatorstores-2026-06-14-17_43_46.png" },
+        { id: "p12", name: "Tezz", url: "https://www.tezz.com.pk/", img: "screencapture-tezz-pk-2026-06-14-17_44_19.png" },
+        { id: "p13", name: "Bin Anwar Kurti", url: "https://binanwarkurti.com/", img: "screencapture-binanwarkurti-2026-06-14-17_50_03.png" },
+        { id: "p14", name: "Luxe & Line", url: "https://www.luxeandline.uk", img: "screencapture-luxeandline-uk-2026-06-14-17_50_51.png" },
+        { id: "p15", name: "Elodora", url: "https://elodora.com", img: "screencapture-elodora-2026-06-14-17_51_32.png" },
+        { id: "p16", name: "Planet Junior", url: "https://planetjunior.pk/", img: "screencapture-planetjunior-pk-2026-06-14-17_52_14.png" },
+        { id: "p17", name: "FSociety", url: "https://fsociety.pk/", img: "screencapture-fsociety-pk-2026-06-14-17_52_48.png" },
+        { id: "p18", name: "DigiCLS", url: "https://digicls.com/", img: "screencapture-digicls-2026-06-14-17_53_40.png" },
+        { id: "p19", name: "Borjan", url: "https://www.borjan.com.pk/", img: "screencapture-borjan-pk-2026-06-14-18_02_46.png" },
+        { id: "p20", name: "Perfume Parlour", url: "https://perfume-parlour.pk/", img: "screencapture-perfume-parlour-pk-2026-06-14-18_03_10.png" },
+        { id: "p21", name: "Cousins Foods", url: "https://cousinsfoods.com/", img: "screencapture-cousinsfoods-2026-06-14-18_03_52.png" },
+        { id: "p22", name: "Lawyers Public Services", url: "https://Lawyerspublicservices.com/", img: "screencapture-lawyerspublicservices-2026-06-14-18_10_20.png" },
+        { id: "p23", name: "Batterij Leaseplan NL", url: "https://www.batterijleaseplan.nl/index.php", img: "screencapture-batterijleaseplan-nl-index-php-2026-06-14-18_11_55.png" },
+        { id: "p24", name: "Find Real Estate", url: "https://findrealestate.com/", img: "screencapture-findrealestate-2026-06-14-18_16_56.png" },
+        { id: "p25", name: "zr gift shop", url: "https://hu35069769-source.github.io/zr-gift-shop/", img: "screencapture-hu35069769-source-github-io-zr-gift-shop-2026-06-14-18_57_10.png" },
+        { id: "p26", name: "rssslt-mysellauth", url: "https://rssslt.mysellauth.com/", img: "screencapture-rssslt-mysellauth-2026-06-14-23_57_33.png" },
+        { id: "p27", name: "toylover", url: "https://toylover.pk/", img: "screencapture-toylover-pk-2026-06-15-00_00_32.png" }
+    ];
+    
+    let blogs = [], projects = [], adminCreds = { username: "admin", password: "admin123" };
+    let currentTab = "blogs";
+
+    function saveBlogs() { localStorage.setItem("admin_blogs", JSON.stringify(blogs)); }
+    function saveProjects() { 
+        const adminOnly = projects.filter(p => !MASTER_PROJECTS.some(mp => mp.id === p.id));
+        localStorage.setItem("admin_projects", JSON.stringify(adminOnly));
+    }
+    
+    function loadData() {
+        const savedBlogs = localStorage.getItem("admin_blogs");
+        if(savedBlogs) blogs = JSON.parse(savedBlogs);
+        else {
+            blogs = [
+                { id: "b1", title: "Mastering React Server Components", category: "React", excerpt: "Deep dive into performance patterns.", content: "<p>Full details about React Server Components...</p>", date: "March 2, 2026", readTime: "8 min read", img: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=600&h=300&fit=crop" },
+                { id: "b2", title: "Laravel API 1M+ Requests", category: "Laravel", excerpt: "Optimization & caching.", content: "<p>Scaling strategies.</p>", date: "Feb 18, 2026", readTime: "6 min read", img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&h=300&fit=crop" },
+                { id: "b3", title: "SEO for JS-Heavy Sites", category: "SEO", excerpt: "Next.js and React apps.", content: "<p>Dynamic rendering and metadata.</p>", date: "Jan 10, 2026", readTime: "5 min read", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=300&fit=crop" },
+                { id: "b4", title: "Headless CMS with Next.js & WP", category: "WordPress", excerpt: "WPGraphQL tutorial.", content: "<p>Full stack headless.</p>", date: "Dec 22, 2025", readTime: "10 min read", img: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=600&h=300&fit=crop" },
+                { id: "b5", title: "MERN Auth: JWT vs Sessions", category: "MERN", excerpt: "Security comparison.", content: "<p>Detailed implementation.</p>", date: "Nov 15, 2025", readTime: "7 min read", img: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=600&h=300&fit=crop" },
+                { id: "b6", title: "27+ Clients Freelance", category: "Career", excerpt: "Strategy for premium clients.", content: "<p>Roadmap & proposals.</p>", date: "Oct 5, 2025", readTime: "9 min read", img: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&h=300&fit=crop" }
+            ];
+            saveBlogs();
+        }
+        const savedAdminProj = localStorage.getItem("admin_projects");
+        const adminAdded = savedAdminProj ? JSON.parse(savedAdminProj) : [];
+        projects = [...MASTER_PROJECTS];
+        adminAdded.forEach(ap => { if(!projects.some(p=>p.url===ap.url)) projects.push(ap); });
+        saveProjects();
+        const savedCred = localStorage.getItem("admin_creds");
+        if(savedCred) adminCreds = JSON.parse(savedCred);
+    }
+
+    function renderDashboard() {
+        if(currentTab === "blogs") renderBlogsUI();
+        else if(currentTab === "projects") renderProjectsUI();
+        else if(currentTab === "contacts") renderContactsUI();
+        else renderSettingsUI();
+        document.querySelectorAll(".nav-item").forEach(btn => {
+            btn.classList.remove("active");
+            if(btn.getAttribute("data-tab") === currentTab) btn.classList.add("active");
+        });
+    }
+
+    function renderBlogsUI() {
+        const container = document.getElementById("dynamicContent");
+        container.innerHTML = `
+            <div class="section-title"><span><i class="fas fa-blog"></i> Royal Blogs (${blogs.length})</span><button class="add-btn-gold" onclick="openBlogModal()"><i class="fas fa-plus"></i> New Blog</button></div>
+            <div class="premium-grid" id="blogsGridRoyal"></div>
+        `;
+        const grid = document.getElementById("blogsGridRoyal");
+        grid.innerHTML = blogs.map(b => `
+            <div class="blog-card"><img src="${b.img}" class="img-royal" onerror="this.src='https://placehold.co/600x400/1e293b/d4af37?text=Blog'"><div class="card-body"><span style="background:rgba(212,175,55,0.2); padding:2px 12px; border-radius:20px; font-size:11px;">${escapeHtml(b.category)}</span><h3 style="margin:8px 0">${escapeHtml(b.title)}</h3><p style="color:var(--text-secondary); font-size:13px;">${escapeHtml(b.excerpt.substring(0,85))}...</p><div class="card-actions"><button class="btn-sm btn-view" onclick="viewBlogById('${b.id}')">Read</button><button class="btn-sm btn-edit" onclick="openBlogModal('${b.id}')">Edit</button><button class="btn-sm btn-delete" onclick="deleteBlogById('${b.id}')">Delete</button></div></div></div>
+        `).join("");
+    }
+
+    function renderProjectsUI() {
+        const container = document.getElementById("dynamicContent");
+        container.innerHTML = `<div class="section-title"><span><i class="fas fa-crown"></i> Project Treasury (${projects.length})</span><button class="add-btn-gold" onclick="openProjectModal()"><i class="fas fa-plus"></i> Add Project</button></div><div class="premium-grid" id="projectsGridRoyal"></div>`;
+        const grid = document.getElementById("projectsGridRoyal");
+        grid.innerHTML = projects.map(p => `
+            <div class="project-card"><div style="position:relative;"><img src="${p.img}" class="img-royal" onerror="this.src='https://placehold.co/600x400/1e293b/d4af37?text=Project'"><div style="position:absolute; inset:0; background:rgba(0,0,0,0.6); display:flex; align-items:center; justify-content:center; gap:12px; opacity:0; transition:0.2s;" class="project-overlay-hover"><a href="${p.url}" target="_blank" style="background:white; border-radius:50%; width:36px;height:36px;display:flex;align-items:center;justify-content:center;color:#0a0c15;"><i class="fas fa-link"></i></a><button style="background:var(--warning); border-radius:50%; width:36px;height:36px; border:none; cursor:pointer;" onclick="openProjectModal('${p.id}')"><i class="fas fa-edit"></i></button><button style="background:var(--danger); border-radius:50%; width:36px;height:36px; border:none; cursor:pointer;" onclick="deleteProjectById('${p.id}')"><i class="fas fa-trash"></i></button></div></div><div class="card-body"><h3>${escapeHtml(p.name)}</h3><p style="color:var(--text-secondary);">Elite solution</p></div></div>
+        `).join("");
+        document.querySelectorAll(".project-card").forEach(card => {
+            const overlay = card.querySelector(".project-overlay-hover");
+            card.addEventListener("mouseenter", () => { if(overlay) overlay.style.opacity = "1"; });
+            card.addEventListener("mouseleave", () => { if(overlay) overlay.style.opacity = "0"; });
+        });
+    }
+
+    function renderContactsUI() {
+        const contacts = JSON.parse(localStorage.getItem('contact_messages') || '[]');
+        const container = document.getElementById("dynamicContent");
+        
+        if(contacts.length === 0) {
+            container.innerHTML = `<div class="section-title"><i class="fas fa-envelope"></i> Contact Inbox (0)</div>
+            <div style="text-align:center; padding:60px; background:var(--bg-card); border-radius:1.5rem;">
+                <i class="fas fa-inbox" style="font-size:48px; color:var(--accent-gold); margin-bottom:15px;"></i>
+                <h3>No messages yet</h3>
+                <p>When someone submits the contact form, you'll see it here.</p>
+            </div>`;
+            return;
+        }
+        
+        let html = `<div class="section-title"><i class="fas fa-envelope"></i> Contact Inbox (${contacts.length})</div>
+        <div class="premium-grid">`;
+        
+        contacts.forEach(contact => {
+            html += `
+                <div class="blog-card" style="border-left: 4px solid ${contact.status === 'unread' ? '#d4af37' : '#555'}">
+                    <div class="card-body">
+                        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;">
+                            <h3 style="color:var(--accent-gold);">${escapeHtml(contact.name)}</h3>
+                            <small>${contact.date}</small>
+                        </div>
+                        <p style="margin-top:8px;"><strong>Email:</strong> ${escapeHtml(contact.email)}</p>
+                        <p><strong>Subject:</strong> ${escapeHtml(contact.subject)}</p>
+                        <p><strong>Message:</strong><br>${escapeHtml(contact.message)}</p>
+                        <div class="card-actions" style="margin-top:15px;">
+                            <button class="btn-sm btn-view" onclick="window.open('https://wa.me/923132667528?text=Hi%20${encodeURIComponent(contact.name)}%2C%20I%20received%20your%20message%20about%20${encodeURIComponent(contact.subject)}.%20Let%20me%20get%20back%20to%20you%20shortly.', '_blank')"><i class="fab fa-whatsapp"></i> Reply on WhatsApp</button>
+                            <button class="btn-sm btn-delete" onclick="deleteContact('${contact.id}')"><i class="fas fa-trash"></i> Delete</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        
+        html += `</div>`;
+        container.innerHTML = html;
+    }
+
+    function deleteContact(id) {
+        if(confirm('Delete this message?')) {
+            let contacts = JSON.parse(localStorage.getItem('contact_messages') || '[]');
+            contacts = contacts.filter(c => c.id != id);
+            localStorage.setItem('contact_messages', JSON.stringify(contacts));
+            renderContactsUI();
+        }
+    }
+
+    function renderSettingsUI() {
+        document.getElementById("dynamicContent").innerHTML = `<div class="section-title"><i class="fas fa-shield-alt"></i> Royal Credentials</div><div style="background:var(--bg-elevated); border-radius:1.5rem; padding:1.8rem; border:1px solid var(--border-gold);"><p style="margin-bottom:1rem;">Update master access</p><input type="text" id="newUsername" placeholder="New Username" class="gold-input" value="${adminCreds.username}" style="margin-bottom:1rem;"><input type="password" id="newPassword" placeholder="New Password" class="gold-input" value=""><button class="gold-btn" style="margin-top:0.5rem;" onclick="updateAdminCreds()">Update Credentials</button></div>`;
+    }
+
+    function openBlogModal(id=null) { showModal("blog", id); }
+    function openProjectModal(id=null) { showModal("project", id); }
+    
+    function showModal(type, id) {
+        const isEdit = !!id;
+        let entity = type === "blog" ? blogs.find(b=>b.id===id) : projects.find(p=>p.id===id);
+        const modalDiv = document.createElement("div"); modalDiv.className = "modal-modern";
+        modalDiv.innerHTML = `<div class="modal-content-modern"><span style="float:right; font-size:24px; cursor:pointer;" onclick="this.closest('.modal-modern').remove()">&times;</span><h3>${isEdit? "Edit" : "Create"} ${type==="blog"? "Blog" : "Project"}</h3>
+        ${type==="blog" ? `<input id="modalTitle" placeholder="Title" class="gold-input" value="${entity? escapeHtml(entity.title): ''}"><input id="modalCat" placeholder="Category" class="gold-input" value="${entity? escapeHtml(entity.category): ''}"><input id="modalDate" placeholder="Date" class="gold-input" value="${entity? entity.date: ''}"><input id="modalRead" placeholder="Read time" class="gold-input" value="${entity? entity.readTime: '5 min read'}"><textarea id="modalExcerpt" placeholder="Excerpt" class="gold-input">${entity? escapeHtml(entity.excerpt): ''}</textarea><textarea id="modalContent" placeholder="Full content" class="gold-input">${entity? entity.content: ''}</textarea><input id="modalImg" placeholder="Image URL" class="gold-input" value="${entity? entity.img: ''}"><div id="imgPrev"></div>` :
+        `<input id="modalName" placeholder="Project Name" class="gold-input" value="${entity? escapeHtml(entity.name): ''}"><input id="modalUrl" placeholder="Website URL" class="gold-input" value="${entity? entity.url: ''}"><input id="modalImg" placeholder="Image URL" class="gold-input" value="${entity? entity.img: ''}"><div id="imgPrev"></div>`}
+        <button class="gold-btn" style="margin-top:1rem;" id="saveModalBtn">Save Changes</button></div>`;
+        document.body.appendChild(modalDiv);
+        const previewDiv = modalDiv.querySelector("#imgPrev");
+        const imgInput = modalDiv.querySelector("#modalImg");
+        if(imgInput) imgInput.addEventListener("input", (e) => { if(previewDiv) previewDiv.innerHTML = `<img src="${e.target.value}" style="max-height:100px; margin-top:8px; border-radius:12px;" onerror="this.style.display='none'">`; });
+        modalDiv.querySelector("#saveModalBtn").onclick = () => {
+            if(type === "blog") {
+                const newBlog = { id: id || Date.now().toString(), title: modalDiv.querySelector("#modalTitle").value, category: modalDiv.querySelector("#modalCat").value, date: modalDiv.querySelector("#modalDate").value, readTime: modalDiv.querySelector("#modalRead").value, excerpt: modalDiv.querySelector("#modalExcerpt").value, content: modalDiv.querySelector("#modalContent").value, img: modalDiv.querySelector("#modalImg").value || "https://placehold.co/600x400" };
+                if(isEdit) { let idx = blogs.findIndex(b=>b.id===id); if(idx!==-1) blogs[idx]=newBlog; }
+                else blogs.unshift(newBlog);
+                saveBlogs(); renderDashboard();
+            } else {
+                const newProj = { id: id || Date.now().toString(), name: modalDiv.querySelector("#modalName").value, url: modalDiv.querySelector("#modalUrl").value, img: modalDiv.querySelector("#modalImg").value || "https://placehold.co/600x400" };
+                if(isEdit) { 
+                    if(MASTER_PROJECTS.some(mp=>mp.id===id)) alert("Master projects cannot be edited.");
+                    else { let idx = projects.findIndex(p=>p.id===id); if(idx!==-1) projects[idx]=newProj; saveProjects(); renderDashboard(); }
+                } else { projects.push(newProj); saveProjects(); renderDashboard(); }
+            }
+            modalDiv.remove();
+        };
+        if(type==="blog" && imgInput && entity?.img) previewDiv.innerHTML = `<img src="${entity.img}" style="max-height:100px; border-radius:12px;">`;
+        else if(type!=="blog" && imgInput && entity?.img) previewDiv.innerHTML = `<img src="${entity.img}" style="max-height:100px;">`;
+    }
+    
+    function deleteBlogById(id) { if(confirm("Delete blog?")) { blogs = blogs.filter(b=>b.id!==id); saveBlogs(); renderDashboard(); } }
+    function deleteProjectById(id) { if(MASTER_PROJECTS.some(mp=>mp.id===id)) { alert("Cannot delete default projects"); return; } if(confirm("Delete project?")) { projects = projects.filter(p=>p.id!==id); saveProjects(); renderDashboard(); } }
+    function viewBlogById(id) { const blog = blogs.find(b=>b.id===id); if(!blog) return; const modal=document.createElement("div"); modal.className="modal-modern"; modal.innerHTML=`<div class="modal-content-modern" style="max-width:650px;"><span style="float:right;font-size:24px;cursor:pointer;" onclick="this.closest('.modal-modern').remove()">&times;</span><img src="${blog.img}" style="width:100%; border-radius:16px;"><h2>${escapeHtml(blog.title)}</h2><div>${blog.content}</div></div>`; document.body.appendChild(modal); }
+    function updateAdminCreds() { const u = document.getElementById("newUsername")?.value.trim(), p = document.getElementById("newPassword")?.value.trim(); if(u && p) { adminCreds = { username: u, password: p }; localStorage.setItem("admin_creds", JSON.stringify(adminCreds)); alert("Credentials updated! Please re-login."); logout(); } else alert("Fill both fields"); }
+    function escapeHtml(s) { if(!s) return ""; return s.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); }
+
+    function handleLogin() {
+        const user = document.getElementById("loginUser").value, pass = document.getElementById("loginPass").value;
+        if(user === adminCreds.username && pass === adminCreds.password) {
+            localStorage.setItem("admin_logged_in", "true");
+            localStorage.setItem("login_time", new Date().toISOString());
+            showAdminUI();
+        } else document.getElementById("loginError").innerText = "Invalid credentials! Use: admin / admin123";
+    }
+    
+    function showAdminUI() {
+        document.getElementById("loginPage").style.display = "none";
+        document.getElementById("adminPanel").style.display = "block";
+        loadData(); 
+        updateSessionDisplay();
+        setInterval(updateSessionDisplay, 1000);
+        switchTab("blogs");
+        attachMobileEvents();
+    }
+    
+    function updateSessionDisplay() { const t = localStorage.getItem("login_time"); if(t) document.getElementById("sessionTimeDisplay").innerHTML = `<i class="far fa-clock"></i> ${new Date(t).toLocaleString()}`; }
+    function logout() { localStorage.removeItem("admin_logged_in"); localStorage.removeItem("login_time"); document.getElementById("loginPage").style.display = "flex"; document.getElementById("adminPanel").style.display = "none"; }
+    function switchTab(tab) { currentTab = tab; renderDashboard(); }
+    function toggleTheme() { document.body.classList.toggle("light"); }
+    
+    function attachMobileEvents() {
+        const sidebar = document.getElementById("royalSidebar");
+        const overlay = document.getElementById("mobileOverlay");
+        const toggleBtn = document.getElementById("mobileMenuToggleBtn");
+        
+        if(window.innerWidth <= 820) toggleBtn.style.display = "block";
+        else toggleBtn.style.display = "none";
+        
+        if(toggleBtn) {
+            toggleBtn.onclick = () => { 
+                sidebar.classList.add("mobile-open"); 
+                overlay.classList.add("active"); 
+            };
+        }
+        
+        overlay.onclick = () => { 
+            sidebar.classList.remove("mobile-open"); 
+            overlay.classList.remove("active"); 
+        };
+        
+        window.addEventListener("resize", () => { 
+            if(window.innerWidth > 820) { 
+                sidebar.classList.remove("mobile-open"); 
+                overlay.classList.remove("active");
+                toggleBtn.style.display = "none";
+            } else {
+                toggleBtn.style.display = "block";
+            }
+        });
+        
+        document.querySelectorAll(".nav-item").forEach(btn => { 
+            btn.onclick = (e) => { 
+                const tab = btn.getAttribute("data-tab"); 
+                switchTab(tab); 
+                sidebar.classList.remove("mobile-open"); 
+                overlay.classList.remove("active"); 
+            }; 
+        });
+    }
+    
+    window.switchTab = switchTab; 
+    window.openBlogModal = openBlogModal; 
+    window.openProjectModal = openProjectModal; 
+    window.deleteBlogById = deleteBlogById; 
+    window.deleteProjectById = deleteProjectById; 
+    window.viewBlogById = viewBlogById; 
+    window.updateAdminCreds = updateAdminCreds; 
+    window.toggleTheme = toggleTheme;
+    window.handleLogin = handleLogin;
+    window.logout = logout;
+    window.deleteContact = deleteContact;
+    
+    if(localStorage.getItem("admin_logged_in") === "true") showAdminUI();
+    else { document.getElementById("loginPage").style.display = "flex"; document.getElementById("adminPanel").style.display = "none"; }
+    loadData();
+</script>
+</body>
+</html>

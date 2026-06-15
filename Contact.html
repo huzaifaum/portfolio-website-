@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Contact - Huzaifa Umer Ansari</title>
+    <link rel="icon" href="Huzaifa web developer logo design.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: #0f172a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background-image: linear-gradient(rgba(56,189,248,0.07) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(56,189,248,0.07) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        
+        /* NAVBAR CORE */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 6%;
+            background: #0f172a;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(56,189,248,0.2);
+        }
+        .logo img {
+            height: 45px;
+            width: auto;
+            display: block;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            align-items: center;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #f1f5f9;
+            font-weight: 600;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: #38bdf8;
+        }
+        .close-menu, .menu-toggle {
+            display: none;
+        }
+        .nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 998;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .nav-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        body.menu-open {
+            overflow: hidden;
+        }
+        
+        /* MOBILE BREAKPOINT */
+        @media (max-width: 900px) {
+            .menu-toggle {
+                display: block;
+                font-size: 24px;
+                cursor: pointer;
+                color: #f1f5f9;
+                z-index: 1001;
+            }
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -280px;
+                width: 280px;
+                height: 100vh;
+                background: #1e293b;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+                padding: 80px 30px;
+                gap: 20px;
+                z-index: 999;
+                box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+                border-left: 1px solid rgba(56, 189, 248, 0.15);
+                transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+            .nav-links.active {
+                right: 0;
+            }
+            .nav-links a {
+                font-size: 16px;
+                width: 100%;
+                padding: 8px 0;
+                display: block;
+            }
+            .close-menu {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 25px;
+                font-size: 24px;
+                color: #94a3b8;
+                cursor: pointer;
+            }
+        }
+        
+        /* PAGE HEADER */
+        .page-header {
+            padding: 120px 6% 60px;
+            text-align: center;
+        }
+        .page-header h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        .text-glow {
+            color: #38bdf8;
+            text-shadow: 0 0 15px rgba(56,189,248,0.3);
+        }
+        .page-header p {
+            color: #94a3b8;
+            font-size: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* CONTACT SECTION */
+        .section {
+            padding: 30px 6% 70px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 45px;
+            margin-top: 20px;
+        }
+        .contact-left h3 {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+        .contact-sub {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 30px;
+        }
+        .contact-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .c-row {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            background: rgba(30, 41, 59, 0.25);
+            padding: 14px 20px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+        }
+        .c-row:hover {
+            background: rgba(56, 189, 248, 0.15);
+            transform: translateX(5px);
+        }
+        .c-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(56, 189, 248, 0.08);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #38bdf8;
+            font-size: 18px;
+        }
+        .c-meta strong {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            display: block;
+        }
+        .c-meta span {
+            font-size: 14px;
+        }
+        .whatsapp-btn {
+            background: #25d366;
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 25px;
+            text-decoration: none;
+            width: fit-content;
+            transition: 0.3s;
+        }
+        .whatsapp-btn:hover {
+            background: #128C7E;
+            transform: scale(1.02);
+        }
+        .modern-form {
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(56, 189, 248, 0.12);
+            border-radius: 16px;
+            padding: 32px;
+            backdrop-filter: blur(12px);
+        }
+        .input-twin {
+            display: flex;
+            gap: 18px;
+            margin-bottom: 20px;
+        }
+        .input-wrap {
+            position: relative;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .input-wrap input, .input-wrap textarea {
+            width: 100%;
+            padding: 14px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+        }
+        .input-wrap input:focus, .input-wrap textarea:focus {
+            border-color: #38bdf8;
+        }
+        .input-wrap label {
+            position: absolute;
+            left: 14px;
+            top: 14px;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 14px;
+            pointer-events: none;
+            transition: 0.2s;
+        }
+        .input-wrap input:focus ~ label,
+        .input-wrap input:not(:placeholder-shown) ~ label,
+        .input-wrap textarea:focus ~ label,
+        .input-wrap textarea:not(:placeholder-shown) ~ label {
+            transform: translateY(-24px) translateX(-4px);
+            font-size: 11px;
+            color: #38bdf8;
+        }
+        .form-btn-submit {
+            background: #ffffff;
+            color: #0f172a;
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+        .form-btn-submit:hover {
+            background: #38bdf8;
+            color: #fff;
+        }
+        
+        /* FOOTER */
+        .footer {
+            background: #ffffff;
+            padding: 20px 6%;
+            border-top: 1px solid rgba(15, 23, 42, 0.08);
+            margin-top: 50px;
+        }
+        .footer-compact-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .footer-logo-img {
+            height: 32px;
+            width: auto;
+        }
+        .footer-copyright {
+            font-size: 12px;
+            color: #475569;
+            font-weight: 400;
+        }
+        .footer-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
+        }
+        .f-links {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            padding: 0;
+            margin: 0;
+            flex-wrap: wrap;
+        }
+        .f-links a {
+            font-size: 12px;
+            color: #0f172a;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        .f-links a:hover {
+            color: #38bdf8;
+        }
+        .f-socials {
+            display: flex;
+            gap: 10px;
+        }
+        .f-socials a {
+            width: 28px;
+            height: 28px;
+            background: rgba(15, 23, 42, 0.05);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0f172a;
+            font-size: 13px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .f-socials a:hover {
+            background: #0f172a;
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .input-twin {
+                flex-direction: column;
+            }
+        }
+        @media (max-width: 768px) {
+            .footer-compact-inner {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            .footer-brand {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .footer-meta {
+                align-items: center;
+                width: 100%;
+                gap: 12px;
+            }
+            .f-links {
+                justify-content: center;
+                gap: 10px 14px;
+            }
+        }
+        @media (max-width: 600px) {
+            .page-header h1 {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="Huzaifa web developer logo design.png" alt="Logo">
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li class="close-menu" id="closeMenuBtn"><i class="fas fa-times"></i></li>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="Skills.html">Skills</a></li>
+            <li><a href="Projects.html">Projects</a></li>
+            <li><a href="Certifications.html">Certifications</a></li>
+            <li><a href="Contact.html" >Contact</a></li>
+            <li><a href="Blog.html">Blog</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+        </ul>
+        <div class="menu-toggle" id="menuToggleBtn">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+        <h1>Let's <span class="text-glow">Connect</span></h1>
+        <p>Ready to start your project? Reach out and let's create something amazing together.</p>
+    </div>
+
+    <!-- CONTACT SECTION -->
+    <section class="section">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-left">
+                    <h3>Get in <span style="color:#38bdf8;">Touch</span></h3>
+                    <p class="contact-sub">Drop me a message and let's make it happen!</p>
+                    <div class="contact-list">
+                        <a href="mailto:huzaifaumeransari@gmail.com" class="c-row">
+                            <div class="c-icon"><i class="fas fa-envelope-open"></i></div>
+                            <div class="c-meta"><strong>Email</strong><span>huzaifaumeransari@gmail.com</span></div>
+                        </a>
+                        <a href="https://wa.me/923132667528" class="c-row">
+                            <div class="c-icon"><i class="fab fa-whatsapp"></i></div>
+                            <div class="c-meta"><strong>WhatsApp</strong><span>+92 313 2667528</span></div>
+                        </a>
+                        <a href="#" class="c-row">
+                            <div class="c-icon"><i class="fab fa-linkedin-in"></i></div>
+                            <div class="c-meta"><strong>LinkedIn</strong><span>linkedin.com/in/umer-ansari</span></div>
+                        </a>
+                    </div>
+                    <a href="https://wa.me/923132667528?text=Hi%20Huzaifa%2C%20I%20want%20to%20discuss%20a%20project" class="whatsapp-btn" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Quick Chat on WhatsApp
+                    </a>
+                </div>
+                <div class="contact-right">
+                    <form class="modern-form" id="contactForm">
+                        <div class="input-twin">
+                            <div class="input-wrap">
+                                <input type="text" placeholder=" " required>
+                                <label>Your Name</label>
+                            </div>
+                            <div class="input-wrap">
+                                <input type="email" placeholder=" " required>
+                                <label>Email</label>
+                            </div>
+                        </div>
+                        <div class="input-wrap">
+                            <input type="text" placeholder=" " required>
+                            <label>Subject</label>
+                        </div>
+                        <div class="input-wrap">
+                            <textarea placeholder=" " rows="4" required></textarea>
+                            <label>Your Message</label>
+                        </div>
+                        <button type="submit" class="form-btn-submit">
+                            <span>Send Message</span><i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-compact-inner">
+            <div class="footer-brand">
+                <img src="Huzaifa web developer logo design.png" alt="Logo" class="footer-logo-img">
+                <p class="footer-copyright">© 2026 Huzaifa Umer Ansari — Innovate | Build | Scale</p>
+            </div>
+            <div class="footer-meta">
+                <ul class="f-links">
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="Skills.html">Skills</a></li>
+                    <li><a href="Projects.html">Projects</a></li>
+                    <li><a href="Certifications.html">Certs</a></li>
+                    <li><a href="Contact.html">Contact</a></li>
+                    <li><a href="Blog.html">Blog</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+                <div class="f-socials">
+                    <a href="mailto:huzaifaumeransari@gmail.com"><i class="fas fa-envelope"></i></a>
+      <a href="https://linkedin.com/in/umer-ansari-b82897366" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://github.com/Ansari224584" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://behance.net/huzaifaansari13" target="_blank"><i class="fab fa-behance"></i></a>
+      <a href="https://wa.me/923132667528" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            // DOM elements for mobile menu
+            const navLinks = document.getElementById("navLinks");
+            const overlay = document.getElementById("navOverlay");
+            const menuToggle = document.getElementById("menuToggleBtn");
+            const closeBtn = document.getElementById("closeMenuBtn");
+            
+            // Helper functions
+            function closeMenu() {
+                if (navLinks && navLinks.classList.contains("active")) {
+                    navLinks.classList.remove("active");
+                    if (overlay) overlay.classList.remove("active");
+                    document.body.classList.remove("menu-open");
+                }
+            }
+            
+            function openMenu() {
+                if (navLinks && !navLinks.classList.contains("active")) {
+                    navLinks.classList.add("active");
+                    if (overlay) overlay.classList.add("active");
+                    document.body.classList.add("menu-open");
+                }
+            }
+            
+            function toggleMenu(e) {
+                if (e) e.stopPropagation();
+                if (navLinks.classList.contains("active")) {
+                    closeMenu();
+                } else {
+                    openMenu();
+                }
+            }
+            
+            // Event listeners for mobile menu
+            if (menuToggle) {
+                menuToggle.addEventListener("click", toggleMenu);
+            }
+            
+            if (closeBtn) {
+                closeBtn.addEventListener("click", closeMenu);
+            }
+            
+            if (overlay) {
+                overlay.addEventListener("click", closeMenu);
+            }
+            
+            // Close menu when any nav link is clicked
+            if (navLinks) {
+                const allLinks = navLinks.querySelectorAll('a');
+                allLinks.forEach(link => {
+                    link.addEventListener("click", function() {
+                        if (navLinks.classList.contains("active")) {
+                            closeMenu();
+                        }
+                    });
+                });
+            }
+            
+            // Close menu on window resize if open (improves UX)
+            window.addEventListener("resize", function() {
+                if (window.innerWidth > 900 && navLinks && navLinks.classList.contains("active")) {
+                    closeMenu();
+                }
+            });
+            
+            // Contact form submission
+            const contactForm = document.getElementById("contactForm");
+            if (contactForm) {
+                contactForm.addEventListener("submit", function(e) {
+                    e.preventDefault();
+                    alert("Thank you! I'll respond within 24 hours.");
+                    contactForm.reset();
+                });
+            }
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>FAQ - Huzaifa Umer Ansari</title>
+    <link rel="icon" href="Huzaifa web developer logo design.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: #0f172a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background-image: linear-gradient(rgba(56,189,248,0.07) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(56,189,248,0.07) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        
+        /* NAVBAR CORE */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 6%;
+            background: #0f172a;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(56,189,248,0.2);
+        }
+        .logo img {
+            height: 45px;
+            width: auto;
+            display: block;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            align-items: center;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #f1f5f9;
+            font-weight: 600;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: #38bdf8;
+        }
+        .close-menu, .menu-toggle {
+            display: none;
+        }
+        .nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 998;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .nav-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        body.menu-open {
+            overflow: hidden;
+        }
+        
+        /* MOBILE BREAKPOINT */
+        @media (max-width: 900px) {
+            .menu-toggle {
+                display: block;
+                font-size: 24px;
+                cursor: pointer;
+                color: #f1f5f9;
+                z-index: 1001;
+            }
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -280px;
+                width: 280px;
+                height: 100vh;
+                background: #1e293b;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+                padding: 80px 30px;
+                gap: 20px;
+                z-index: 999;
+                box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+                border-left: 1px solid rgba(56, 189, 248, 0.15);
+                transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+            .nav-links.active {
+                right: 0;
+            }
+            .nav-links a {
+                font-size: 16px;
+                width: 100%;
+                padding: 8px 0;
+                display: block;
+            }
+            .close-menu {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 25px;
+                font-size: 24px;
+                color: #94a3b8;
+                cursor: pointer;
+            }
+        }
+        
+        /* PAGE HEADER */
+        .page-header {
+            padding: 120px 6% 60px;
+            text-align: center;
+        }
+        .page-header h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        .text-glow {
+            color: #38bdf8;
+            text-shadow: 0 0 15px rgba(56,189,248,0.3);
+        }
+        .page-header p {
+            color: #94a3b8;
+            font-size: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* FAQ SECTION */
+        .section {
+            padding: 30px 6% 70px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .faq-item {
+            background: rgba(30, 41, 59, 0.3);
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            border-radius: 16px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: border-color 0.3s;
+        }
+        .faq-item:hover {
+            border-color: rgba(56, 189, 248, 0.3);
+        }
+        .faq-question {
+            padding: 20px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        .faq-question i {
+            transition: transform 0.3s;
+            color: #38bdf8;
+        }
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding: 0 25px 20px;
+        }
+        .faq-answer p {
+            color: #cbd5e1;
+            line-height: 1.8;
+            font-size: 14px;
+        }
+        .cta-box {
+            text-align: center;
+            margin-top: 50px;
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(56, 189, 248, 0.15);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+        }
+        .cta-box h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+        .cta-box p {
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+        .cta-btn {
+            display: inline-block;
+            background: #38bdf8;
+            color: #0f172a;
+            padding: 12px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .cta-btn:hover {
+            background: #0ea5e9;
+            transform: translateY(-2px);
+        }
+        
+        /* FOOTER */
+        .footer {
+            background: #ffffff;
+            padding: 20px 6%;
+            border-top: 1px solid rgba(15, 23, 42, 0.08);
+            margin-top: 50px;
+        }
+        .footer-compact-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .footer-logo-img {
+            height: 32px;
+            width: auto;
+        }
+        .footer-copyright {
+            font-size: 12px;
+            color: #475569;
+            font-weight: 400;
+        }
+        .footer-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
+        }
+        .f-links {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            padding: 0;
+            margin: 0;
+            flex-wrap: wrap;
+        }
+        .f-links a {
+            font-size: 12px;
+            color: #0f172a;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        .f-links a:hover {
+            color: #38bdf8;
+        }
+        .f-socials {
+            display: flex;
+            gap: 10px;
+        }
+        .f-socials a {
+            width: 28px;
+            height: 28px;
+            background: rgba(15, 23, 42, 0.05);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0f172a;
+            font-size: 13px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .f-socials a:hover {
+            background: #0f172a;
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .footer-compact-inner {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            .footer-brand {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .footer-meta {
+                align-items: center;
+                width: 100%;
+                gap: 12px;
+            }
+            .f-links {
+                justify-content: center;
+                gap: 10px 14px;
+            }
+        }
+        @media (max-width: 600px) {
+            .page-header h1 {
+                font-size: 36px;
+            }
+            .faq-question {
+                font-size: 14px;
+                padding: 15px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="Huzaifa web developer logo design.png" alt="Logo">
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li class="close-menu" id="closeMenuBtn"><i class="fas fa-times"></i></li>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="Skills.html">Skills</a></li>
+            <li><a href="Projects.html">Projects</a></li>
+            <li><a href="Certifications.html">Certifications</a></li>
+            <li><a href="Contact.html">Contact</a></li>
+            <li><a href="Blog.html">Blog</a></li>
+            <li><a href="faq.html" >FAQ</a></li>
+        </ul>
+        <div class="menu-toggle" id="menuToggleBtn">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+        <h1>Frequently <span class="text-glow">Asked Questions</span></h1>
+        <p>Quick answers to common questions about my services, process, and expertise</p>
+    </div>
+
+    <!-- FAQ SECTION -->
+    <section class="section">
+        <div class="container">
+            <div class="faq-item active">
+                <div class="faq-question">
+                    <span>What technologies do you specialize in?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>I specialize in MERN Stack (MongoDB, Express.js, React.js, Node.js), Laravel (PHP), WordPress, and Shopify. I also work with Next.js, MySQL, and various DevOps tools like Git and Docker.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What's your typical project turnaround time?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Most projects start within 1–2 weeks of agreement. A typical MVP (Minimum Viable Product) is delivered in 4–6 weeks, while complex enterprise solutions may take 8–12 weeks. I always provide a clear timeline during our initial consultation.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Do you work with startups and small businesses?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Absolutely! I love working with startups and small businesses. I can help you build an MVP, scale your product, or create a professional web presence. I offer flexible pricing packages for early-stage companies.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How do you handle revisions and feedback?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>I offer 2 rounds of revisions included in every project. We use tools like Trello or Notion for feedback tracking, and I provide weekly progress updates. Additional revision rounds can be arranged if needed.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What about post-launch support and maintenance?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Every project comes with 30 days of free post-launch support. After that, I offer affordable monthly maintenance packages starting at $200/month, which include updates, security patches, backups, and minor changes.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How do you ensure SEO-friendly development?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>I implement SEO best practices from the ground up: semantic HTML5, SSR with Next.js, optimized images, proper meta tags, schema markup, fast loading speeds (Core Web Vitals), and mobile-first responsive design.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What is your payment structure?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>I typically work with a 50% upfront payment and 50% upon completion. For larger projects (6+ weeks), I use milestone-based payments (25% per milestone). I accept bank transfers, PayPal, and Wise.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Can you work with existing codebases or teams?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes! I have extensive experience joining ongoing projects, understanding existing codebases, and collaborating with remote teams. I use Git, Slack, and Jira for seamless team integration.</p>
+                </div>
+            </div>
+
+            <div class="cta-box">
+                <h3>Still have questions? 🤔</h3>
+                <p>I'm here to help! Reach out and let's discuss your project.</p>
+                <a href="Contact.html" class="cta-btn">Contact Me <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-compact-inner">
+            <div class="footer-brand">
+                <img src="Huzaifa web developer logo design.png" alt="Logo" class="footer-logo-img">
+                <p class="footer-copyright">© 2026 Huzaifa Umer Ansari — Innovate | Build | Scale</p>
+            </div>
+            <div class="footer-meta">
+                <ul class="f-links">
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="Skills.html">Skills</a></li>
+                    <li><a href="Projects.html">Projects</a></li>
+                    <li><a href="Certifications.html">Certs</a></li>
+                    <li><a href="Contact.html">Contact</a></li>
+                    <li><a href="Blog.html">Blog</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+               <div class="f-socials">
+                    <a href="mailto:huzaifaumeransari@gmail.com"><i class="fas fa-envelope"></i></a>
+      <a href="https://linkedin.com/in/umer-ansari-b82897366" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://github.com/Ansari224584" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://behance.net/huzaifaansari13" target="_blank"><i class="fab fa-behance"></i></a>
+      <a href="https://wa.me/923132667528" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            // DOM elements for mobile menu
+            const navLinks = document.getElementById("navLinks");
+            const overlay = document.getElementById("navOverlay");
+            const menuToggle = document.getElementById("menuToggleBtn");
+            const closeBtn = document.getElementById("closeMenuBtn");
+            
+            // Helper functions for mobile menu
+            function closeMenu() {
+                if (navLinks && navLinks.classList.contains("active")) {
+                    navLinks.classList.remove("active");
+                    if (overlay) overlay.classList.remove("active");
+                    document.body.classList.remove("menu-open");
+                }
+            }
+            
+            function openMenu() {
+                if (navLinks && !navLinks.classList.contains("active")) {
+                    navLinks.classList.add("active");
+                    if (overlay) overlay.classList.add("active");
+                    document.body.classList.add("menu-open");
+                }
+            }
+            
+            function toggleMenu(e) {
+                if (e) e.stopPropagation();
+                if (navLinks.classList.contains("active")) {
+                    closeMenu();
+                } else {
+                    openMenu();
+                }
+            }
+            
+            // Event listeners for mobile menu
+            if (menuToggle) {
+                menuToggle.addEventListener("click", toggleMenu);
+            }
+            
+            if (closeBtn) {
+                closeBtn.addEventListener("click", closeMenu);
+            }
+            
+            if (overlay) {
+                overlay.addEventListener("click", closeMenu);
+            }
+            
+            // Close menu when any nav link is clicked
+            if (navLinks) {
+                const allLinks = navLinks.querySelectorAll('a');
+                allLinks.forEach(link => {
+                    link.addEventListener("click", function() {
+                        if (navLinks.classList.contains("active")) {
+                            closeMenu();
+                        }
+                    });
+                });
+            }
+            
+            // Close menu on window resize if open (improves UX)
+            window.addEventListener("resize", function() {
+                if (window.innerWidth > 900 && navLinks && navLinks.classList.contains("active")) {
+                    closeMenu();
+                }
+            });
+            
+            // FAQ Accordion functionality
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    const faqItem = this.parentElement;
+                    const isActive = faqItem.classList.contains('active');
+                    
+                    // Close all FAQ items
+                    document.querySelectorAll('.faq-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    // Open clicked item if it wasn't active
+                    if (!isActive) {
+                        faqItem.classList.add('active');
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Certifications - Huzaifa Umer Ansari</title>
+    <link rel="icon" href="Huzaifa web developer logo design.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: #0f172a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background-image: linear-gradient(rgba(56,189,248,0.07) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(56,189,248,0.07) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        
+        /* NAVBAR CORE */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 6%;
+            background: #0f172a;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(56,189,248,0.2);
+        }
+        .logo img {
+            height: 45px;
+            width: auto;
+            display: block;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            align-items: center;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #f1f5f9;
+            font-weight: 600;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: #38bdf8;
+        }
+        .close-menu, .menu-toggle {
+            display: none;
+        }
+        .nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 998;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .nav-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        body.menu-open {
+            overflow: hidden;
+        }
+        
+        /* MOBILE BREAKPOINT */
+        @media (max-width: 900px) {
+            .menu-toggle {
+                display: block;
+                font-size: 24px;
+                cursor: pointer;
+                color: #f1f5f9;
+                z-index: 1001;
+            }
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -280px;
+                width: 280px;
+                height: 100vh;
+                background: #1e293b;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+                padding: 80px 30px;
+                gap: 20px;
+                z-index: 999;
+                box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+                border-left: 1px solid rgba(56, 189, 248, 0.15);
+                transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+            .nav-links.active {
+                right: 0;
+            }
+            .nav-links a {
+                font-size: 16px;
+                width: 100%;
+                padding: 8px 0;
+                display: block;
+            }
+            .close-menu {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 25px;
+                font-size: 24px;
+                color: #94a3b8;
+                cursor: pointer;
+            }
+        }
+        
+        /* PAGE HEADER */
+        .page-header {
+            padding: 120px 6% 60px;
+            text-align: center;
+        }
+        .page-header h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        .text-glow {
+            color: #38bdf8;
+            text-shadow: 0 0 15px rgba(56,189,248,0.3);
+        }
+        .page-header p {
+            color: #94a3b8;
+            font-size: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* CERTIFICATIONS SECTION */
+        .section {
+            padding: 30px 6% 70px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .certs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        .cert-card {
+            background: rgba(30, 41, 59, 0.3);
+            border: 1px solid rgba(56, 189, 248, 0.12);
+            border-radius: 16px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s;
+        }
+        .cert-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(56, 189, 248, 0.3);
+        }
+        .cert-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(56, 189, 248, 0.1);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #38bdf8;
+            font-size: 28px;
+        }
+        .cert-info h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .cert-info p {
+            font-size: 13px;
+            color: #94a3b8;
+        }
+        .cert-date {
+            font-size: 11px;
+            color: #38bdf8;
+            margin-top: 6px;
+            display: inline-block;
+        }
+        .badge {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.2);
+            color: #38bdf8;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            margin-top: 8px;
+        }
+        
+        /* FOOTER */
+        .footer {
+            background: #ffffff;
+            padding: 20px 6%;
+            border-top: 1px solid rgba(15, 23, 42, 0.08);
+            margin-top: 50px;
+        }
+        .footer-compact-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .footer-logo-img {
+            height: 32px;
+            width: auto;
+        }
+        .footer-copyright {
+            font-size: 12px;
+            color: #475569;
+            font-weight: 400;
+        }
+        .footer-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
+        }
+        .f-links {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            padding: 0;
+            margin: 0;
+            flex-wrap: wrap;
+        }
+        .f-links a {
+            font-size: 12px;
+            color: #0f172a;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        .f-links a:hover {
+            color: #38bdf8;
+        }
+        .f-socials {
+            display: flex;
+            gap: 10px;
+        }
+        .f-socials a {
+            width: 28px;
+            height: 28px;
+            background: rgba(15, 23, 42, 0.05);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0f172a;
+            font-size: 13px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .f-socials a:hover {
+            background: #0f172a;
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .certs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 768px) {
+            .footer-compact-inner {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            .footer-brand {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .footer-meta {
+                align-items: center;
+                width: 100%;
+                gap: 12px;
+            }
+            .f-links {
+                justify-content: center;
+                gap: 10px 14px;
+            }
+        }
+        @media (max-width: 600px) {
+            .page-header h1 {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="Huzaifa web developer logo design.png" alt="Logo">
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li class="close-menu" id="closeMenuBtn"><i class="fas fa-times"></i></li>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="Skills.html">Skills</a></li>
+            <li><a href="Projects.html">Projects</a></li>
+            <li><a href="Certifications.html" >Certifications</a></li>
+            <li><a href="Contact.html">Contact</a></li>
+            <li><a href="Blog.html">Blog</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+        </ul>
+        <div class="menu-toggle" id="menuToggleBtn">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+        <h1>Certifications & <span class="text-glow">Awards</span></h1>
+        <p>Industry-recognized credentials that validate my expertise and commitment to excellence</p>
+    </div>
+
+    <!-- CERTIFICATIONS SECTION -->
+    <section class="section">
+        <div class="container">
+            <div class="certs-grid">
+                <div class="cert-card">
+                    <div class="cert-icon"><i class="fas fa-certificate"></i></div>
+                    <div class="cert-info">
+                        <h3>Computer Software Engineering</h3>
+                        <p>Aptech North Nazimabad</p>
+                        <span class="cert-date">Credential: MER-2245</span>
+                        <br><span class="badge">Verified</span>
+                    </div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon"><i class="fab fa-laravel"></i></div>
+                    <div class="cert-info">
+                        <h3>Laravel Excellence Award</h3>
+                        <p>Laracasts Verified - 2025</p>
+                        <span class="cert-date">Top 5% Achiever</span>
+                        <br><span class="badge">Advanced</span>
+                    </div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon"><i class="fas fa-trophy"></i></div>
+                    <div class="cert-info">
+                        <h3>Best Web Developer Nominee</h3>
+                        <p>Tech Excellence Awards PK</p>
+                        <span class="cert-date">2025 Finalist</span>
+                        <br><span class="badge">National</span>
+                    </div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon"><i class="fab fa-react"></i></div>
+                    <div class="cert-info">
+                        <h3>React Advanced Certification</h3>
+                        <p>Meta Frontend Specialization</p>
+                        <span class="cert-date">2024</span>
+                        <br><span class="badge">Meta</span>
+                    </div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon"><i class="fab fa-node-js"></i></div>
+                    <div class="cert-info">
+                        <h3>Node.js Mastery</h3>
+                        <p>Udemy Advanced Course</p>
+                        <span class="cert-date">2024</span>
+                    </div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon"><i class="fas fa-database"></i></div>
+                    <div class="cert-info">
+                        <h3>MongoDB Developer</h3>
+                        <p>MongoDB University</p>
+                        <span class="cert-date">2024</span>
+                    </div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon"><i class="fab fa-wordpress"></i></div>
+                    <div class="cert-info">
+                        <h3>WordPress Expert</h3>
+                        <p>WP Academy Certified</p>
+                        <span class="cert-date">2023</span>
+                    </div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="cert-info">
+                        <h3>Web Security Fundamentals</h3>
+                        <p>Google Certification</p>
+                        <span class="cert-date">2023</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-compact-inner">
+            <div class="footer-brand">
+                <img src="Huzaifa web developer logo design.png" alt="Logo" class="footer-logo-img">
+                <p class="footer-copyright">© 2026 Huzaifa Umer Ansari — Innovate | Build | Scale</p>
+            </div>
+            <div class="footer-meta">
+                <ul class="f-links">
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="Skills.html">Skills</a></li>
+                    <li><a href="Projects.html">Projects</a></li>
+                    <li><a href="Certifications.html">Certs</a></li>
+                    <li><a href="Contact.html">Contact</a></li>
+                    <li><a href="Blog.html">Blog</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+               <div class="f-socials">
+                    <a href="mailto:huzaifaumeransari@gmail.com"><i class="fas fa-envelope"></i></a>
+      <a href="https://linkedin.com/in/umer-ansari-b82897366" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://github.com/Ansari224584" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://behance.net/huzaifaansari13" target="_blank"><i class="fab fa-behance"></i></a>
+      <a href="https://wa.me/923132667528" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            // DOM elements
+            const navLinks = document.getElementById("navLinks");
+            const overlay = document.getElementById("navOverlay");
+            const menuToggle = document.getElementById("menuToggleBtn");
+            const closeBtn = document.getElementById("closeMenuBtn");
+            
+            // Helper functions
+            function closeMenu() {
+                if (navLinks && navLinks.classList.contains("active")) {
+                    navLinks.classList.remove("active");
+                    if (overlay) overlay.classList.remove("active");
+                    document.body.classList.remove("menu-open");
+                }
+            }
+            
+            function openMenu() {
+                if (navLinks && !navLinks.classList.contains("active")) {
+                    navLinks.classList.add("active");
+                    if (overlay) overlay.classList.add("active");
+                    document.body.classList.add("menu-open");
+                }
+            }
+            
+            function toggleMenu(e) {
+                if (e) e.stopPropagation();
+                if (navLinks.classList.contains("active")) {
+                    closeMenu();
+                } else {
+                    openMenu();
+                }
+            }
+            
+            // Event listeners
+            if (menuToggle) {
+                menuToggle.addEventListener("click", toggleMenu);
+            }
+            
+            if (closeBtn) {
+                closeBtn.addEventListener("click", closeMenu);
+            }
+            
+            if (overlay) {
+                overlay.addEventListener("click", closeMenu);
+            }
+            
+            // Close menu when any nav link is clicked
+            if (navLinks) {
+                const allLinks = navLinks.querySelectorAll('a');
+                allLinks.forEach(link => {
+                    link.addEventListener("click", function() {
+                        if (navLinks.classList.contains("active")) {
+                            closeMenu();
+                        }
+                    });
+                });
+            }
+            
+            // Close menu on window resize if open (improves UX)
+            window.addEventListener("resize", function() {
+                if (window.innerWidth > 900 && navLinks && navLinks.classList.contains("active")) {
+                    closeMenu();
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

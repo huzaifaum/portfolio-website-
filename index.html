@@ -564,54 +564,25 @@
     }
 
     /* =========================================================
-       PREMIUM CONTACT SECTION
+       PREMIUM CONTACT SECTION - UPDATED TO MATCH ABOUT STYLE
     ========================================================= */
     .huzaifa-contact {
       --red: #ff3344;
       --black: #080808;
       --dark: #111111;
-      --gray: #777;
-      --line: #e7e7e7;
+      --gray: #777777;
+      --light-gray: #dedede;
 
       position: relative;
       width: 100%;
-      padding: 125px 24px;
-      background: #fafafa;
+      padding: 130px 24px;
+      background: #ffffff;
       color: var(--black);
       overflow: hidden;
-      font-family: Inter, Poppins, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      isolation: isolate;
-    }
-
-    .huzaifa-contact::before {
-      content: "";
-      position: absolute;
-      width: 550px;
-      height: 550px;
-      left: -300px;
-      top: -250px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,51,68,.07), transparent 70%);
-      pointer-events: none;
-      z-index: -2;
-    }
-
-    .huzaifa-contact::after {
-      content: "";
-      position: absolute;
-      width: 500px;
-      height: 500px;
-      right: -300px;
-      bottom: -250px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,51,68,.05), transparent 70%);
-      pointer-events: none;
-      z-index: -2;
+      font-family: "Inter", "Poppins", Arial, sans-serif;
     }
 
     .huzaifa-contact-container {
-      position: relative;
-      z-index: 2;
       width: 100%;
       max-width: 1240px;
       margin: 0 auto;
@@ -619,12 +590,11 @@
 
     .huzaifa-contact-top {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 20px;
-      padding-bottom: 22px;
-      margin-bottom: 70px;
-      border-bottom: 1px solid var(--line);
+      align-items: center;
+      padding-bottom: 20px;
+      margin-bottom: 75px;
+      border-bottom: 1px solid #dedede;
     }
 
     .huzaifa-contact-label {
@@ -632,48 +602,49 @@
       align-items: center;
       gap: 12px;
       font-size: 11px;
-      font-weight: 900;
+      font-weight: 800;
       letter-spacing: 3px;
       text-transform: uppercase;
     }
 
     .huzaifa-contact-label::before {
       content: "";
-      width: 35px;
+      width: 32px;
       height: 2px;
       background: var(--red);
     }
 
     .huzaifa-contact-index {
-      color: #aaa;
+      color: #999;
       font-size: 10px;
-      font-weight: 800;
+      font-weight: 700;
       letter-spacing: 2px;
     }
 
     .huzaifa-contact-heading {
       display: grid;
-      grid-template-columns: .7fr 1.5fr;
-      gap: 60px;
+      grid-template-columns: .75fr 1.5fr;
+      gap: 70px;
       margin-bottom: 55px;
     }
 
     .huzaifa-contact-mini {
-      padding-top: 10px;
+      padding-top: 8px;
       color: var(--red);
       font-size: 11px;
-      font-weight: 900;
+      font-weight: 800;
       letter-spacing: 2px;
       text-transform: uppercase;
     }
 
     .huzaifa-contact-heading h2 {
       margin: 0;
-      max-width: 950px;
-      font-size: clamp(45px, 6vw, 82px);
-      line-height: .95;
+      max-width: 900px;
+      font-size: clamp(42px, 6vw, 78px);
+      line-height: .98;
       letter-spacing: -5px;
-      font-weight: 950;
+      font-weight: 900;
+      color: var(--black);
     }
 
     .huzaifa-contact-heading h2 span {
@@ -702,6 +673,7 @@
       font-weight: 900;
       letter-spacing: -1px;
       margin: 0 0 18px;
+      color: var(--black);
     }
 
     .huzaifa-contact-info p {
@@ -731,6 +703,7 @@
       color: var(--red);
       font-size: 18px;
       transition: .3s ease;
+      background: #fff;
     }
 
     .huzaifa-contact-detail:hover .huzaifa-contact-detail-icon {
@@ -774,13 +747,23 @@
       background: #fff;
     }
 
+    .huzaifa-contact-social a:hover {
+      transform: translateY(-5px) scale(1.1);
+    }
+
     /* RIGHT SIDE - FORM */
     .huzaifa-contact-form {
-      background: #ffffff;
+      background: #f5f5f5;
+      border: 1px solid #e5e5e5;
       padding: 40px 38px;
       border-radius: 24px;
-      border: 1px solid #e4e4e4;
-      box-shadow: 0 20px 60px rgba(0,0,0,.04);
+      transition: transform .4s ease, border-color .4s ease, box-shadow .4s ease;
+    }
+
+    .huzaifa-contact-form:hover {
+      transform: translateY(-6px);
+      border-color: var(--red);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.06);
     }
 
     .huzaifa-contact-form h4 {
@@ -788,6 +771,7 @@
       font-weight: 900;
       letter-spacing: -.5px;
       margin: 0 0 6px;
+      color: var(--black);
     }
 
     .huzaifa-contact-form .sub {
@@ -800,9 +784,9 @@
     .huzaifa-contact-form textarea {
       width: 100%;
       padding: 14px 18px;
-      border: 1px solid #e4e4e4;
+      border: 1px solid #ddd;
       border-radius: 12px;
-      background: #fafafa;
+      background: #ffffff;
       font-family: inherit;
       font-size: 13px;
       color: #111;
@@ -836,7 +820,7 @@
       align-items: center;
       justify-content: center;
       gap: 12px;
-      transition: .35s ease;
+      transition: transform .35s ease, background .35s ease;
       cursor: pointer;
     }
 
@@ -847,7 +831,7 @@
 
     .huzaifa-contact-form button span {
       font-size: 17px;
-      transition: .3s ease;
+      transition: transform .3s ease;
     }
 
     .huzaifa-contact-form button:hover span {
@@ -861,10 +845,10 @@
 
     @media (max-width: 650px) {
       .huzaifa-contact { padding: 80px 17px; }
-      .huzaifa-contact-top { margin-bottom: 50px; }
+      .huzaifa-contact-top { margin-bottom: 55px; }
       .huzaifa-contact-index { display: none; }
       .huzaifa-contact-heading { margin-bottom: 40px; }
-      .huzaifa-contact-heading h2 { font-size: 45px; letter-spacing: -3px; }
+      .huzaifa-contact-heading h2 { font-size: 43px; letter-spacing: -2.5px; }
       .huzaifa-contact-description { font-size: 14px; }
       .huzaifa-contact-form { padding: 28px 20px; }
       .huzaifa-contact-info h3 { font-size: 24px; }
@@ -1304,6 +1288,386 @@
         animation: none !important;
       }
     }
+
+    /* ===== NEW: EDUCATION SECTION STYLES ===== */
+    .huzaifa-education {
+      --red: #ff3344;
+      --black: #080808;
+      --dark: #111111;
+      --gray: #777;
+      --line: #e7e7e7;
+      position: relative;
+      width: 100%;
+      padding: 125px 24px;
+      background: #fafafa;
+      color: var(--black);
+      overflow: hidden;
+      font-family: Inter, Poppins, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      isolation: isolate;
+    }
+    .huzaifa-education::before {
+      content: "";
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      right: -300px;
+      top: -250px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,51,68,.07), transparent 70%);
+      pointer-events: none;
+      z-index: -2;
+    }
+    .huzaifa-education-container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    .huzaifa-education-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding-bottom: 22px;
+      margin-bottom: 70px;
+      border-bottom: 1px solid var(--line);
+    }
+    .huzaifa-education-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+    .huzaifa-education-label::before {
+      content: "";
+      width: 35px;
+      height: 2px;
+      background: var(--red);
+    }
+    .huzaifa-education-index {
+      color: #aaa;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+    .huzaifa-education-heading {
+      display: grid;
+      grid-template-columns: .7fr 1.5fr;
+      gap: 60px;
+      margin-bottom: 55px;
+    }
+    .huzaifa-education-mini {
+      padding-top: 10px;
+      color: var(--red);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .huzaifa-education-heading h2 {
+      margin: 0;
+      max-width: 950px;
+      font-size: clamp(45px, 6vw, 82px);
+      line-height: .95;
+      letter-spacing: -5px;
+      font-weight: 950;
+    }
+    .huzaifa-education-heading h2 span {
+      color: var(--red);
+    }
+    .huzaifa-education-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+    .edu-card {
+      background: #ffffff;
+      border: 1px solid #e4e4e4;
+      border-radius: 24px;
+      padding: 30px 32px;
+      transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+      cursor: default;
+    }
+    .edu-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.06);
+      border-color: var(--red);
+    }
+    .edu-card .edu-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: var(--primary-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: var(--red);
+      margin-bottom: 18px;
+    }
+    .edu-card h3 {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.3px;
+      margin-bottom: 6px;
+    }
+    .edu-card .edu-meta {
+      color: #888;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .edu-card p {
+      color: #555;
+      font-size: 14px;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .edu-card .edu-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 20px;
+      background: #111;
+      color: #fff;
+      border-radius: 40px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      transition: background 0.3s ease, transform 0.3s ease;
+      cursor: pointer;
+    }
+    .edu-card .edu-download:hover {
+      background: var(--red);
+      transform: translateY(-3px);
+    }
+    .edu-card .edu-download i {
+      font-size: 14px;
+    }
+    .edu-card .edu-list {
+      list-style: none;
+      padding: 0;
+      margin: 12px 0 0;
+    }
+    .edu-card .edu-list li {
+      padding: 4px 0;
+      color: #555;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .edu-card .edu-list li i {
+      color: var(--red);
+      font-size: 12px;
+      width: 18px;
+    }
+    @media (max-width: 1000px) {
+      .huzaifa-education-heading { grid-template-columns: 1fr; gap: 20px; }
+      .huzaifa-education-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 650px) {
+      .huzaifa-education { padding: 80px 17px; }
+      .huzaifa-education-top { margin-bottom: 50px; }
+      .huzaifa-education-index { display: none; }
+      .huzaifa-education-heading { margin-bottom: 40px; }
+      .huzaifa-education-heading h2 { font-size: 45px; letter-spacing: -3px; }
+      .edu-card { padding: 24px 20px; }
+      .edu-card h3 { font-size: 18px; }
+    }
+
+    /* ===== RESUME SECTION ===== */
+    .huzaifa-resume {
+      --red: #ff3344;
+      --black: #080808;
+      --dark: #111111;
+      --gray: #777;
+      --line: #e7e7e7;
+      position: relative;
+      width: 100%;
+      padding: 125px 24px;
+      background: #ffffff;
+      color: var(--black);
+      overflow: hidden;
+      font-family: Inter, Poppins, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      isolation: isolate;
+    }
+    .huzaifa-resume-container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    .huzaifa-resume-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding-bottom: 22px;
+      margin-bottom: 70px;
+      border-bottom: 1px solid var(--line);
+    }
+    .huzaifa-resume-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+    .huzaifa-resume-label::before {
+      content: "";
+      width: 35px;
+      height: 2px;
+      background: var(--red);
+    }
+    .huzaifa-resume-index {
+      color: #aaa;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+    .huzaifa-resume-heading {
+      display: grid;
+      grid-template-columns: .7fr 1.5fr;
+      gap: 60px;
+      margin-bottom: 55px;
+    }
+    .huzaifa-resume-mini {
+      padding-top: 10px;
+      color: var(--red);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .huzaifa-resume-heading h2 {
+      margin: 0;
+      max-width: 950px;
+      font-size: clamp(45px, 6vw, 82px);
+      line-height: .95;
+      letter-spacing: -5px;
+      font-weight: 950;
+    }
+    .huzaifa-resume-heading h2 span {
+      color: var(--red);
+    }
+    .resume-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+    .resume-card {
+      background: #fafafa;
+      border: 1px solid #e4e4e4;
+      border-radius: 20px;
+      padding: 28px 30px;
+      transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+    }
+    .resume-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.06);
+      border-color: var(--red);
+    }
+    .resume-card h4 {
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: -0.3px;
+      color: var(--red);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .resume-card h4 i {
+      font-size: 18px;
+    }
+    .resume-item {
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .resume-item:last-child {
+      border-bottom: 0;
+    }
+    .resume-item .title {
+      font-weight: 800;
+      font-size: 15px;
+      color: #111;
+    }
+    .resume-item .meta {
+      color: #888;
+      font-size: 12px;
+      font-weight: 600;
+      display: block;
+      margin-top: 2px;
+    }
+    .resume-item .desc {
+      color: #555;
+      font-size: 13px;
+      margin-top: 4px;
+      line-height: 1.6;
+    }
+    .resume-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .resume-tags span {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 4px 14px;
+      border-radius: 40px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #333;
+      transition: 0.3s ease;
+    }
+    .resume-tags span:hover {
+      background: var(--red);
+      color: #fff;
+      border-color: var(--red);
+    }
+    .resume-download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 28px;
+      background: #111;
+      color: #fff;
+      border-radius: 40px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 800;
+      transition: background 0.3s ease, transform 0.3s ease;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .resume-download-btn:hover {
+      background: var(--red);
+      transform: translateY(-4px);
+    }
+    .resume-download-btn i {
+      font-size: 16px;
+    }
+    @media (max-width: 1000px) {
+      .huzaifa-resume-heading { grid-template-columns: 1fr; gap: 20px; }
+      .resume-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 650px) {
+      .huzaifa-resume { padding: 80px 17px; }
+      .huzaifa-resume-top { margin-bottom: 50px; }
+      .huzaifa-resume-index { display: none; }
+      .huzaifa-resume-heading { margin-bottom: 40px; }
+      .huzaifa-resume-heading h2 { font-size: 45px; letter-spacing: -3px; }
+      .resume-card { padding: 22px 18px; }
+    }
   </style>
 </head>
 <body>
@@ -1311,7 +1675,7 @@
   <!-- ===== NAVBAR - FIXED ===== -->
   <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="index.html">
         <div class="logo-main">
           <img src="logo.png" alt="Huzaifa Logo" class="navbar-logo">
           <span class="logo-text">Huzaifa</span>
@@ -1322,11 +1686,12 @@
       </button>
       <div class="collapse navbar-collapse" id="navMenu">
         <ul class="navbar-nav ms-auto gap-1">
-          <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
           <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
           <li class="nav-item"><a class="nav-link" href="#portfolio">Products</a></li>
           <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonials</a></li>
+          <li class="nav-item"><a class="nav-link" href="#resume">Resume</a></li>
           <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
           <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
         </ul>
@@ -1430,7 +1795,7 @@
         <div class="col-lg-7 fresh-left">
           <div class="fresh-intro">
             <span class="fresh-intro-dot"></span>
-            Full-Stack Developer · Karachi
+            Full-Stack Developer 
           </div>
           <h1 class="fresh-title">
             <span class="fresh-title-line">
@@ -1456,7 +1821,7 @@
           </div>
           <div class="fresh-stats">
             <div class="fresh-stat">
-              <div class="fresh-stat-number">50<span>+</span></div>
+              <div class="fresh-stat-number">100<span>+</span></div>
               <div class="fresh-stat-label">Projects</div>
             </div>
             <div class="fresh-stat">
@@ -1565,7 +1930,7 @@
     <div class="huzaifa-about-container">
       <div class="huzaifa-about-top huzaifa-reveal" data-aos="fade-up">
         <div class="huzaifa-about-label">About Me</div>
-        <div class="huzaifa-about-index">01 / 05</div>
+        <div class="huzaifa-about-index">01 / 07</div>
       </div>
       <div class="huzaifa-about-intro">
         <div class="huzaifa-about-intro-left huzaifa-reveal" data-aos="fade-right"><span>Who I Am</span></div>
@@ -1663,7 +2028,7 @@
       <div class="skills-header">
         <div class="skill-reveal" data-aos="fade-right">
           <div class="skills-label">Skills & Expertise</div>
-          <div class="skills-number">03 / 05</div>
+          <div class="skills-number">02 / 07</div>
         </div>
         <div class="skills-heading skill-reveal" data-aos="fade-left">
           <h2>I Build With <span>Modern Technology.</span></h2>
@@ -1822,7 +2187,7 @@
     <div class="huzaifa-portfolio-container">
       <div class="huzaifa-portfolio-top" data-aos="fade-up">
         <div class="huzaifa-portfolio-label">Selected Work</div>
-        <div class="huzaifa-portfolio-index">03 / 05</div>
+        <div class="huzaifa-portfolio-index">03 / 07</div>
       </div>
       <div class="huzaifa-portfolio-heading">
         <div class="huzaifa-portfolio-mini" data-aos="fade-right">My Portfolio</div>
@@ -2227,12 +2592,98 @@
     </div>
   </section>
 
+ 
+  <!-- ===== RESUME SECTION ===== -->
+  <section id="resume" class="huzaifa-resume">
+    <div class="huzaifa-resume-container">
+      <div class="huzaifa-resume-top" data-aos="fade-up">
+        <div class="huzaifa-resume-label">Professional Resume</div>
+        <div class="huzaifa-resume-index">06 / 07</div>
+      </div>
+      <div class="huzaifa-resume-heading">
+        <div class="huzaifa-resume-mini" data-aos="fade-right">Career Overview</div>
+        <div data-aos="fade-left">
+          <h2>My <span>professional</span> journey.</h2>
+        </div>
+      </div>
+      <div class="resume-grid">
+        <!-- Left Column -->
+        <div>
+          <div class="resume-card" data-aos="flip-up">
+            <h4><i class="fa-solid fa-briefcase"></i> Work Experience</h4>
+            <div class="resume-item">
+              <div class="title">CMS Developer</div>
+              <span class="meta">Digital Cloud Services · June 2026 – Current</span>
+            </div>
+            <div class="resume-item">
+              <div class="title">Senior Backend Developer</div>
+              <span class="meta">Al Hayat Embroidery Group · July 2023 – Mar 2025</span>
+            </div>
+            <div class="resume-item">
+              <div class="title">Mid-Level Front-End Developer</div>
+              <span class="meta">Axxenture Technology · April 2025 – May 2026</span>
+            </div>
+            <div class="resume-item">
+              <div class="title">Junior Front-End Developer</div>
+              <span class="meta">ZTeach Software House · Jan 2022 – May 2023</span>
+            </div>
+          </div>
+             </div>
+        <!-- Right Column -->
+        <div>
+          <div class="resume-card" data-aos="flip-up" data-aos-delay="200">
+            <h4><i class="fa-solid fa-graduation-cap"></i> Academic History</h4>
+            <div class="resume-item">
+              <div class="title">ACCP Prime 2.0</div>
+              <span class="meta">Aptech North Nazimabad · Oct 2021 – 2024</span>
+            </div>
+            <div class="resume-item">
+              <div class="title">Intermediate (Pre-Engineering)</div>
+              <span class="meta">Jinnah Govt College · 2020 – 2021 · Board of Karachi</span>
+            </div>
+            <div class="resume-item">
+              <div class="title">Matriculation (Bio Science)</div>
+              <span class="meta">Govt Boys School · 2018 – 2019 · Board of Karachi</span>
+            </div>
+            <div class="resume-item">
+              <div class="title">Hafiz-e-Quran</div>
+              <span class="meta">Madarsa Tahfizul Quran · 2013</span>
+            </div>
+          </div>
+          <div class="resume-card" data-aos="flip-up" data-aos-delay="300" style="margin-top:20px;">
+            <h4><i class="fa-solid fa-certificate"></i> Certifications</h4>
+            <div class="resume-item">
+              <div class="title">MS Office Course</div>
+              <span class="meta">Farooq Azam Computer Institution · 2018 (2 months)</span>
+            </div>
+            <div class="resume-item">
+              <div class="title">Graphic Designer Course</div>
+              <span class="meta">Farooq Azam Computer Institution · 2018 (6 months)</span>
+            </div>
+          </div>
+          <a href="#" class="resume-download-btn" onclick="downloadResumePDF()"><i class="fa-solid fa-file-pdf"></i> Download Full Resume (PDF)</a>
+        </div>
+      </div>
+    </div>
+    <script>
+      function downloadResumePDF() {
+        alert('Downloading your professional resume (PDF).');
+        const link = document.createElement('a');
+        link.href = 'Black and White Simple Infographic Resume (2).pdf';
+        link.download = 'Huzaifa_Resume.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    </script>
+  </section>
+
   <!-- ===== PREMIUM FAQ SECTION ===== -->
   <section id="faq" class="huzaifa-faq">
     <div class="huzaifa-faq-container">
       <div class="huzaifa-faq-top" data-aos="fade-up">
         <div class="huzaifa-faq-label">Frequently Asked Questions</div>
-        <div class="huzaifa-faq-index">04 / 05</div>
+        <div class="huzaifa-faq-index">07 / 07</div>
       </div>
       <div class="huzaifa-faq-heading">
         <div class="huzaifa-faq-mini" data-aos="fade-right">Got Questions?</div>
@@ -2323,7 +2774,7 @@
     <div class="huzaifa-contact-container">
       <div class="huzaifa-contact-top" data-aos="fade-up">
         <div class="huzaifa-contact-label">Get In Touch</div>
-        <div class="huzaifa-contact-index">05 / 05</div>
+        <div class="huzaifa-contact-index">07 / 07</div>
       </div>
       <div class="huzaifa-contact-heading">
         <div class="huzaifa-contact-mini" data-aos="fade-right">Let's Connect</div>
@@ -2425,7 +2876,7 @@
     <div class="footer-container">
       <!-- Centered Large Logo -->
       <div class="footer-logo-link" data-aos="fade-up">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="index.html">
           <div class="logo-main">
             <img src="logo.png" alt="Huzaifa Logo" class="navbar-logo">
             <span class="logo-text">Huzaifa</span>
@@ -2444,6 +2895,7 @@
           <li><a href="#about">About</a></li>
           <li><a href="#skills">Skills</a></li>
           <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#resume">Resume</a></li>
           <li><a href="#faq">FAQ</a></li>
         </ul>
       </div>
@@ -2459,7 +2911,7 @@
       </div>
     </div>
     <div class="footer-bottom" data-aos="fade-up">
-      <p>&copy; 2026 Huzaifa Umer Ansari. Designed with <i class="fa-solid fa-heart highlight"></i>. All Rights Reserved.</p>
+      <p>&copy; 2026  & Developed & Desgine By Huzaifa Umer Ansari. All Rights Reserved.</p>
     </div>
   </footer>
 

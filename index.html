@@ -1,143 +1,2526 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultra-Premium Cinematic Loader</title>
-    <style>
-        /* --- Cinematic Dark Void Reset --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Huzaifa Umer Ansari · Full-Stack</title>
+  
+  <!-- ===== FAVICON ===== -->
+  <link rel="icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23FF3B30'/%3E%3Ctext x='50' y='68' font-family='Arial' font-size='48' font-weight='bold' fill='white' text-anchor='middle'%3EH%3C/text%3E%3C/svg%3E">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900;14..32,950&display=swap" rel="stylesheet">
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: #1e293b;
+      overflow-x: hidden;
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='none' stroke='%23FF3B30' stroke-width='2.5'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23FF3B30' opacity='0.8'/%3E%3C/svg%3E") 16 16, auto;
+    }
+    :root {
+      --primary: #FF3B30;
+      --primary-dim: rgba(255, 59, 48, 0.08);
+      --card-bg: #f8fafc;
+      --border-light: rgba(0,0,0,0.05);
+      --shadow-sm: 0 8px 24px rgba(0,0,0,0.04);
+      --shadow-md: 0 16px 48px rgba(0,0,0,0.06);
+    }
+    .highlight { color: var(--primary); }
+    .section-title { text-align: center; margin-bottom: 2.8rem; }
+    .section-title h2 { font-size: 2.6rem; font-weight: 700; letter-spacing: -0.5px; color: #0b0f19; }
+    .section-title .subtitle { color: #64748b; font-size: 1.05rem; margin-top: 6px; }
+    .underline { width: 70px; height: 4px; background: var(--primary); margin: 10px auto 0; border-radius: 4px; }
 
-        body {
-            background: #0f172a; /* Pitch dark deep space background */
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            perspective: 1000px; /* 3D depth ke liye */
-        }
+    /* ===== NAVBAR - FIXED ===== */
+    .navbar-custom {
+      position: fixed !important;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+      background: rgba(11, 15, 25, 0.92) !important;
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 10px 0;
+      transition: 0.3s;
+    }
+    .navbar-custom::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjamWlvnrvEsyQGB5B8BhwWLKmoLyxVbOnapi0d4gj8w&s=10');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.10;
+      z-index: -1;
+      pointer-events: none;
+    }
+    .navbar-custom .nav-link {
+      color: #cbd5e1 !important;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: 0.2s;
+      margin: 0 4px;
+      padding: 8px 16px !important;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .navbar-custom .nav-link:hover, .navbar-custom .nav-link.active {
+      color: #fff !important;
+      background: rgba(255, 59, 48, 0.12);
+    }
+    .navbar-custom .nav-link.active { color: var(--primary) !important; }
+    
+    /* FIXED LOGO STYLES - LARGER */
+    .logo-main {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-box {
+      width: 70px;
+      height: 70px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 800;
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 16px;
+      font-family: 'Inter', sans-serif;
+      box-shadow: 0 4px 15px rgba(255,59,48,0.3);
+    }
+    .logo-text {
+      color: #fff;
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+    .logo-badge {
+      font-size: 0.8rem;
+      background: var(--primary);
+      color: #fff;
+      padding: 4px 14px;
+      border-radius: 40px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .btn-talk {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 10px 28px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: 0.25s;
+      cursor: pointer;
+    }
+    .btn-talk:hover { opacity: 0.9; transform: scale(1.04); color: #fff; }
 
-        /* --- Master Premium Loader (No Text, No Box) --- */
-        .luxury-universe {
-            position: relative;
-            width: 120px;
-            height: 120px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transform-style: preserve-3d;
-        }
+    /* ===== RESPONSIVE MOBILE MENU FIXES ===== */
+    @media (max-width: 768px) {
+      .navbar-collapse {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 100% !important;
+        height: 100vh;
+        background: #0b0f19;
+        padding: 100px 30px 40px;
+        transition: left 0.4s ease;
+        border-right: 1px solid rgba(255,255,255,0.06);
+        z-index: 1050;
+        overflow-y: auto;
+        display: block !important;
+      }
+      .navbar-collapse.show { left: 0; }
+      .navbar-toggler { position: relative; z-index: 1060; border: none !important; }
+      .navbar-custom .navbar-nav { gap: 8px; }
+      .navbar-custom .nav-link { 
+        padding: 14px 20px !important; 
+        font-size: 1.1rem;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+      }
+      .btn-talk { margin-top: 25px; width: 100%; }
+      .navbar-custom .container { position: relative; }
+    }
 
-        /* Common ring styles for perfect alignment */
-        .ring {
-            position: absolute;
-            border-radius: 50%;
-            border: 2px solid transparent;
-        }
+    /* ===== NAVBAR LOGO - LARGER ===== */
+    .navbar-brand {
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+    }
+    .logo-main {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.3s ease;
+    }
+    .navbar-logo {
+      width: 65px;
+      height: 65px;
+      object-fit: contain;
+      display: block;
+      transition: all 0.4s ease;
+      filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.35));
+    }
+    .navbar-brand:hover .navbar-logo {
+      transform: scale(1.08) rotate(-3deg);
+      filter: drop-shadow(0 0 14px rgba(255, 0, 0, 0.65));
+    }
+    .logo-text {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .logo-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 8px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: #ffffff;
+      background: #ff1e2d;
+      border-radius: 5px;
+      box-shadow: 0 0 8px rgba(255, 30, 45, 0.5), inset 0 0 8px rgba(255, 255, 255, 0.08);
+      transition: all 0.3s ease;
+    }
+    .navbar-brand:hover .logo-badge {
+      background: #ffffff;
+      color: #ff1e2d;
+      box-shadow: 0 0 12px rgba(255, 30, 45, 0.7);
+    }
+    .navbar-brand:hover .logo-main {
+      transform: translateY(-1px);
+    }
+    @media (max-width: 576px) {
+      .navbar-logo { width: 55px; height: 55px; }
+      .logo-text { font-size: 22px; }
+      .logo-badge { font-size: 10px; padding: 4px 10px; margin-left: 5px; }
+      .logo-main { gap: 8px; }
+    }
 
-        /* 1. Outer Orbit (Gold/Bronze Luxury) */
-        .ring-outer {
-            width: 120px;
-            height: 120px;
-            border-top-color: #d4af37; /* Premium Metallic Gold */
-            border-bottom-color: rgba(212, 175, 55, 0.1);
-            animation: rotate3D-outer 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4));
-        }
+    /* =========================================================
+       SOCIAL ICONS - REAL BRAND COLORS
+    ========================================================= */
+    .social-icons a, .huzaifa-contact-social a {
+      transition: 0.3s ease;
+      text-decoration: none;
+    }
+    /* Email - keep red accent */
+    .social-icons a[title="Email"]:hover,
+    .huzaifa-contact-social a[aria-label="Email"]:hover {
+      color: #EA4335 !important;
+      background: rgba(234, 67, 53, 0.12) !important;
+      border-color: #EA4335 !important;
+    }
+    /* LinkedIn */
+    .social-icons a[title="LinkedIn"]:hover,
+    .huzaifa-contact-social a[aria-label="LinkedIn"]:hover {
+      color: #0A66C2 !important;
+      background: rgba(10, 102, 194, 0.12) !important;
+      border-color: #0A66C2 !important;
+    }
+    /* GitHub */
+    .social-icons a[title="GitHub"]:hover,
+    .huzaifa-contact-social a[aria-label="GitHub"]:hover {
+      color: #ffffff !important;
+      background: rgba(255, 255, 255, 0.15) !important;
+      border-color: #ffffff !important;
+    }
+    /* Behance */
+    .social-icons a[title="Behance"]:hover,
+    .huzaifa-contact-social a[aria-label="Behance"]:hover {
+      color: #1769FF !important;
+      background: rgba(23, 105, 255, 0.12) !important;
+      border-color: #1769FF !important;
+    }
+    /* WhatsApp */
+    .social-icons a[title="WhatsApp"]:hover,
+    .huzaifa-contact-social a[aria-label="WhatsApp"]:hover {
+      color: #25D366 !important;
+      background: rgba(37, 211, 102, 0.12) !important;
+      border-color: #25D366 !important;
+    }
 
-        /* 2. Middle Orbit (Deep Royal Cyan/Blue) */
-        .ring-middle {
-            width: 90px;
-            height: 90px;
-            border-left-color: #00f2fe; /* Electric Cyan */
-            border-right-color: rgba(0, 242, 254, 0.1);
-            animation: rotate3D-middle 1.5s ease-in-out infinite;
-            filter: drop-shadow(0 0 12px rgba(0, 242, 254, 0.5));
-        }
+    /* =========================================================
+       PREMIUM FAQ SECTION
+    ========================================================= */
+    .huzaifa-faq {
+      --red: #ff3344;
+      --black: #080808;
+      --dark: #111111;
+      --gray: #777;
+      --line: #e7e7e7;
 
-        /* 3. Inner Core (Neon Magenta/Purple - Hyper Speed) */
-        .ring-inner {
-            width: 60px;
-            height: 60px;
-            border-top-color: #ff007f; /* Luxury Pink/Neon */
-            border-bottom-color: rgba(255, 0, 127, 0.1);
-            animation: rotate3D-inner 1s linear infinite;
-            filter: drop-shadow(0 0 10px rgba(255, 0, 127, 0.6));
-        }
+      position: relative;
+      width: 100%;
+      padding: 125px 24px;
+      background: #ffffff;
+      color: var(--black);
+      overflow: hidden;
+      font-family: Inter, Poppins, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      isolation: isolate;
+    }
 
-        /* 4. Center Micro-Singularity (The Glow Source) */
-        .core-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #ffffff;
-            border-radius: 50%;
-            box-shadow: 0 0 20px 6px #ffffff, 
-                        0 0 40px 15px #00f2fe, 
-                        0 0 60px 30px #ff007f;
-            animation: pulseCore 1.5s ease-in-out infinite;
-        }
+    .huzaifa-faq::before {
+      content: "";
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      right: -300px;
+      top: -250px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,51,68,.07), transparent 70%);
+      pointer-events: none;
+      z-index: -2;
+    }
 
-        /* --- Pure Cinematic 3D Rotations --- */
-        @keyframes rotate3D-outer {
-            0% { transform: rotateX(45deg) rotateY(45deg) rotateZ(0deg); }
-            100% { transform: rotateX(45deg) rotateY(45deg) rotateZ(360deg); }
-        }
+    .huzaifa-faq::after {
+      content: "";
+      position: absolute;
+      width: 450px;
+      height: 450px;
+      left: -300px;
+      bottom: -250px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,51,68,.05), transparent 70%);
+      pointer-events: none;
+      z-index: -2;
+    }
 
-        @keyframes rotate3D-middle {
-            0% { transform: rotateX(60deg) rotateY(-45deg) rotateZ(360deg); }
-            100% { transform: rotateX(60deg) rotateY(-45deg) rotateZ(0deg); }
-        }
+    .huzaifa-faq-container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+    }
 
-        @keyframes rotate3D-inner {
-            0% { transform: rotateX(-45deg) rotateY(60deg) rotateZ(0deg); }
-            100% { transform: rotateX(-45deg) rotateY(60deg) rotateZ(360deg); }
-        }
+    .huzaifa-faq-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding-bottom: 22px;
+      margin-bottom: 70px;
+      border-bottom: 1px solid var(--line);
+    }
 
-        @keyframes pulseCore {
-            0%, 100% { transform: scale(0.8); opacity: 0.7; }
-            50% { transform: scale(1.2); opacity: 1; }
-        }
+    .huzaifa-faq-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
 
-        /* Smooth Screen Fade out at transition */
-        .page-fade-out {
-            opacity: 0;
-            transform: scale(1.1);
-            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-    </style>
+    .huzaifa-faq-label::before {
+      content: "";
+      width: 35px;
+      height: 2px;
+      background: var(--red);
+    }
+
+    .huzaifa-faq-index {
+      color: #aaa;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    .huzaifa-faq-heading {
+      display: grid;
+      grid-template-columns: .7fr 1.5fr;
+      gap: 60px;
+      margin-bottom: 55px;
+    }
+
+    .huzaifa-faq-mini {
+      padding-top: 10px;
+      color: var(--red);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .huzaifa-faq-heading h2 {
+      margin: 0;
+      max-width: 950px;
+      font-size: clamp(45px, 6vw, 82px);
+      line-height: .95;
+      letter-spacing: -5px;
+      font-weight: 950;
+    }
+
+    .huzaifa-faq-heading h2 span {
+      color: var(--red);
+    }
+
+    .huzaifa-faq-description {
+      max-width: 650px;
+      margin: 25px 0 0;
+      color: #777;
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    /* FAQ GRID */
+    .huzaifa-faq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .huzaifa-faq-item {
+      padding: 32px 30px;
+      background: linear-gradient(145deg, #fafafa, #f1f1f1);
+      border: 1px solid #e4e4e4;
+      border-radius: 18px;
+      cursor: pointer;
+      transition: all .45s cubic-bezier(.16,1,.3,1);
+      opacity: 0;
+      transform: translateY(25px);
+      animation: faqIn .7s cubic-bezier(.16,1,.3,1) forwards;
+    }
+
+    @keyframes faqIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .huzaifa-faq-item:hover {
+      transform: translateY(-6px);
+      background: #111;
+      border-color: #111;
+      box-shadow: 0 30px 70px rgba(0,0,0,.12);
+    }
+
+    .huzaifa-faq-item-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .huzaifa-faq-item-header h3 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: -.3px;
+      color: #111;
+      transition: .3s ease;
+    }
+
+    .huzaifa-faq-item:hover .huzaifa-faq-item-header h3 {
+      color: #fff;
+    }
+
+    .huzaifa-faq-icon {
+      flex-shrink: 0;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #ddd;
+      border-radius: 50%;
+      color: #111;
+      font-size: 16px;
+      transition: .4s ease;
+    }
+
+    .huzaifa-faq-item:hover .huzaifa-faq-icon {
+      background: var(--red);
+      border-color: var(--red);
+      color: #fff;
+      transform: rotate(90deg);
+    }
+
+    .huzaifa-faq-item-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .5s cubic-bezier(.16,1,.3,1), padding .4s ease;
+    }
+
+    .huzaifa-faq-item.open .huzaifa-faq-item-answer {
+      max-height: 300px;
+    }
+
+    .huzaifa-faq-item-answer p {
+      margin: 0;
+      padding-top: 18px;
+      color: #777;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .huzaifa-faq-item:hover .huzaifa-faq-item-answer p {
+      color: #aaa;
+    }
+
+    /* FAQ BOTTOM */
+    .huzaifa-faq-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      margin-top: 65px;
+      padding-top: 35px;
+      border-top: 1px solid var(--line);
+    }
+
+    .huzaifa-faq-bottom-text {
+      color: #777;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .huzaifa-faq-bottom-text strong {
+      display: block;
+      margin-bottom: 4px;
+      color: #111;
+      font-size: 21px;
+      font-weight: 900;
+    }
+
+    .huzaifa-faq-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 16px 24px;
+      background: #111;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 900;
+      transition: .35s ease;
+      cursor: pointer;
+    }
+
+    .huzaifa-faq-button:hover {
+      background: var(--red);
+      color: #fff;
+      transform: translateY(-4px);
+    }
+
+    .huzaifa-faq-button span {
+      font-size: 17px;
+      transition: .3s ease;
+    }
+
+    .huzaifa-faq-button:hover span {
+      transform: translateX(5px);
+    }
+
+    @media (max-width: 1000px) {
+      .huzaifa-faq-heading { grid-template-columns: 1fr; gap: 20px; }
+      .huzaifa-faq-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 650px) {
+      .huzaifa-faq { padding: 80px 17px; }
+      .huzaifa-faq-top { margin-bottom: 50px; }
+      .huzaifa-faq-index { display: none; }
+      .huzaifa-faq-heading { margin-bottom: 40px; }
+      .huzaifa-faq-heading h2 { font-size: 45px; letter-spacing: -3px; }
+      .huzaifa-faq-description { font-size: 14px; }
+      .huzaifa-faq-bottom { flex-direction: column; align-items: stretch; }
+      .huzaifa-faq-button { width: 100%; }
+      .huzaifa-faq-item { padding: 25px 20px; }
+      .huzaifa-faq-item-header h3 { font-size: 16px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .huzaifa-faq *, .huzaifa-faq *::before, .huzaifa-faq *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+      .huzaifa-faq-item { opacity: 1; transform: none; }
+    }
+
+    /* =========================================================
+       PREMIUM CONTACT SECTION
+    ========================================================= */
+    .huzaifa-contact {
+      --red: #ff3344;
+      --black: #080808;
+      --dark: #111111;
+      --gray: #777;
+      --line: #e7e7e7;
+
+      position: relative;
+      width: 100%;
+      padding: 125px 24px;
+      background: #fafafa;
+      color: var(--black);
+      overflow: hidden;
+      font-family: Inter, Poppins, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      isolation: isolate;
+    }
+
+    .huzaifa-contact::before {
+      content: "";
+      position: absolute;
+      width: 550px;
+      height: 550px;
+      left: -300px;
+      top: -250px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,51,68,.07), transparent 70%);
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    .huzaifa-contact::after {
+      content: "";
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      right: -300px;
+      bottom: -250px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,51,68,.05), transparent 70%);
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    .huzaifa-contact-container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    .huzaifa-contact-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding-bottom: 22px;
+      margin-bottom: 70px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .huzaifa-contact-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .huzaifa-contact-label::before {
+      content: "";
+      width: 35px;
+      height: 2px;
+      background: var(--red);
+    }
+
+    .huzaifa-contact-index {
+      color: #aaa;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    .huzaifa-contact-heading {
+      display: grid;
+      grid-template-columns: .7fr 1.5fr;
+      gap: 60px;
+      margin-bottom: 55px;
+    }
+
+    .huzaifa-contact-mini {
+      padding-top: 10px;
+      color: var(--red);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .huzaifa-contact-heading h2 {
+      margin: 0;
+      max-width: 950px;
+      font-size: clamp(45px, 6vw, 82px);
+      line-height: .95;
+      letter-spacing: -5px;
+      font-weight: 950;
+    }
+
+    .huzaifa-contact-heading h2 span {
+      color: var(--red);
+    }
+
+    .huzaifa-contact-description {
+      max-width: 650px;
+      margin: 25px 0 0;
+      color: #777;
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    /* CONTENT LAYOUT */
+    .huzaifa-contact-content {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    /* LEFT SIDE */
+    .huzaifa-contact-info h3 {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin: 0 0 18px;
+    }
+
+    .huzaifa-contact-info p {
+      color: #777;
+      font-size: 15px;
+      line-height: 1.8;
+      margin-bottom: 35px;
+      max-width: 500px;
+    }
+
+    .huzaifa-contact-detail {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 28px;
+    }
+
+    .huzaifa-contact-detail-icon {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #ddd;
+      border-radius: 14px;
+      color: var(--red);
+      font-size: 18px;
+      transition: .3s ease;
+    }
+
+    .huzaifa-contact-detail:hover .huzaifa-contact-detail-icon {
+      background: var(--red);
+      border-color: var(--red);
+      color: #fff;
+      transform: scale(1.06);
+    }
+
+    .huzaifa-contact-detail-text h6 {
+      font-weight: 800;
+      font-size: 13px;
+      color: #111;
+      margin: 0 0 3px;
+    }
+
+    .huzaifa-contact-detail-text p {
+      color: #888;
+      font-size: 13px;
+      margin: 0;
+    }
+
+    .huzaifa-contact-social {
+      display: flex;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .huzaifa-contact-social a {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #ddd;
+      border-radius: 50%;
+      color: #111;
+      font-size: 16px;
+      transition: .35s ease;
+      cursor: pointer;
+      background: #fff;
+    }
+
+    /* RIGHT SIDE - FORM */
+    .huzaifa-contact-form {
+      background: #ffffff;
+      padding: 40px 38px;
+      border-radius: 24px;
+      border: 1px solid #e4e4e4;
+      box-shadow: 0 20px 60px rgba(0,0,0,.04);
+    }
+
+    .huzaifa-contact-form h4 {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -.5px;
+      margin: 0 0 6px;
+    }
+
+    .huzaifa-contact-form .sub {
+      color: #888;
+      font-size: 13px;
+      margin-bottom: 28px;
+    }
+
+    .huzaifa-contact-form input,
+    .huzaifa-contact-form textarea {
+      width: 100%;
+      padding: 14px 18px;
+      border: 1px solid #e4e4e4;
+      border-radius: 12px;
+      background: #fafafa;
+      font-family: inherit;
+      font-size: 13px;
+      color: #111;
+      outline: none;
+      transition: .3s ease;
+      margin-bottom: 16px;
+    }
+
+    .huzaifa-contact-form input:focus,
+    .huzaifa-contact-form textarea:focus {
+      border-color: var(--red);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(255,51,68,.08);
+    }
+
+    .huzaifa-contact-form textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .huzaifa-contact-form button {
+      width: 100%;
+      padding: 16px;
+      background: #111;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      transition: .35s ease;
+      cursor: pointer;
+    }
+
+    .huzaifa-contact-form button:hover {
+      background: var(--red);
+      transform: translateY(-4px);
+    }
+
+    .huzaifa-contact-form button span {
+      font-size: 17px;
+      transition: .3s ease;
+    }
+
+    .huzaifa-contact-form button:hover span {
+      transform: translateX(5px);
+    }
+
+    @media (max-width: 1000px) {
+      .huzaifa-contact-heading { grid-template-columns: 1fr; gap: 20px; }
+      .huzaifa-contact-content { grid-template-columns: 1fr; gap: 50px; }
+    }
+
+    @media (max-width: 650px) {
+      .huzaifa-contact { padding: 80px 17px; }
+      .huzaifa-contact-top { margin-bottom: 50px; }
+      .huzaifa-contact-index { display: none; }
+      .huzaifa-contact-heading { margin-bottom: 40px; }
+      .huzaifa-contact-heading h2 { font-size: 45px; letter-spacing: -3px; }
+      .huzaifa-contact-description { font-size: 14px; }
+      .huzaifa-contact-form { padding: 28px 20px; }
+      .huzaifa-contact-info h3 { font-size: 24px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .huzaifa-contact *, .huzaifa-contact *::before, .huzaifa-contact *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+
+    /* ===== FOOTER WITH BACKGROUND IMAGE ===== */
+    .footer { 
+      background: rgba(11, 15, 25, 0.92) !important; 
+      padding: 50px 0 20px; 
+      border-top: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+    }
+    .footer::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjamWlvnrvEsyQGB5B8BhwWLKmoLyxVbOnapi0d4gj8w&s=10');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.06;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .footer-container { 
+      max-width: 1200px; 
+      margin: 0 auto; 
+      padding: 0 24px; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      gap: 30px; 
+      position: relative;
+      z-index: 1;
+    }
+    .footer-col { text-align: center; width: 100%; }
+    .footer-col p { color: #94a3b8; font-size: 0.95rem; line-height: 1.7; margin-top: 8px; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .footer-col h4 { color: #f1f5f9; font-size: 1.1rem; font-weight: 600; margin-bottom: 18px; letter-spacing: 0.3px; }
+    .footer-col ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px 30px; }
+    .footer-col ul li { margin-bottom: 0; }
+    .footer-col ul li a { color: #94a3b8; text-decoration: none; font-size: 0.9rem; transition: 0.2s; cursor: pointer; }
+    .footer-col ul li a:hover { color: var(--primary); padding-left: 4px; }
+    .footer-logo-box { 
+      width: 80px; 
+      height: 80px; 
+      background: var(--primary); 
+      color: #fff; 
+      font-weight: 800; 
+      font-size: 2.5rem; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      border-radius: 16px; 
+      margin: 0 auto 15px;
+      box-shadow: 0 4px 15px rgba(255,59,48,0.3);
+    }
+    
+    /* Footer Logo - Large Centered */
+    .footer-logo-link {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    .footer-logo-link .logo-main {
+      gap: 15px;
+    }
+    .footer-logo-link .navbar-logo {
+      width: 80px;
+      height: 80px;
+      filter: drop-shadow(0 0 12px rgba(255, 0, 0, 0.4));
+    }
+    .footer-logo-link .logo-text {
+      font-size: 32px;
+    }
+    .footer-logo-link .logo-badge {
+      font-size: 14px;
+      padding: 6px 16px;
+    }
+    
+    .social-icons { 
+      display: flex; 
+      flex-wrap: wrap; 
+      gap: 15px; 
+      margin-top: 6px; 
+      justify-content: center; 
+    }
+    .social-icons a { 
+      display: inline-flex; 
+      align-items: center; 
+      justify-content: center; 
+      width: 50px; 
+      height: 50px; 
+      border-radius: 50%; 
+      background: rgba(255,255,255,0.05); 
+      border: 1px solid rgba(255,255,255,0.07); 
+      color: #cbd5e1; 
+      font-size: 1.2rem; 
+      transition: 0.3s; 
+      text-decoration: none; 
+      cursor: pointer;
+    }
+    
+    .footer-bottom { text-align: center; color: #64748b; font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 24px; margin-top: 30px; width: 100%; position: relative; z-index: 1; }
+    .footer-bottom i.fa-heart { color: var(--primary); margin: 0 4px; }
+
+    @media (max-width: 768px) {
+      .footer-container { gap: 25px; }
+      .footer-col ul { gap: 10px 20px; }
+      .footer-logo-link .navbar-logo { width: 65px; height: 65px; }
+      .footer-logo-link .logo-text { font-size: 26px; }
+      .social-icons a { width: 44px; height: 44px; font-size: 1rem; }
+    }
+    @media (max-width: 480px) {
+      .footer-logo-link .navbar-logo { width: 55px; height: 55px; }
+      .footer-logo-link .logo-text { font-size: 20px; }
+      .footer-logo-link .logo-badge { font-size: 10px; padding: 4px 10px; }
+      .social-icons a { width: 40px; height: 40px; font-size: 0.9rem; }
+    }
+
+    /* =========================================================
+       GLOBAL ANIMATIONS
+    ========================================================= */
+    
+    /* Fade In Up Animation */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeInRight {
+      from {
+        opacity: 0;
+        transform: translateX(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes scaleIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    /* Animation Classes */
+    .animate-fade-up {
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .animate-fade-left {
+      opacity: 0;
+      animation: fadeInLeft 0.8s ease forwards;
+    }
+
+    .animate-fade-right {
+      opacity: 0;
+      animation: fadeInRight 0.8s ease forwards;
+    }
+
+    .animate-scale {
+      opacity: 0;
+      animation: scaleIn 0.8s ease forwards;
+    }
+
+    .animate-float {
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .animate-pulse {
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+    .delay-5 { animation-delay: 0.5s; }
+    .delay-6 { animation-delay: 0.6s; }
+    .delay-7 { animation-delay: 0.7s; }
+    .delay-8 { animation-delay: 0.8s; }
+
+    /* Scroll Reveal using AOS overrides */
+    [data-aos] {
+      opacity: 0;
+      transition-property: opacity, transform;
+    }
+    [data-aos].aos-animate {
+      opacity: 1;
+    }
+
+    /* Hover Animation for Cards */
+    .huzaifa-project-card,
+    .huzaifa-testimonial-card,
+    .huzaifa-about-card,
+    .huzaifa-faq-item,
+    .premium-skill-item {
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                  box-shadow 0.4s ease,
+                  background 0.4s ease,
+                  border-color 0.4s ease;
+    }
+
+    .huzaifa-project-card:hover,
+    .huzaifa-testimonial-card:hover,
+    .huzaifa-about-card:hover,
+    .huzaifa-faq-item:hover,
+    .premium-skill-item:hover {
+      transform: translateY(-10px) scale(1.01);
+      box-shadow: 0 20px 60px rgba(255, 59, 48, 0.12);
+    }
+
+    /* Button Hover Animation */
+    .btn-talk,
+    .huzaifa-faq-button,
+    .huzaifa-portfolio-button,
+    .skills-link,
+    .huzaifa-about-btn,
+    .huzaifa-contact-form button,
+    .fresh-btn {
+      transition: transform 0.3s ease, 
+                  background 0.3s ease,
+                  box-shadow 0.3s ease;
+    }
+
+    .btn-talk:hover,
+    .huzaifa-faq-button:hover,
+    .huzaifa-portfolio-button:hover,
+    .skills-link:hover,
+    .huzaifa-about-btn:hover,
+    .huzaifa-contact-form button:hover,
+    .fresh-btn:hover {
+      transform: translateY(-4px) scale(1.02);
+    }
+
+    /* Social Icons Animation */
+    .social-icons a,
+    .huzaifa-contact-social a {
+      transition: transform 0.3s ease, 
+                  background 0.3s ease,
+                  color 0.3s ease,
+                  border-color 0.3s ease;
+    }
+
+    .social-icons a:hover,
+    .huzaifa-contact-social a:hover {
+      transform: translateY(-5px) scale(1.1);
+    }
+
+    /* Navbar Logo Animation */
+    .navbar-logo {
+      transition: transform 0.4s ease, filter 0.4s ease;
+    }
+    .navbar-brand:hover .navbar-logo {
+      transform: scale(1.08) rotate(-3deg);
+      filter: drop-shadow(0 0 14px rgba(255, 0, 0, 0.65));
+    }
+
+    /* Skill Progress Bar Animation */
+    .skill-progress span {
+      transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* FAQ Icon Rotation */
+    .huzaifa-faq-icon {
+      transition: transform 0.4s ease, background 0.4s ease, color 0.4s ease;
+    }
+    .huzaifa-faq-item:hover .huzaifa-faq-icon {
+      transform: rotate(90deg);
+    }
+
+    /* Testimonial Quote Animation */
+    .huzaifa-testimonial-quote {
+      transition: transform 0.4s ease, background 0.4s ease;
+    }
+    .huzaifa-testimonial-card:hover .huzaifa-testimonial-quote {
+      transform: rotate(-7deg) scale(1.08);
+    }
+
+    /* Portfolio Arrow Animation */
+    .huzaifa-project-arrow {
+      transition: transform 0.35s ease, background 0.35s ease, color 0.35s ease;
+    }
+    .huzaifa-project-card:hover .huzaifa-project-arrow {
+      transform: rotate(45deg);
+    }
+
+    /* About Card Circle Animation */
+    .huzaifa-about-card::after {
+      transition: transform 0.5s ease;
+    }
+    .huzaifa-about-card:hover::after {
+      transform: scale(2);
+    }
+
+    /* Contact Detail Icon Animation */
+    .huzaifa-contact-detail-icon {
+      transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+    }
+    .huzaifa-contact-detail:hover .huzaifa-contact-detail-icon {
+      transform: scale(1.06);
+    }
+
+    /* Skill Icon Animation */
+    .skill-icon {
+      transition: transform 0.4s ease, background 0.4s ease, color 0.4s ease;
+    }
+    .premium-skill-item:hover .skill-icon {
+      transform: rotate(-6deg) scale(1.08);
+    }
+
+    /* Tech Tag Animation */
+    .tech-tag {
+      transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+    }
+    .tech-tag:hover {
+      transform: translateY(-3px);
+    }
+
+    /* Floating Badges Animation */
+    .fresh-floating {
+      animation: float 4s ease-in-out infinite;
+    }
+    .fresh-float-one {
+      animation-delay: 0s;
+    }
+    .fresh-float-two {
+      animation-delay: 2s;
+    }
+
+    /* Hero Stats Animation */
+    .fresh-stat-number {
+      transition: color 0.3s ease;
+    }
+    .fresh-stat:hover .fresh-stat-number {
+      color: var(--primary);
+    }
+
+    /* Smooth Scroll Behavior */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Glow Effect on Hover for Cards */
+    .huzaifa-project-card:hover,
+    .huzaifa-testimonial-card:hover,
+    .huzaifa-about-card:hover {
+      box-shadow: 0 20px 60px rgba(255, 59, 48, 0.12);
+    }
+
+    /* Skill Item Hover Effect */
+    .premium-skill-item::before {
+      transition: transform 0.4s ease;
+    }
+    .premium-skill-item:hover::before {
+      transform: scaleY(1);
+    }
+
+    /* Nav Link Hover Animation */
+    .navbar-custom .nav-link {
+      transition: color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+    }
+    .navbar-custom .nav-link:hover {
+      transform: translateY(-1px);
+    }
+
+    /* AOS Override for smoother animations */
+    [data-aos] {
+      transition-duration: 0.8s;
+      transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* Reduced Motion Support */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      [data-aos] {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+      .animate-fade-up,
+      .animate-fade-left,
+      .animate-fade-right,
+      .animate-scale {
+        opacity: 1 !important;
+        animation: none !important;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <div class="luxury-universe" id="loader">
-        <div class="ring ring-outer"></div>
-        <div class="ring ring-middle"></div>
-        <div class="ring ring-inner"></div>
-        <div class="core-dot"></div>
+  <!-- ===== NAVBAR - FIXED ===== -->
+  <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <div class="logo-main">
+          <img src="logo.png" alt="Huzaifa Logo" class="navbar-logo">
+          <span class="logo-text">Huzaifa</span>
+        </div>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars fs-2 text-white"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto gap-1">
+          <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+          <li class="nav-item"><a class="nav-link" href="#portfolio">Products</a></li>
+          <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonials</a></li>
+          <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+        <button class="btn-talk ms-2" id="openModalBtn">Let's Talk</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section id="home" class="fresh-hero">
+
+    <style>
+      .fresh-hero, .fresh-hero * { box-sizing: border-box; }
+      .fresh-hero {
+        --red: #e91e2b; --black: #0a0a0c; --muted: #737373; --line: #e8e8e8;
+        position: relative; width: 100%; min-height: 100vh; display: flex; align-items: center; overflow: hidden;
+        background: #ffffff; color: var(--black); font-family: Inter, Poppins, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        isolation: isolate;
+      }
+      .fresh-hero *, .fresh-hero *::before, .fresh-hero *::after { box-sizing: border-box; }
+      .fresh-hero-bg { position: absolute; inset: 0; z-index: -5; overflow: hidden; pointer-events: none; }
+      .fresh-grid { position: absolute; inset: 0; opacity: .42; background-image: linear-gradient(rgba(0,0,0,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,.035) 1px, transparent 1px); background-size: 80px 80px; mask-image: linear-gradient(to bottom, transparent, black 18%, black 80%, transparent); }
+      .fresh-noise { position: absolute; inset: 0; opacity: .035; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E"); }
+      .fresh-orb { position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(233,30,43,.18), rgba(233,30,43,.06) 42%, transparent 72%); filter: blur(20px); animation: orbFloat 8s ease-in-out infinite; }
+      .fresh-orb.one { top: -250px; left: -180px; }
+      .fresh-orb.two { right: -240px; bottom: -250px; animation-delay: -3s; }
+      @keyframes orbFloat { 0%,100% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(45px,35px,0) scale(1.12); } }
+      .fresh-top-line { position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, transparent, var(--red), transparent); animation: lineMove 4s linear infinite; }
+      @keyframes lineMove { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+      .fresh-hero-container { position: relative; z-index: 3; width: min(1240px, 92%); margin: auto; padding: 110px 0 75px; }
+      .fresh-left { position: relative; z-index: 10; }
+      .fresh-intro { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 25px; padding: 9px 14px; border: 1px solid #e5e5e5; border-radius: 100px; background: rgba(255,255,255,.82); color: #555; font-size: 10px; font-weight: 800; letter-spacing: 1.8px; text-transform: uppercase; opacity: 0; transform: translateY(25px); animation: freshReveal .8s .15s cubic-bezier(.16,1,.3,1) forwards; }
+      .fresh-intro-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 5px rgba(233,30,43,.08); animation: freshPulse 1.6s infinite; }
+      @keyframes freshPulse { 50% { transform: scale(.65); opacity: .5; } }
+      .fresh-title { max-width: 800px; margin: 0; font-size: clamp(52px, 7vw, 96px); line-height: .94; font-weight: 950; letter-spacing: -5px; }
+      .fresh-title-line { display: block; overflow: hidden; }
+      .fresh-title-word { display: inline-block; opacity: 0; transform: translateY(110%); animation: titleUp 1s cubic-bezier(.16,1,.3,1) forwards; }
+      .fresh-title .red { color: var(--red); }
+      .fresh-title .outline { color: transparent; -webkit-text-stroke: 1.8px var(--black); }
+      @keyframes titleUp { to { opacity: 1; transform: translateY(0); } }
+      .fresh-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 38px; opacity: 0; transform: translateY(25px); animation: freshReveal .9s 1s cubic-bezier(.16,1,.3,1) forwards; }
+      .fresh-btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 11px; min-height: 52px; padding: 0 23px; border-radius: 12px; text-decoration: none; font-size: 13px; font-weight: 800; overflow: hidden; transition: .35s ease; cursor: pointer; }
+      .fresh-btn-primary { background: var(--black); color: #ffffff; box-shadow: 0 15px 35px rgba(0,0,0,.12); }
+      .fresh-btn-primary::before { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 25%, rgba(255,255,255,.2), transparent 65%); transform: translateX(-120%); transition: .7s ease; }
+      .fresh-btn-primary:hover::before { transform: translateX(120%); }
+      .fresh-btn-primary:hover { transform: translateY(-5px); background: var(--red); box-shadow: 0 18px 40px rgba(233,30,43,.22); }
+      .fresh-btn-secondary { border: 1px solid #dddddd; color: var(--black); background: #ffffff; }
+      .fresh-btn-secondary:hover { transform: translateY(-5px); border-color: var(--red); color: var(--red); }
+      .fresh-stats { display: flex; align-items: center; flex-wrap: wrap; margin-top: 45px; opacity: 0; transform: translateY(20px); animation: freshReveal .9s 1.2s cubic-bezier(.16,1,.3,1) forwards; }
+      .fresh-stat { padding: 0 25px; border-right: 1px solid #dddddd; }
+      .fresh-stat:first-child { padding-left: 0; }
+      .fresh-stat:last-child { border-right: 0; }
+      .fresh-stat-number { font-size: 28px; font-weight: 950; letter-spacing: -1px; color: var(--black); transition: color 0.3s ease; }
+      .fresh-stat:hover .fresh-stat-number { color: var(--red); }
+      .fresh-stat-number span { color: var(--red); }
+      .fresh-stat-label { margin-top: 3px; color: #999999; font-size: 9px; font-weight: 800; letter-spacing: 1.3px; text-transform: uppercase; }
+      .fresh-visual { position: relative; min-height: 620px; display: flex; align-items: center; justify-content: center; opacity: 0; transform: translateX(70px) scale(.92); animation: visualIn 1.2s .35s cubic-bezier(.16,1,.3,1) forwards; }
+      @keyframes visualIn { to { opacity: 1; transform: translateX(0) scale(1); } }
+      .fresh-circle { position: absolute; width: 470px; height: 470px; border-radius: 50%; background: #f7f7f7; border: 1px solid #e8e8e8; box-shadow: inset 0 0 80px rgba(0,0,0,.025); animation: circleFloat 7s ease-in-out infinite; }
+      @keyframes circleFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+      .fresh-orbit { position: absolute; width: 530px; height: 530px; border-radius: 50%; border: 1px dashed rgba(233,30,43,.35); animation: orbitRotate 20s linear infinite; }
+      .fresh-orbit::before { content: ""; position: absolute; width: 11px; height: 11px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 8px rgba(233,30,43,.08), 0 0 25px rgba(233,30,43,.4); top: 65px; left: 55px; }
+      @keyframes orbitRotate { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+      .fresh-profile-card { position: relative; width: 350px; height: 420px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 32px; border: 1px solid rgba(0,0,0,.1); background: rgba(255,255,255,.76); backdrop-filter: blur(20px); box-shadow: 0 35px 80px rgba(0,0,0,.12); transform: rotate(3deg); transition: .5s cubic-bezier(.16,1,.3,1); z-index: 5; }
+      .fresh-profile-card:hover { transform: rotate(0) translateY(-12px) scale(1.02); box-shadow: 0 45px 90px rgba(0,0,0,.17); }
+      .fresh-card-corner { position: absolute; width: 160px; height: 160px; top: -80px; right: -80px; border-radius: 50%; background: var(--red); opacity: .9; }
+      .fresh-card-label { position: absolute; top: 22px; left: 22px; z-index: 10; padding: 7px 11px; border-radius: 50px; background: #111111; color: #ffffff; font-size: 9px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; }
+      .fresh-logo { position: relative; width: 260px; height: 260px; object-fit: contain; z-index: 3; filter: drop-shadow(0 20px 25px rgba(0,0,0,.13)); animation: logoMove 4.5s ease-in-out infinite; }
+      @keyframes logoMove { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+      .fresh-card-bottom { position: absolute; left: 20px; right: 20px; bottom: 20px; padding: 13px 15px; border-radius: 13px; background: rgba(255,255,255,.92); border: 1px solid #e8e8e8; z-index: 10; }
+      .fresh-card-bottom small { display: block; color: #999999; font-size: 8px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+      .fresh-card-bottom strong { display: block; margin-top: 3px; font-size: 13px; color: #111111; }
+      .fresh-floating { position: absolute; display: flex; align-items: center; gap: 9px; padding: 12px 15px; border: 1px solid #e6e6e6; border-radius: 14px; background: rgba(255,255,255,.94); box-shadow: 0 20px 45px rgba(0,0,0,.1); color: #222222; font-size: 10px; font-weight: 800; z-index: 15; backdrop-filter: blur(15px); animation: float 4s ease-in-out infinite; }
+      .fresh-floating i { color: var(--red); font-size: 15px; }
+      .fresh-float-one { left: -15px; top: 120px; animation-delay: 0s; }
+      .fresh-float-two { right: -15px; bottom: 130px; animation-delay: 2s; }
+      @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+      .fresh-dots { position: absolute; width: 90px; height: 90px; background-image: radial-gradient(var(--red) 1.5px, transparent 1.5px); background-size: 13px 13px; opacity: .35; z-index: 1; }
+      .fresh-dots-one { right: 2%; top: 15%; }
+      .fresh-dots-two { left: 2%; bottom: 10%; opacity: .18; }
+      .fresh-scroll { position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 7px; color: #aaaaaa; font-size: 8px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; }
+      .fresh-scroll-line { width: 1px; height: 35px; background: linear-gradient(to bottom, var(--red), transparent); animation: scrollDown 1.8s ease-in-out infinite; }
+      @keyframes scrollDown { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+      @keyframes freshReveal { to { opacity: 1; transform: translateY(0); } }
+      @media (max-width: 991px) { .fresh-hero-container { padding: 120px 0 80px; } .fresh-visual { min-height: 550px; margin-top: 35px; } .fresh-scroll { display: none; } }
+      @media (max-width: 600px) { .fresh-hero { min-height: auto; } .fresh-hero-container { width: 90%; padding: 105px 0 60px; } .fresh-intro { font-size: 8px; letter-spacing: 1.2px; } .fresh-title { font-size: 48px; letter-spacing: -3px; line-height: .98; } .fresh-actions { flex-direction: column; align-items: stretch; } .fresh-btn { width: 100%; } .fresh-stats { margin-top: 35px; } .fresh-stat { padding: 0 13px; } .fresh-stat:first-child { padding-left: 0; } .fresh-stat-number { font-size: 22px; } .fresh-stat-label { font-size: 7px; } .fresh-visual { min-height: 440px; margin-top: 20px; } .fresh-circle { width: 320px; height: 320px; } .fresh-orbit { width: 360px; height: 360px; } .fresh-profile-card { width: 245px; height: 310px; } .fresh-logo { width: 190px; height: 190px; } .fresh-floating { font-size: 8px; padding: 9px 11px; } .fresh-float-one { left: 0; top: 75px; } .fresh-float-two { right: 0; bottom: 75px; } .fresh-dots { display: none; } }
+    </style>
+
+    <div class="fresh-hero-bg">
+      <div class="fresh-grid"></div>
+      <div class="fresh-noise"></div>
+      <div class="fresh-orb one"></div>
+      <div class="fresh-orb two"></div>
+    </div>
+    <div class="fresh-top-line"></div>
+    <div class="fresh-dots fresh-dots-one"></div>
+    <div class="fresh-dots fresh-dots-two"></div>
+
+    <div class="fresh-hero-container">
+      <div class="row align-items-center">
+        <div class="col-lg-7 fresh-left">
+          <div class="fresh-intro">
+            <span class="fresh-intro-dot"></span>
+            Full-Stack Developer · Karachi
+          </div>
+          <h1 class="fresh-title">
+            <span class="fresh-title-line">
+              <span class="fresh-title-word" style="animation-delay:.2s">Code.</span>
+            </span>
+            <span class="fresh-title-line">
+              <span class="fresh-title-word red" style="animation-delay:.38s">Create.</span>
+              <span class="fresh-title-word" style="animation-delay:.50s">Scale.</span>
+            </span>
+            <span class="fresh-title-line">
+              <span class="fresh-title-word outline" style="animation-delay:.62s">Innovate.</span>
+            </span>
+          </h1>
+          <div class="fresh-actions">
+            <a href="#contact" class="fresh-btn fresh-btn-primary">
+              Start a Project
+              <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <a href="#portfolio" class="fresh-btn fresh-btn-secondary">
+              Explore My Work
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+          <div class="fresh-stats">
+            <div class="fresh-stat">
+              <div class="fresh-stat-number">50<span>+</span></div>
+              <div class="fresh-stat-label">Projects</div>
+            </div>
+            <div class="fresh-stat">
+              <div class="fresh-stat-number">5<span>+</span></div>
+              <div class="fresh-stat-label">Years Experience</div>
+            </div>
+            <div class="fresh-stat">
+              <div class="fresh-stat-number">100<span>%</span></div>
+              <div class="fresh-stat-label">Commitment</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="fresh-visual">
+            <div class="fresh-circle"></div>
+            <div class="fresh-orbit"></div>
+            <div class="fresh-profile-card">
+              <div class="fresh-card-corner"></div>
+              <div class="fresh-card-label">Developer</div>
+              <img src="image-removebg-preview.png" alt="Huzaifa Developer" class="fresh-logo" />
+              <div class="fresh-card-bottom">
+                <small>Specialization</small>
+                <strong>Full-Stack Web Development</strong>
+              </div>
+            </div>
+            <div class="fresh-floating fresh-float-one">
+              <i class="fa-solid fa-code"></i>
+              Clean Code
+            </div>
+            <div class="fresh-floating fresh-float-two">
+              <i class="fa-solid fa-bolt"></i>
+              Fast & Scalable
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fresh-scroll">
+      Scroll
+      <div class="fresh-scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT SECTION ===== -->
+  <section id="about" class="huzaifa-about">
+    <style>
+      .huzaifa-about, .huzaifa-about * { box-sizing: border-box; }
+      .huzaifa-about {
+        --red: #ff3344; --black: #080808; --dark: #111111; --gray: #777777; --light-gray: #dedede;
+        position: relative; width: 100%; padding: 130px 24px; background: #ffffff; color: var(--black); overflow: hidden;
+        font-family: "Inter", "Poppins", Arial, sans-serif;
+      }
+      .huzaifa-about-container { width: 100%; max-width: 1240px; margin: 0 auto; }
+      .huzaifa-about-top { display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px; margin-bottom: 75px; border-bottom: 1px solid #dedede; }
+      .huzaifa-about-label { display: flex; align-items: center; gap: 12px; font-size: 11px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; }
+      .huzaifa-about-label::before { content: ""; width: 32px; height: 2px; background: var(--red); }
+      .huzaifa-about-index { color: #999; font-size: 10px; font-weight: 700; letter-spacing: 2px; }
+      .huzaifa-about-intro { display: grid; grid-template-columns: .75fr 1.5fr; gap: 70px; margin-bottom: 105px; }
+      .huzaifa-about-intro-left { padding-top: 8px; }
+      .huzaifa-about-intro-left span { color: var(--red); font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
+      .huzaifa-about-intro-right h2 { margin: 0; max-width: 900px; font-size: clamp(42px, 6vw, 78px); line-height: .98; letter-spacing: -5px; font-weight: 900; color: var(--black); }
+      .huzaifa-about-intro-right h2 .red { color: var(--red); }
+      .huzaifa-about-description { display: grid; grid-template-columns: .75fr 1fr; gap: 70px; margin-bottom: 90px; }
+      .huzaifa-about-description-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; }
+      .huzaifa-about-description-text { max-width: 700px; }
+      .huzaifa-about-description-text p { margin: 0 0 20px; color: #555; font-size: 16px; line-height: 1.9; }
+      .huzaifa-about-description-text p:last-child { margin-bottom: 0; }
+      .huzaifa-about-description-text strong { color: #111; }
+      .huzaifa-about-stats { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #dcdcdc; border-bottom: 1px solid #dcdcdc; margin-bottom: 90px; }
+      .huzaifa-about-stat { position: relative; padding: 38px 30px; }
+      .huzaifa-about-stat:not(:last-child) { border-right: 1px solid #dcdcdc; }
+      .huzaifa-about-stat-number { display: block; margin-bottom: 8px; font-size: clamp(42px, 5vw, 65px); line-height: 1; font-weight: 900; letter-spacing: -3px; color: #111; }
+      .huzaifa-about-stat-number span { color: var(--red); }
+      .huzaifa-about-stat-title { display: block; color: #888; font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
+      .huzaifa-about-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 90px; }
+      .huzaifa-about-card { position: relative; min-height: 250px; padding: 35px; background: #f5f5f5; border: 1px solid #e5e5e5; overflow: hidden; transition: transform .4s ease, background .4s ease, color .4s ease, border-color .4s ease; cursor: pointer; }
+      .huzaifa-about-card::after { content: ""; position: absolute; width: 150px; height: 150px; right: -70px; bottom: -70px; border-radius: 50%; border: 1px solid rgba(255,51,68,.2); transition: transform .5s ease; }
+      .huzaifa-about-card:hover { transform: translateY(-7px) scale(1.01); background: #111; border-color: #111; }
+      .huzaifa-about-card:hover::after { transform: scale(2); }
+      .huzaifa-about-card-number { display: block; margin-bottom: 35px; color: var(--red); font-size: 11px; font-weight: 900; letter-spacing: 2px; }
+      .huzaifa-about-card h3 { margin: 0 0 15px; color: #111; font-size: 27px; font-weight: 900; letter-spacing: -1px; transition: .3s ease; }
+      .huzaifa-about-card p { max-width: 470px; margin: 0; color: #777; font-size: 14px; line-height: 1.8; transition: .3s ease; }
+      .huzaifa-about-card:hover h3 { color: #fff; }
+      .huzaifa-about-card:hover p { color: #aaa; }
+      .huzaifa-about-skills { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 90px; }
+      .huzaifa-about-skills-label { width: 100%; margin-bottom: 15px; color: #999; font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
+      .huzaifa-skill { padding: 12px 17px; border: 1px solid #ddd; border-radius: 100px; color: #333; font-size: 11px; font-weight: 700; transition: transform .3s ease, background .3s ease, color .3s ease, border-color .3s ease; cursor: pointer; }
+      .huzaifa-skill:hover { background: #111; border-color: #111; color: #fff; transform: translateY(-3px); }
+      .huzaifa-about-bottom { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; padding-top: 45px; border-top: 1px solid #dcdcdc; }
+      .huzaifa-about-bottom h3 { margin: 0; max-width: 750px; font-size: clamp(28px, 4vw, 48px); line-height: 1.05; letter-spacing: -2px; font-weight: 900; }
+      .huzaifa-about-bottom h3 span { color: var(--red); }
+      .huzaifa-about-btn { display: inline-flex; align-items: center; gap: 15px; padding: 17px 24px; background: #111; color: #fff; text-decoration: none; font-size: 12px; font-weight: 800; border-radius: 4px; transition: transform .35s ease, background .35s ease; cursor: pointer; }
+      .huzaifa-about-btn span { font-size: 18px; transition: transform .35s ease; }
+      .huzaifa-about-btn:hover { background: var(--red); transform: translateY(-4px); }
+      .huzaifa-about-btn:hover span { transform: translateX(5px); }
+      .huzaifa-reveal { opacity: 0; transform: translateY(30px); animation: huzaifaReveal .9s ease forwards; }
+      .huzaifa-delay-1 { animation-delay: .1s; }
+      .huzaifa-delay-2 { animation-delay: .2s; }
+      .huzaifa-delay-3 { animation-delay: .3s; }
+      @keyframes huzaifaReveal { to { opacity: 1; transform: translateY(0); } }
+      @media (max-width: 900px) { .huzaifa-about { padding: 100px 22px; } .huzaifa-about-intro { grid-template-columns: 1fr; gap: 25px; } .huzaifa-about-description { grid-template-columns: 1fr; gap: 20px; } .huzaifa-about-bottom { grid-template-columns: 1fr; } }
+      @media (max-width: 650px) { .huzaifa-about { padding: 80px 17px; } .huzaifa-about-top { margin-bottom: 55px; } .huzaifa-about-index { display: none; } .huzaifa-about-intro { margin-bottom: 65px; } .huzaifa-about-intro-right h2 { font-size: 43px; letter-spacing: -2.5px; } .huzaifa-about-description { margin-bottom: 65px; } .huzaifa-about-description-text p { font-size: 14px; } .huzaifa-about-stats { grid-template-columns: 1fr; } .huzaifa-about-stat { padding: 28px 20px; } .huzaifa-about-stat:not(:last-child) { border-right: 0; border-bottom: 1px solid #dcdcdc; } .huzaifa-about-cards { grid-template-columns: 1fr; margin-bottom: 65px; } .huzaifa-about-card { min-height: 220px; padding: 28px; } .huzaifa-about-skills { margin-bottom: 65px; } .huzaifa-about-bottom h3 { font-size: 31px; } .huzaifa-about-btn { width: 100%; justify-content: center; } }
+      @media (prefers-reduced-motion: reduce) { .huzaifa-about *, .huzaifa-about *::before, .huzaifa-about *::after { animation: none !important; transition: none !important; } .huzaifa-reveal { opacity: 1; transform: none; } }
+    </style>
+
+    <div class="huzaifa-about-container">
+      <div class="huzaifa-about-top huzaifa-reveal" data-aos="fade-up">
+        <div class="huzaifa-about-label">About Me</div>
+        <div class="huzaifa-about-index">01 / 05</div>
+      </div>
+      <div class="huzaifa-about-intro">
+        <div class="huzaifa-about-intro-left huzaifa-reveal" data-aos="fade-right"><span>Who I Am</span></div>
+        <div class="huzaifa-about-intro-right huzaifa-reveal huzaifa-delay-1" data-aos="fade-left">
+          <h2>I don't just build <span class="red">websites.</span> I build digital experiences.</h2>
+        </div>
+      </div>
+      <div class="huzaifa-about-description">
+        <div class="huzaifa-about-description-title huzaifa-reveal" data-aos="fade-right">A Little About Me</div>
+        <div class="huzaifa-about-description-text huzaifa-reveal huzaifa-delay-1" data-aos="fade-left">
+          <p>I'm <strong>Huzaifa Umer Ansari</strong>, a Full-Stack Developer focused on creating modern, responsive and high-performance digital experiences.</p>
+          <p>I combine clean development, thoughtful UI design and practical problem solving to create websites and applications that are not only visually strong but also fast, scalable and easy to use.</p>
+        </div>
+      </div>
+      <div class="huzaifa-about-cards">
+        <div class="huzaifa-about-card huzaifa-reveal" data-aos="flip-up">
+          <span class="huzaifa-about-card-number">01 — MISSION</span>
+          <h3>Build With Purpose.</h3>
+          <p>My goal is to turn ideas into useful digital products that solve real problems, improve user experience and create measurable value for businesses.</p>
+        </div>
+        <div class="huzaifa-about-card huzaifa-reveal huzaifa-delay-1" data-aos="flip-up" data-aos-delay="100">
+          <span class="huzaifa-about-card-number">02 — APPROACH</span>
+          <h3>Simple. Fast. Effective.</h3>
+          <p>I believe great development doesn't need unnecessary complexity. Clean code, thoughtful design, performance and scalability are at the center of my work.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SKILLS SECTION ===== -->
+  <section id="skills" class="premium-skills">
+    <style>
+      .premium-skills, .premium-skills * { box-sizing: border-box; }
+      .premium-skills {
+        --red: #e91e2b; --black: #08090b; --dark: #101114; --gray: #858585; --line: rgba(0,0,0,.10);
+        position: relative; width: 100%; padding: 130px 24px; overflow: hidden; background: #fff; color: var(--black);
+        font-family: Inter, Poppins, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        isolation: isolate;
+      }
+      .skills-bg { position: absolute; inset: 0; z-index: -2; pointer-events: none; overflow: hidden; }
+      .skills-grid { position: absolute; inset: 0; opacity: .45; background-image: linear-gradient(rgba(0,0,0,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,.035) 1px, transparent 1px); background-size: 75px 75px; mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent); }
+      .skills-glow { position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(233,30,43,.10), transparent 68%); filter: blur(30px); top: -250px; right: -180px; animation: skillsGlow 8s ease-in-out infinite; }
+      .skills-glow-two { top: auto; right: auto; bottom: -300px; left: -220px; animation-delay: -4s; }
+      @keyframes skillsGlow { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(40px,30px) scale(1.12); } }
+      .skills-container { width: min(1240px, 94%); margin: 0 auto; }
+      .skills-header { display: grid; grid-template-columns: .65fr 1.35fr; gap: 70px; padding-bottom: 55px; margin-bottom: 65px; border-bottom: 1px solid var(--line); }
+      .skills-label { display: flex; align-items: center; gap: 12px; color: #777; font-size: 11px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; }
+      .skills-label::before { content: ""; width: 32px; height: 2px; background: var(--red); }
+      .skills-number { margin-top: 18px; color: #aaa; font-size: 10px; font-weight: 800; letter-spacing: 2px; }
+      .skills-heading h2 { margin: 0; max-width: 850px; font-size: clamp(48px, 6vw, 82px); line-height: .95; letter-spacing: -5px; font-weight: 950; }
+      .skills-heading h2 span { color: var(--red); }
+      .skills-heading p { max-width: 650px; margin: 28px 0 0; color: #777; font-size: 15px; line-height: 1.8; }
+      .skills-list { border-top: 1px solid var(--line); }
+      .premium-skill-item { position: relative; display: grid; grid-template-columns: 70px 1fr 180px; align-items: center; gap: 35px; min-height: 125px; padding: 25px 15px; border-bottom: 1px solid var(--line); transition: transform .4s ease, background .4s ease, padding .4s ease; cursor: pointer; }
+      .premium-skill-item::before { content: ""; position: absolute; left: 0; top: 0; width: 3px; height: 100%; background: var(--red); transform: scaleY(0); transform-origin: bottom; transition: transform .4s ease; }
+      .premium-skill-item:hover { padding-left: 30px; background: #fafafa; transform: translateY(-2px); }
+      .premium-skill-item:hover::before { transform: scaleY(1); transform-origin: top; }
+      .skill-index { color: #aaa; font-size: 11px; font-weight: 900; letter-spacing: 2px; }
+      .skill-main { display: flex; align-items: center; gap: 20px; }
+      .skill-icon { width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid #ddd; border-radius: 14px; background: #fff; color: #111; font-size: 23px; transition: transform .4s ease, background .4s ease, color .4s ease, border-color .4s ease; }
+      .premium-skill-item:hover .skill-icon { color: #fff; background: var(--red); border-color: var(--red); transform: rotate(-6deg) scale(1.08); }
+      .skill-name h3 { margin: 0; font-size: 20px; font-weight: 900; letter-spacing: -.5px; }
+      .skill-name p { margin: 5px 0 0; color: #999; font-size: 11px; font-weight: 600; }
+      .skill-progress-area { display: flex; align-items: center; gap: 15px; }
+      .skill-progress { flex: 1; height: 4px; overflow: hidden; border-radius: 20px; background: #e9e9e9; }
+      .skill-progress span { display: block; width: 0; height: 100%; background: var(--red); border-radius: inherit; transition: width 1.5s cubic-bezier(.16,1,.3,1); }
+      .premium-skill-item:hover .skill-progress span { width: var(--skill-width); }
+      .skill-percent { min-width: 42px; color: #111; font-size: 12px; font-weight: 900; text-align: right; }
+      .skills-tech-strip { display: flex; align-items: center; justify-content: space-between; gap: 30px; margin-top: 65px; padding: 25px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+      .skills-tech-title { color: #999; font-size: 10px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; white-space: nowrap; }
+      .tech-list { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 9px; }
+      .tech-tag { padding: 9px 14px; border: 1px solid #ddd; border-radius: 100px; color: #555; background: #fff; font-size: 10px; font-weight: 800; transition: transform .3s ease, background .3s ease, color .3s ease, border-color .3s ease; cursor: pointer; }
+      .tech-tag:hover { color: #fff; background: #111; border-color: #111; transform: translateY(-3px); }
+      .skills-bottom { display: flex; align-items: center; justify-content: space-between; margin-top: 65px; gap: 30px; }
+      .skills-bottom-text { color: #777; font-size: 13px; line-height: 1.7; }
+      .skills-bottom-text strong { color: #111; }
+      .skills-link { display: inline-flex; align-items: center; gap: 12px; padding: 15px 20px; background: #111; color: #fff; text-decoration: none; border-radius: 8px; font-size: 11px; font-weight: 900; transition: transform .35s ease, background .35s ease; cursor: pointer; }
+      .skills-link span { font-size: 17px; transition: transform .35s ease; }
+      .skills-link:hover { background: var(--red); transform: translateY(-4px); }
+      .skills-link:hover span { transform: translateX(5px); }
+      .skill-reveal { opacity: 0; transform: translateY(25px); animation: skillReveal .8s cubic-bezier(.16,1,.3,1) forwards; }
+      @keyframes skillReveal { to { opacity: 1; transform: translateY(0); } }
+      @media (max-width: 900px) { .premium-skills { padding: 100px 22px; } .skills-header { grid-template-columns: 1fr; gap: 25px; } .premium-skill-item { grid-template-columns: 50px 1fr 150px; gap: 20px; } .skills-tech-strip { align-items: flex-start; flex-direction: column; } .tech-list { justify-content: flex-start; } }
+      @media (max-width: 650px) { .premium-skills { padding: 80px 17px; } .skills-container { width: 100%; } .skills-header { margin-bottom: 45px; padding-bottom: 40px; } .skills-heading h2 { font-size: 45px; letter-spacing: -3px; } .skills-heading p { font-size: 14px; } .premium-skill-item { grid-template-columns: 35px 1fr; gap: 15px; padding: 22px 5px; } .premium-skill-item:hover { padding-left: 12px; } .skill-main { gap: 13px; } .skill-icon { width: 43px; height: 43px; border-radius: 11px; font-size: 18px; } .skill-name h3 { font-size: 16px; } .skill-name p { font-size: 9px; } .skill-progress-area { grid-column: 2; margin-top: -5px; } .skill-percent { font-size: 10px; } .skills-tech-strip { margin-top: 45px; } .skills-bottom { flex-direction: column; align-items: flex-start; margin-top: 45px; } .skills-link { width: 100%; justify-content: center; } }
+      @media (prefers-reduced-motion: reduce) { .premium-skills *, .premium-skills *::before, .premium-skills *::after { animation: none !important; transition: none !important; } .skill-reveal { opacity: 1; transform: none; } }
+    </style>
+
+    <div class="skills-bg">
+      <div class="skills-grid"></div>
+      <div class="skills-glow"></div>
+      <div class="skills-glow skills-glow-two"></div>
+    </div>
+
+    <div class="skills-container">
+      <div class="skills-header">
+        <div class="skill-reveal" data-aos="fade-right">
+          <div class="skills-label">Skills & Expertise</div>
+          <div class="skills-number">03 / 05</div>
+        </div>
+        <div class="skills-heading skill-reveal" data-aos="fade-left">
+          <h2>I Build With <span>Modern Technology.</span></h2>
+          <p>From pixel-perfect interfaces to scalable backend systems, I use modern technologies to build fast, reliable and production-ready digital products.</p>
+        </div>
+      </div>
+      <div class="skills-list">
+        <div class="premium-skill-item skill-reveal" style="animation-delay:.1s; --skill-width:95%;" data-aos="fade-up" data-aos-delay="50">
+          <div class="skill-index">01</div>
+          <div class="skill-main">
+            <div class="skill-icon"><i class="fa-brands fa-html5"></i></div>
+            <div class="skill-name"><h3>HTML5 / CSS3</h3><p>Semantic HTML · Responsive UI · Modern CSS</p></div>
+          </div>
+          <div class="skill-progress-area">
+            <div class="skill-progress"><span></span></div>
+            <div class="skill-percent">95%</div>
+          </div>
+        </div>
+        <div class="premium-skill-item skill-reveal" style="animation-delay:.2s; --skill-width:92%;" data-aos="fade-up" data-aos-delay="100">
+          <div class="skill-index">02</div>
+          <div class="skill-main">
+            <div class="skill-icon"><i class="fa-brands fa-js"></i></div>
+            <div class="skill-name"><h3>JavaScript</h3><p>ES6+ · APIs · Interactive Experiences</p></div>
+          </div>
+          <div class="skill-progress-area">
+            <div class="skill-progress"><span></span></div>
+            <div class="skill-percent">92%</div>
+          </div>
+        </div>
+        <div class="premium-skill-item skill-reveal" style="animation-delay:.3s; --skill-width:90%;" data-aos="fade-up" data-aos-delay="150">
+          <div class="skill-index">03</div>
+          <div class="skill-main">
+            <div class="skill-icon"><i class="fa-brands fa-react"></i></div>
+            <div class="skill-name"><h3>React.js</h3><p>Components · Hooks · Modern Frontend</p></div>
+          </div>
+          <div class="skill-progress-area">
+            <div class="skill-progress"><span></span></div>
+            <div class="skill-percent">90%</div>
+          </div>
+        </div>
+        <div class="premium-skill-item skill-reveal" style="animation-delay:.4s; --skill-width:88%;" data-aos="fade-up" data-aos-delay="200">
+          <div class="skill-index">04</div>
+          <div class="skill-main">
+            <div class="skill-icon"><i class="fa-brands fa-node-js"></i></div>
+            <div class="skill-name"><h3>Node.js</h3><p>REST APIs · Backend · Server Architecture</p></div>
+          </div>
+          <div class="skill-progress-area">
+            <div class="skill-progress"><span></span></div>
+            <div class="skill-percent">88%</div>
+          </div>
+        </div>
+        <div class="premium-skill-item skill-reveal" style="animation-delay:.5s; --skill-width:90%;" data-aos="fade-up" data-aos-delay="250">
+          <div class="skill-index">05</div>
+          <div class="skill-main">
+            <div class="skill-icon"><i class="fa-brands fa-php"></i></div>
+            <div class="skill-name"><h3>PHP & Laravel</h3><p>MVC · APIs · Secure Web Applications</p></div>
+          </div>
+          <div class="skill-progress-area">
+            <div class="skill-progress"><span></span></div>
+            <div class="skill-percent">90%</div>
+          </div>
+        </div>
+        <div class="premium-skill-item skill-reveal" style="animation-delay:.6s; --skill-width:94%;" data-aos="fade-up" data-aos-delay="300">
+          <div class="skill-index">06</div>
+          <div class="skill-main">
+            <div class="skill-icon"><i class="fa-brands fa-wordpress"></i></div>
+            <div class="skill-name"><h3>WordPress</h3><p>Custom Websites · Elementor · WooCommerce</p></div>
+          </div>
+          <div class="skill-progress-area">
+            <div class="skill-progress"><span></span></div>
+            <div class="skill-percent">94%</div>
+          </div>
+        </div>
+      </div>
+      <div class="skills-tech-strip skill-reveal" data-aos="fade-up">
+        <div class="skills-tech-title">More Technologies</div>
+        <div class="tech-list">
+          <span class="tech-tag">TypeScript</span>
+          <span class="tech-tag">Angular</span>
+          <span class="tech-tag">.NET Core</span>
+          <span class="tech-tag">SQL Server</span>
+          <span class="tech-tag">MySQL</span>
+          <span class="tech-tag">MongoDB</span>
+          <span class="tech-tag">Tailwind CSS</span>
+          <span class="tech-tag">Bootstrap</span>
+        </div>
+      </div>
+      <div class="skills-bottom skill-reveal" data-aos="fade-up">
+        <div class="skills-bottom-text">
+          <strong>Technology is only the tool.</strong><br>
+          Great products come from combining technology, design and problem solving.
+        </div>
+        <a href="#portfolio" class="skills-link">Explore My Work <span>↗</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PORTFOLIO SECTION ===== -->
+  <section id="portfolio" class="huzaifa-portfolio">
+    <style>
+      .huzaifa-portfolio, .huzaifa-portfolio * { box-sizing: border-box; }
+      .huzaifa-portfolio {
+        --red: #ff3344; --black: #080808; --dark: #111111; --gray: #777; --line: #e7e7e7;
+        position: relative; width: 100%; padding: 125px 24px; background: #fff; color: var(--black); overflow: hidden;
+        font-family: Inter, Poppins, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      .huzaifa-portfolio::before { content: ""; position: absolute; width: 500px; height: 500px; left: -300px; top: -250px; border-radius: 50%; background: radial-gradient(circle, rgba(255,51,68,.10), transparent 70%); pointer-events: none; }
+      .huzaifa-portfolio::after { content: ""; position: absolute; width: 450px; height: 450px; right: -300px; bottom: -250px; border-radius: 50%; background: radial-gradient(circle, rgba(255,51,68,.07), transparent 70%); pointer-events: none; }
+      .huzaifa-portfolio-container { position: relative; z-index: 2; width: 100%; max-width: 1240px; margin: 0 auto; }
+      .huzaifa-portfolio-top { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: 22px; margin-bottom: 70px; border-bottom: 1px solid var(--line); }
+      .huzaifa-portfolio-label { display: flex; align-items: center; gap: 12px; font-size: 11px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; }
+      .huzaifa-portfolio-label::before { content: ""; width: 35px; height: 2px; background: var(--red); }
+      .huzaifa-portfolio-index { color: #aaa; font-size: 10px; font-weight: 800; letter-spacing: 2px; }
+      .huzaifa-portfolio-heading { display: grid; grid-template-columns: .65fr 1.7fr; gap: 60px; margin-bottom: 65px; }
+      .huzaifa-portfolio-mini { padding-top: 10px; color: var(--red); font-size: 11px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }
+      .huzaifa-portfolio-heading h2 { margin: 0; max-width: 950px; font-size: clamp(45px, 6vw, 82px); line-height: .95; letter-spacing: -5px; font-weight: 950; }
+      .huzaifa-portfolio-heading h2 span { color: var(--red); }
+      .huzaifa-portfolio-description { max-width: 650px; margin: 25px 0 0; color: #777; font-size: 15px; line-height: 1.8; }
+      .huzaifa-portfolio-filter { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 35px; }
+      .huzaifa-portfolio-filter button { appearance: none; border: 1px solid #ddd; background: #fff; color: #333; padding: 11px 17px; border-radius: 100px; cursor: pointer; font-family: inherit; font-size: 10px; font-weight: 900; letter-spacing: 1px; transition: transform .3s ease, background .3s ease, color .3s ease, border-color .3s ease; }
+      .huzaifa-portfolio-filter button:hover { transform: translateY(-3px); border-color: #111; }
+      .huzaifa-portfolio-filter button.active { background: #111; border-color: #111; color: #fff; }
+      .huzaifa-project-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+      .huzaifa-project-card { position: relative; min-height: 310px; display: flex; flex-direction: column; justify-content: space-between; padding: 30px; background: linear-gradient(145deg, #fafafa, #f1f1f1); border: 1px solid #e4e4e4; color: #111; text-decoration: none; overflow: hidden; opacity: 0; transform: translateY(25px); animation: huzaifaCardIn .7s cubic-bezier(.16,1,.3,1) forwards; transition: transform .45s cubic-bezier(.16,1,.3,1), background .45s ease, border-color .45s ease, box-shadow .45s ease; cursor: pointer; }
+      @keyframes huzaifaCardIn { to { opacity: 1; transform: translateY(0); } }
+      .huzaifa-project-card::before { content: ""; position: absolute; width: 190px; height: 190px; right: -100px; top: -100px; border-radius: 50%; background: var(--red); opacity: .07; transition: transform .6s ease; }
+      .huzaifa-project-card::after { content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 3px; background: var(--red); transition: width .5s ease; }
+      .huzaifa-project-card:hover { transform: translateY(-10px) !important; background: #111; border-color: #111; color: #fff; box-shadow: 0 30px 70px rgba(0,0,0,.14); }
+      .huzaifa-project-card:hover::before { transform: scale(2.3); opacity: .15; }
+      .huzaifa-project-card:hover::after { width: 100%; }
+      .huzaifa-project-top { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; }
+      .huzaifa-project-number { color: var(--red); font-size: 10px; font-weight: 900; letter-spacing: 2px; }
+      .huzaifa-project-arrow { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border: 1px solid #ddd; border-radius: 50%; font-size: 17px; transition: transform .35s ease, background .35s ease, color .35s ease, border-color .35s ease; }
+      .huzaifa-project-card:hover .huzaifa-project-arrow { background: var(--red); border-color: var(--red); color: #fff; transform: rotate(45deg); }
+      .huzaifa-project-content { position: relative; z-index: 2; }
+      .huzaifa-project-content h3 { margin: 0 0 13px; max-width: 330px; font-size: 25px; line-height: 1.12; letter-spacing: -.8px; font-weight: 900; }
+      .huzaifa-project-content p { margin: 0; max-width: 330px; color: #777; font-size: 12px; line-height: 1.7; transition: color .3s ease; }
+      .huzaifa-project-card:hover .huzaifa-project-content p { color: #aaa; }
+      .huzaifa-project-bottom { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 18px; border-top: 1px solid #ddd; transition: border-color .3s ease; }
+      .huzaifa-project-card:hover .huzaifa-project-bottom { border-color: #333; }
+      .huzaifa-project-type { color: #888; font-size: 9px; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; }
+      .huzaifa-project-visit { color: #111; font-size: 10px; font-weight: 900; transition: color .3s ease; }
+      .huzaifa-project-card:hover .huzaifa-project-visit { color: #fff; }
+      .huzaifa-portfolio-bottom { display: flex; align-items: center; justify-content: space-between; gap: 30px; margin-top: 70px; padding-top: 35px; border-top: 1px solid var(--line); }
+      .huzaifa-portfolio-bottom-text { color: #777; font-size: 13px; line-height: 1.7; }
+      .huzaifa-portfolio-bottom-text strong { display: block; margin-bottom: 4px; color: #111; font-size: 21px; font-weight: 900; }
+      .huzaifa-portfolio-button { display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 16px 24px; background: #111; color: #fff; text-decoration: none; border-radius: 8px; font-size: 11px; font-weight: 900; transition: transform .35s ease, background .35s ease; cursor: pointer; }
+      .huzaifa-portfolio-button:hover { background: var(--red); transform: translateY(-4px); }
+      .huzaifa-portfolio-button span { font-size: 17px; transition: transform .3s ease; }
+      .huzaifa-portfolio-button:hover span { transform: translateX(5px); }
+      @media (max-width: 1000px) { .huzaifa-project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .huzaifa-portfolio-heading { grid-template-columns: 1fr; gap: 20px; } }
+      @media (max-width: 650px) { .huzaifa-portfolio { padding: 80px 17px; } .huzaifa-portfolio-top { margin-bottom: 50px; } .huzaifa-portfolio-index { display: none; } .huzaifa-portfolio-heading { margin-bottom: 45px; } .huzaifa-portfolio-heading h2 { font-size: 45px; letter-spacing: -3px; } .huzaifa-portfolio-description { font-size: 14px; } .huzaifa-project-grid { grid-template-columns: 1fr; gap: 14px; } .huzaifa-project-card { min-height: 285px; padding: 25px; } .huzaifa-project-content h3 { font-size: 23px; } .huzaifa-portfolio-bottom { flex-direction: column; align-items: stretch; } .huzaifa-portfolio-button { width: 100%; } }
+      @media (prefers-reduced-motion: reduce) { .huzaifa-portfolio *, .huzaifa-portfolio *::before, .huzaifa-portfolio *::after { animation: none !important; transition: none !important; } .huzaifa-project-card { opacity: 1; transform: none; } }
+    </style>
+
+    <div class="huzaifa-portfolio-container">
+      <div class="huzaifa-portfolio-top" data-aos="fade-up">
+        <div class="huzaifa-portfolio-label">Selected Work</div>
+        <div class="huzaifa-portfolio-index">03 / 05</div>
+      </div>
+      <div class="huzaifa-portfolio-heading">
+        <div class="huzaifa-portfolio-mini" data-aos="fade-right">My Portfolio</div>
+        <div data-aos="fade-left">
+          <h2>Digital work <span>built to perform.</span></h2>
+          <p class="huzaifa-portfolio-description">A curated collection of websites, e-commerce platforms, business websites and technology projects developed for different industries.</p>
+        </div>
+      </div>
+      <div class="huzaifa-portfolio-filter" data-aos="fade-up">
+        <button class="active" data-filter="all">All Projects</button>
+        <button data-filter="ecommerce">E-Commerce</button>
+        <button data-filter="business">Business</button>
+        <button data-filter="technology">Technology</button>
+      </div>
+      <div class="huzaifa-project-grid" id="huzaifaProjectGrid"></div>
+      <div class="huzaifa-portfolio-bottom" data-aos="fade-up">
+        <div class="huzaifa-portfolio-bottom-text">
+          <strong>Have a project in mind?</strong>
+          Let's build something exceptional together.
+        </div>
+        <a href="#contact" class="huzaifa-portfolio-button">Start a Project <span>↗</span></a>
+      </div>
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const loader = document.getElementById("loader");
+      const huzaifaProjects = [
+        {name:"Al Naboodah Construction",url:"https://www.alnaboodahconstruction.com/",type:"business",category:"Construction"},
+        {name:"Your Social Climbers",url:"https://yoursocialclimbers.com/",type:"business",category:"Digital Agency"},
+        {name:"Rocco Forte Hotels",url:"https://www.roccofortehotels.com/",type:"business",category:"Hospitality"},
+        {name:"Blenheim Palace Water",url:"https://blenheimpalacewater.com/",type:"business",category:"Water Brand"},
+        {name:"Boohoo",url:"https://www.boohoo.com/",type:"ecommerce",category:"Fashion E-Commerce"},
+        {name:"Pretty Little Thing",url:"https://www.prettylittlething.com/",type:"ecommerce",category:"Fashion E-Commerce"},
+        {name:"Nayam Sleep",url:"https://nayamsleep.com/",type:"ecommerce",category:"E-Commerce"},
+        {name:"Imperium Engineering",url:"https://imperiumengineering.co.uk/",type:"business",category:"Engineering"},
+        {name:"Sekkoya",url:"https://sekkoya.co.uk/",type:"ecommerce",category:"E-Commerce"},
+        {name:"Citi Terrace",url:"https://cititerrace.co.uk/",type:"business",category:"Business"},
+        {name:"Fenwick",url:"https://fenwick.co.uk/",type:"ecommerce",category:"Retail"},
+        {name:"Ultimate Provence",url:"https://www.ultimateprovence.com/",type:"business",category:"Hospitality"},
+        {name:"Browns Fashion",url:"https://brownsfashion.com/?country=PK",type:"ecommerce",category:"Fashion"},
+        {name:"Lilibets Restaurant",url:"https://www.lilibetsrestaurant.com/",type:"business",category:"Restaurant"},
+        {name:"Izza Builders",url:"https://izzabuilders.com/",type:"business",category:"Construction"},
+        {name:"Fixora Official",url:"https://fixoraofficial.com/",type:"ecommerce",category:"E-Commerce"},
+        {name:"Mian Cloth",url:"https://miancloth.com/",type:"ecommerce",category:"Fashion"},
+        {name:"Qarisab",url:"https://qarisab.com/",type:"ecommerce",category:"E-Commerce"},
+        {name:"Banana Fragrances",url:"https://bananafragrances.com/",type:"ecommerce",category:"Fragrance"},
+        {name:"Fsociety",url:"https://fsociety.pk/",type:"ecommerce",category:"E-Commerce"},
+        {name:"Elodora",url:"https://www.elodora.pk/",type:"ecommerce",category:"Fashion"},
+        {name:"Digicls",url:"https://digicls.com/",type:"technology",category:"Technology"},
+        {name:"Batterij Plan Nederland",url:"https://batterijplannederland.nl/",type:"technology",category:"Energy Technology"},
+        {name:"Datanox",url:"https://datanox.io/",type:"technology",category:"Technology"},
+        {name:"Digiwebrix Property",url:"https://property.digiwebrix.com/",type:"technology",category:"Property Technology"},
+        {name:"Nour House",url:"https://nour-house.fi/",type:"business",category:"Business"},
+        {name:"The White Company",url:"https://www.thewhitecompany.com/uk/",type:"ecommerce",category:"Retail"},
+        {name:"Nureh",url:"https://nureh.pk/",type:"ecommerce",category:"Fashion"},
+        {name:"Sokamal",url:"https://www.sokamal.com/",type:"ecommerce",category:"E-Commerce"},
+        {name:"Equator Stores",url:"https://equatorstores.com/",type:"ecommerce",category:"Retail"},
+        {name:"Tezz",url:"https://www.tezz.com.pk/",type:"ecommerce",category:"E-Commerce"},
+        {name:"Binanwar Kurti",url:"https://binanwarkurti.com/",type:"ecommerce",category:"Fashion"},
+        {name:"Planet Junior",url:"https://planetjunior.pk/",type:"ecommerce",category:"Kids Store"},
+        {name:"Borjan",url:"https://www.borjan.com.pk/",type:"ecommerce",category:"Fashion"},
+        {name:"Perfume Parlour",url:"https://perfume-parlour.pk/",type:"ecommerce",category:"Fragrance"},
+        {name:"Cousins Foods",url:"https://cousinsfoods.com/",type:"ecommerce",category:"Food"},
+        {name:"Lawyers Public Services",url:"https://lawyerspublicservices.com/",type:"business",category:"Legal Services"},
+        {name:"Batterij Lease Plan",url:"https://www.batterijleaseplan.nl/index.php",type:"technology",category:"Energy Technology"},
+        {name:"Find Real Estate",url:"https://findrealestate.com/",type:"business",category:"Real Estate"},
+        {name:"Toy Lover",url:"https://toylover.pk/",type:"ecommerce",category:"E-Commerce"},
+        {name:"RSSSLT",url:"https://rssslt.mysellauth.com/",type:"technology",category:"Technology"},
+        {name:"ZR Gift Shop",url:"https://hu35069769-source.github.io/zr-gift-shop/",type:"ecommerce",category:"Gift Store"}
+      ];
 
-            // Isko poori tarah real loading par chhorne ke bajaye hum 2.5 seconds ka 
-            // ek premium cinematic delay de rahe hain taake user ko look feel ho.
-            setTimeout(() => {
-                // Pehle loader ko smoothly fade out karenge
-                document.body.classList.add("page-fade-out");
-                
-                // Jaise hi fade out complete hoga, instantly home.html par redirect
-                setTimeout(() => {
-                    window.location.href = "home.html";
-                }, 800); // Animation duration match karne ke liye
-                
-            }, 2500); // 2.5 seconds tak loader dikhega (Aap isse kam ya zyada kar sakte hain)
+      const huzaifaProjectGrid = document.getElementById("huzaifaProjectGrid");
+      function renderHuzaifaProjects(filter = "all") {
+        if(!huzaifaProjectGrid) return;
+        const projects = filter === "all" ? huzaifaProjects : huzaifaProjects.filter(p => p.type === filter);
+        huzaifaProjectGrid.innerHTML = "";
+        projects.forEach((project,index) => {
+          const card = document.createElement("a");
+          card.className = "huzaifa-project-card";
+          card.href = project.url;
+          card.target = "_blank";
+          card.rel = "noopener noreferrer";
+          card.style.animationDelay = `${(index % 9) * 0.06}s`;
+          const number = huzaifaProjects.indexOf(project) + 1;
+          const projectType = project.type === "ecommerce" ? "E-Commerce" : project.type === "technology" ? "Technology" : "Business";
+          card.innerHTML = `
+            <div class="huzaifa-project-top">
+              <span class="huzaifa-project-number">${String(number).padStart(2,"0")}</span>
+              <span class="huzaifa-project-arrow">↗</span>
+            </div>
+            <div class="huzaifa-project-content">
+              <h3>${project.name}</h3>
+              <p>${project.category} project focused on modern digital experiences, usability and performance.</p>
+            </div>
+            <div class="huzaifa-project-bottom">
+              <span class="huzaifa-project-type">${projectType}</span>
+              <span class="huzaifa-project-visit">Visit Website →</span>
+            </div>
+          `;
+          huzaifaProjectGrid.appendChild(card);
         });
-    </script>
+      }
 
+      document.querySelectorAll(".huzaifa-portfolio-filter button").forEach(button => {
+        button.addEventListener("click", function() {
+          document.querySelectorAll(".huzaifa-portfolio-filter button").forEach(btn => btn.classList.remove("active"));
+          this.classList.add("active");
+          renderHuzaifaProjects(this.dataset.filter);
+        });
+      });
+      renderHuzaifaProjects("all");
+    </script>
+  </section>
+
+  <!-- ===== TESTIMONIALS SECTION ===== -->
+  <section id="testimonials" class="huzaifa-testimonials">
+    <style>
+      .huzaifa-testimonials, .huzaifa-testimonials * { box-sizing: border-box; }
+      .huzaifa-testimonials {
+        --red: #ff3344; --black: #080808; --dark: #111111; --text: #222222; --muted: #777777; --line: #e5e5e5;
+        position: relative; width: 100%; padding: 125px 0; background: #ffffff; color: var(--black); overflow: hidden;
+        font-family: Inter, Poppins, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        isolation: isolate;
+      }
+      .huzaifa-testimonials::before { content: ""; position: absolute; width: 550px; height: 550px; top: -300px; right: -180px; border-radius: 50%; background: rgba(255,51,68,.045); filter: blur(25px); z-index: -2; }
+      .huzaifa-testimonials::after { content: ""; position: absolute; width: 500px; height: 500px; bottom: -300px; left: -200px; border-radius: 50%; background: rgba(0,0,0,.035); filter: blur(25px); z-index: -2; }
+      .huzaifa-testimonial-grid-bg { position: absolute; inset: 0; z-index: -3; opacity: .45; background-image: linear-gradient(rgba(0,0,0,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,.035) 1px, transparent 1px); background-size: 85px 85px; mask-image: linear-gradient(to bottom, transparent, black 18%, black 82%, transparent); }
+      .huzaifa-testimonials-container { width: min(1240px, 92%); margin: 0 auto; position: relative; z-index: 2; }
+      .huzaifa-testimonial-header { display: grid; grid-template-columns: .7fr 1.5fr; gap: 60px; align-items: end; padding-bottom: 45px; margin-bottom: 50px; border-bottom: 1px solid var(--line); }
+      .huzaifa-testimonial-label { display: inline-flex; align-items: center; gap: 12px; color: #777; font-size: 10px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; }
+      .huzaifa-testimonial-label::before { content: ""; width: 32px; height: 2px; background: var(--red); }
+      .huzaifa-testimonial-heading { margin: 0; max-width: 900px; font-size: clamp(45px, 6vw, 76px); line-height: .96; letter-spacing: -4px; font-weight: 950; }
+      .huzaifa-testimonial-heading .red { color: var(--red); }
+      .huzaifa-testimonial-heading .outline { color: transparent; -webkit-text-stroke: 1.5px #111; }
+      .huzaifa-testimonial-intro { display: flex; justify-content: space-between; align-items: center; gap: 30px; margin-bottom: 45px; }
+      .huzaifa-testimonial-intro-text { max-width: 650px; margin: 0; color: var(--muted); font-size: 15px; line-height: 1.8; }
+      .huzaifa-testimonial-badge { flex-shrink: 0; display: flex; align-items: center; gap: 9px; padding: 11px 16px; border: 1px solid #ddd; border-radius: 100px; background: rgba(255,255,255,.85); color: #222; font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; box-shadow: 0 10px 30px rgba(0,0,0,.03); }
+      .huzaifa-testimonial-badge i { color: var(--red); font-size: 12px; }
+      .huzaifa-testimonial-slider { position: relative; width: 100%; overflow: hidden; padding: 10px 0 25px; mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent); }
+      .huzaifa-testimonial-row { display: flex; width: max-content; gap: 18px; margin-bottom: 18px; will-change: transform; }
+      .huzaifa-testimonial-row:last-child { margin-bottom: 0; }
+      .huzaifa-testimonial-row-left { animation: huzaifaMoveLeft 32s linear infinite; }
+      @keyframes huzaifaMoveLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+      .huzaifa-testimonial-row-right { animation: huzaifaMoveRight 36s linear infinite; }
+      @keyframes huzaifaMoveRight { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+      .huzaifa-testimonial-slider:hover .huzaifa-testimonial-row { animation-play-state: paused; }
+      .huzaifa-testimonial-card { position: relative; width: 390px; min-height: 340px; flex-shrink: 0; padding: 32px; display: flex; flex-direction: column; background: linear-gradient(145deg, #ffffff, #f8f8f8); border: 1px solid #e3e3e3; border-radius: 22px; overflow: hidden; transition: transform .45s cubic-bezier(.16,1,.3,1), background .35s ease, border-color .35s ease, box-shadow .35s ease; cursor: pointer; }
+      .huzaifa-testimonial-card::before { content: ""; position: absolute; left: 0; top: 0; width: 0; height: 3px; background: var(--red); transition: width .45s ease; }
+      .huzaifa-testimonial-card:hover::before { width: 100%; }
+      .huzaifa-testimonial-card::after { content: ""; position: absolute; width: 170px; height: 170px; right: -90px; bottom: -90px; border-radius: 50%; border: 1px solid rgba(255,51,68,.12); transition: transform .6s ease; pointer-events: none; }
+      .huzaifa-testimonial-card:hover::after { transform: scale(1.8); }
+      .huzaifa-testimonial-card:hover { transform: translateY(-9px); background: #111; border-color: #111; box-shadow: 0 30px 70px rgba(0,0,0,.15); }
+      .huzaifa-testimonial-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 28px; }
+      .huzaifa-testimonial-number { color: #aaa; font-size: 10px; font-weight: 900; letter-spacing: 2px; }
+      .huzaifa-testimonial-quote { width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 14px; background: #111; color: #fff; font-family: Georgia, serif; font-size: 30px; transition: transform .4s ease, background .4s ease; }
+      .huzaifa-testimonial-card:hover .huzaifa-testimonial-quote { background: var(--red); transform: rotate(-7deg) scale(1.08); }
+      .huzaifa-testimonial-review { position: relative; z-index: 2; margin: 0; color: #333; font-size: 16px; line-height: 1.8; font-weight: 500; transition: color .35s ease; }
+      .huzaifa-testimonial-card:hover .huzaifa-testimonial-review { color: #ddd; }
+      .huzaifa-testimonial-bigquote { position: absolute; right: 15px; bottom: 60px; color: rgba(0,0,0,.035); font-family: Georgia, serif; font-size: 145px; line-height: 1; pointer-events: none; transition: color .5s ease, transform .5s ease; }
+      .huzaifa-testimonial-card:hover .huzaifa-testimonial-bigquote { color: rgba(255,255,255,.04); transform: translateY(-10px); }
+      .huzaifa-testimonial-divider { width: 100%; height: 1px; background: #ddd; margin-top: auto; margin-bottom: 22px; transition: background .35s ease; }
+      .huzaifa-testimonial-card:hover .huzaifa-testimonial-divider { background: rgba(255,255,255,.14); }
+      .huzaifa-testimonial-client { display: flex; align-items: center; justify-content: space-between; gap: 15px; }
+      .huzaifa-client-details { display: flex; flex-direction: column; gap: 5px; }
+      .huzaifa-client-name { margin: 0; color: #111; font-size: 14px; font-weight: 900; transition: color .3s ease; }
+      .huzaifa-client-role { color: #888; font-size: 10px; font-weight: 700; letter-spacing: .8px; transition: color .3s ease; }
+      .huzaifa-testimonial-card:hover .huzaifa-client-name { color: #fff; }
+      .huzaifa-testimonial-stars { display: flex; gap: 3px; }
+      .huzaifa-testimonial-stars i { color: var(--red); font-size: 10px; }
+      .huzaifa-row-label { position: absolute; z-index: 10; left: 15px; padding: 7px 12px; background: #111; color: #fff; border-radius: 100px; font-size: 8px; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0; transform: translateX(-10px); transition: opacity .35s ease, transform .35s ease; pointer-events: none; }
+      .huzaifa-testimonial-slider:hover .huzaifa-row-label { opacity: 1; transform: translateX(0); }
+      .huzaifa-testimonial-bottom { display: flex; align-items: center; justify-content: space-between; gap: 30px; margin-top: 45px; padding-top: 30px; border-top: 1px solid var(--line); }
+      .huzaifa-bottom-features { display: flex; align-items: center; flex-wrap: wrap; gap: 17px; }
+      .huzaifa-bottom-feature { display: flex; align-items: center; gap: 9px; color: #555; font-size: 10px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; transition: color .3s ease, transform .3s ease; cursor: pointer; }
+      .huzaifa-bottom-feature:hover { color: #111; transform: translateY(-2px); }
+      .huzaifa-bottom-icon { width: 29px; height: 29px; display: flex; align-items: center; justify-content: center; border: 1px solid #ddd; border-radius: 50%; background: #fff; color: var(--red); font-size: 11px; transition: transform .35s ease, background .35s ease, color .35s ease, border-color .35s ease; }
+      .huzaifa-bottom-feature:hover .huzaifa-bottom-icon { background: #111; border-color: #111; color: #fff; transform: rotate(-8deg) scale(1.08); }
+      .huzaifa-bottom-dot { color: #ccc; font-size: 15px; }
+      .huzaifa-testimonial-action { position: relative; display: flex; align-items: center; gap: 12px; color: #111; text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; }
+      .huzaifa-action-circle { position: relative; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border: 1px solid #ddd; border-radius: 50%; background: #fff; color: #111; font-size: 13px; transition: transform .4s cubic-bezier(.16,1,.3,1), background .4s ease, color .4s ease, border-color .4s ease; }
+      .huzaifa-action-circle::before { content: ""; position: absolute; inset: -1px; border: 1px solid rgba(255,51,68,.18); border-radius: 50%; animation: huzaifaPulse 2.5s infinite; }
+      @keyframes huzaifaPulse { 0% { transform: scale(1); opacity: .8; } 70% { transform: scale(1.5); opacity: 0; } 100% { transform: scale(1.5); opacity: 0; } }
+      .huzaifa-testimonial-action:hover .huzaifa-action-circle { background: #111; border-color: #111; color: #fff; transform: rotate(45deg) scale(1.08); }
+      .huzaifa-action-label { transition: color .3s ease, transform .3s ease; }
+      .huzaifa-testimonial-action:hover .huzaifa-action-label { color: var(--red); transform: translateX(3px); }
+      @media (max-width: 950px) { .huzaifa-testimonials { padding: 100px 0; } .huzaifa-testimonial-header { grid-template-columns: 1fr; gap: 25px; } .huzaifa-testimonial-card { width: 350px; } }
+      @media (max-width: 650px) { .huzaifa-testimonials { padding: 80px 0; } .huzaifa-testimonials-container { width: 100%; } .huzaifa-testimonial-header { gap: 20px; padding: 0 17px 35px; margin-bottom: 35px; } .huzaifa-testimonial-heading { font-size: 44px; letter-spacing: -2.8px; } .huzaifa-testimonial-intro { flex-direction: column; align-items: flex-start; padding: 0 17px; margin-bottom: 30px; } .huzaifa-testimonial-intro-text { font-size: 14px; } .huzaifa-testimonial-slider { mask-image: linear-gradient(to right, transparent, black 3%, black 97%, transparent); } .huzaifa-testimonial-card { width: 305px; min-height: 330px; padding: 27px; border-radius: 18px; } .huzaifa-testimonial-review { font-size: 15px; line-height: 1.75; } .huzaifa-testimonial-bottom { flex-direction: column; align-items: flex-start; margin-top: 35px; padding: 30px 17px 0; } .huzaifa-bottom-features { display: grid; grid-template-columns: 1fr 1fr; width: 100%; gap: 14px; } .huzaifa-bottom-dot { display: none; } .huzaifa-bottom-feature { font-size: 9px; } .huzaifa-testimonial-action { width: 100%; justify-content: flex-start; } }
+      @media (prefers-reduced-motion: reduce) { .huzaifa-testimonials *, .huzaifa-testimonials *::before, .huzaifa-testimonials *::after { animation: none !important; transition: none !important; } }
+    </style>
+
+    <div class="huzaifa-testimonial-grid-bg"></div>
+    <div class="huzaifa-testimonials-container">
+      <div class="huzaifa-testimonial-header" data-aos="fade-up">
+        <div class="huzaifa-testimonial-label">Client Feedback</div>
+        <h2 class="huzaifa-testimonial-heading">
+          Trusted by <span class="red">people</span> who value <span class="outline">great work.</span>
+        </h2>
+      </div>
+      <div class="huzaifa-testimonial-intro" data-aos="fade-up">
+        <p class="huzaifa-testimonial-intro-text">Every project is built around clear communication, thoughtful design and reliable development. Here's what clients have to say about working with me.</p>
+        <div class="huzaifa-testimonial-badge"><i class="fa-solid fa-star"></i>5.0 Client Experience</div>
+      </div>
+      <div class="huzaifa-testimonial-slider" data-aos="fade-up">
+        <div class="huzaifa-testimonial-row huzaifa-testimonial-row-left">
+          <article class="huzaifa-testimonial-card">
+            <div class="huzaifa-testimonial-card-top"><span class="huzaifa-testimonial-number">01 / 06</span><div class="huzaifa-testimonial-quote">“</div></div>
+            <p class="huzaifa-testimonial-review">Huzaifa delivered our project ahead of schedule. His attention to detail and ability to transform ideas into a polished digital experience was genuinely impressive.</p>
+            <div class="huzaifa-testimonial-bigquote">“</div>
+            <div class="huzaifa-testimonial-divider"></div>
+            <div class="huzaifa-testimonial-client">
+              <div class="huzaifa-client-details"><h6 class="huzaifa-client-name">Alexander Wright</h6><span class="huzaifa-client-role">Project Manager · UK</span></div>
+              <div class="huzaifa-testimonial-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+          </article>
+          <article class="huzaifa-testimonial-card">
+            <div class="huzaifa-testimonial-card-top"><span class="huzaifa-testimonial-number">02 / 06</span><div class="huzaifa-testimonial-quote">“</div></div>
+            <p class="huzaifa-testimonial-review">Fantastic communication and exceptional problem-solving skills. The e-commerce store became significantly faster, cleaner and easier for our customers to use.</p>
+            <div class="huzaifa-testimonial-bigquote">“</div>
+            <div class="huzaifa-testimonial-divider"></div>
+            <div class="huzaifa-testimonial-client">
+              <div class="huzaifa-client-details"><h6 class="huzaifa-client-name">Fatima Al-Maktoum</h6><span class="huzaifa-client-role">E-Commerce Client · UAE</span></div>
+              <div class="huzaifa-testimonial-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+          </article>
+          <article class="huzaifa-testimonial-card">
+            <div class="huzaifa-testimonial-card-top"><span class="huzaifa-testimonial-number">03 / 06</span><div class="huzaifa-testimonial-quote">“</div></div>
+            <p class="huzaifa-testimonial-review">Incredible work ethic and strong technical knowledge. Huzaifa understood our requirements quickly and delivered a solution that was both professional and reliable.</p>
+            <div class="huzaifa-testimonial-bigquote">“</div>
+            <div class="huzaifa-testimonial-divider"></div>
+            <div class="huzaifa-testimonial-client">
+              <div class="huzaifa-client-details"><h6 class="huzaifa-client-name">Daniel Costa</h6><span class="huzaifa-client-role">CEO · TechStart</span></div>
+              <div class="huzaifa-testimonial-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+          </article>
+          <article class="huzaifa-testimonial-card">
+            <div class="huzaifa-testimonial-card-top"><span class="huzaifa-testimonial-number">04 / 06</span><div class="huzaifa-testimonial-quote">“</div></div>
+            <p class="huzaifa-testimonial-review">A very smooth development experience from beginning to end. The final website looked professional, loaded quickly and worked perfectly across devices.</p>
+            <div class="huzaifa-testimonial-bigquote">“</div>
+            <div class="huzaifa-testimonial-divider"></div>
+            <div class="huzaifa-testimonial-client">
+              <div class="huzaifa-client-details"><h6 class="huzaifa-client-name">Oliver James</h6><span class="huzaifa-client-role">Business Owner · UK</span></div>
+              <div class="huzaifa-testimonial-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+          </article>
+          <article class="huzaifa-testimonial-card">
+            <div class="huzaifa-testimonial-card-top"><span class="huzaifa-testimonial-number">05 / 06</span><div class="huzaifa-testimonial-quote">“</div></div>
+            <p class="huzaifa-testimonial-review">Excellent understanding of modern UI and development standards. Huzaifa was responsive, creative and delivered exactly what our business needed.</p>
+            <div class="huzaifa-testimonial-bigquote">“</div>
+            <div class="huzaifa-testimonial-divider"></div>
+            <div class="huzaifa-testimonial-client">
+              <div class="huzaifa-client-details"><h6 class="huzaifa-client-name">Michael Brown</h6><span class="huzaifa-client-role">Founder · Digital Business</span></div>
+              <div class="huzaifa-testimonial-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+          </article>
+          <article class="huzaifa-testimonial-card">
+            <div class="huzaifa-testimonial-card-top"><span class="huzaifa-testimonial-number">06 / 06</span><div class="huzaifa-testimonial-quote">“</div></div>
+            <p class="huzaifa-testimonial-review">Professional, reliable and easy to work with. The technical execution was excellent and the final result gave our online presence a completely new level of quality.</p>
+            <div class="huzaifa-testimonial-bigquote">“</div>
+            <div class="huzaifa-testimonial-divider"></div>
+            <div class="huzaifa-testimonial-client">
+              <div class="huzaifa-client-details"><h6 class="huzaifa-client-name">Sophia Wilson</h6><span class="huzaifa-client-role">Marketing Lead · Dubai</span></div>
+              <div class="huzaifa-testimonial-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+          </article>
+          <!-- Duplicates -->
+          <article class="huzaifa-testimonial-card">
+            <div class="huzaifa-testimonial-card-top"><span class="huzaifa-testimonial-number">01 / 06</span><div class="huzaifa-testimonial-quote">“</div></div>
+            <p class="huzaifa-testimonial-review">Huzaifa delivered our project ahead of schedule. His attention to detail and ability to transform ideas into a polished digital experience was genuinely impressive.</p>
+            <div class="huzaifa-testimonial-bigquote">“</div>
+            <div class="huzaifa-testimonial-divider"></div>
+            <div class="huzaifa-testimonial-client">
+              <div class="huzaifa-client-details"><h6 class="huzaifa-client-name">Alexander Wright</h6><span class="huzaifa-client-role">Project Manager · UK</span></div>
+              <div class="huzaifa-testimonial-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+          </article>
+          <article class="huzaifa-testimonial-card">
+            <div class="huzaifa-testimonial-card-top"><span class="huzaifa-testimonial-number">02 / 06</span><div class="huzaifa-testimonial-quote">“</div></div>
+            <p class="huzaifa-testimonial-review">Fantastic communication and exceptional problem-solving skills. The e-commerce store became significantly faster, cleaner and easier for our customers to use.</p>
+            <div class="huzaifa-testimonial-bigquote">“</div>
+            <div class="huzaifa-testimonial-divider"></div>
+            <div class="huzaifa-testimonial-client">
+              <div class="huzaifa-client-details"><h6 class="huzaifa-client-name">Fatima Al-Maktoum</h6><span class="huzaifa-client-role">E-Commerce Client · UAE</span></div>
+              <div class="huzaifa-testimonial-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+          </article>
+          <article class="huzaifa-testimonial-card">
+            <div class="huzaifa-testimonial-card-top"><span class="huzaifa-testimonial-number">03 / 06</span><div class="huzaifa-testimonial-quote">“</div></div>
+            <p class="huzaifa-testimonial-review">Incredible work ethic and strong technical knowledge. Huzaifa understood our requirements quickly and delivered a solution that was both professional and reliable.</p>
+            <div class="huzaifa-testimonial-bigquote">“</div>
+            <div class="huzaifa-testimonial-divider"></div>
+            <div class="huzaifa-testimonial-client">
+              <div class="huzaifa-client-details"><h6 class="huzaifa-client-name">Daniel Costa</h6><span class="huzaifa-client-role">CEO · TechStart</span></div>
+              <div class="huzaifa-testimonial-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+          </article>
+        </div>
+        <div class="huzaifa-testimonial-row huzaifa-testimonial-row-right">
+          <article class="huzaifa-testimonial-card">
+            <div class="huzaifa-testimonial-card-top"><span class="huzaifa-testimonial-number">07 / 12</span><div class="huzaifa-testimonial-quote">“</div></div>
+            <p class="huzaifa-testimonial-review">Working with Huzaifa was an excellent experience. He understood the project requirements quickly and converted them into a clean and modern digital product.</p>
+            <div class="huzaifa-testimonial-bigquote">“</div>
+            <div class="huzaifa-testimonial-divider"></div>
+            <div class="huzaifa-testimonial-client">
+              <div class="huzaifa-client-details"><h6 class="huzaifa-client-name">Ethan Miller</h6><span class="huzaifa-client-role">Product Manager · USA</span></div>
+              <div class="huzaifa-testimonial-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+          </article>
+          <article class="huzaifa-testimonial-card">
+            <div class="huzaifa-testimonial-card-top"><span class="huzaifa-testimonial-number">08 / 12</span><div class="huzaifa-testimonial-quote">“</div></div>
+            <p class="huzaifa-testimonial-review">The development quality was excellent. Everything was structured professionally and the final website delivered a much better experience for our users.</p>
+            <div class="huzaifa-testimonial-bigquote">“</div>
+            <div class="huzaifa-testimonial-divider"></div>
+            <div class="huzaifa-testimonial-client">
+              <div class="huzaifa-client-details"><h6 class="huzaifa-client-name">Emma Taylor</h6><span class="huzaifa-client-role">Business Consultant · UAE</span></div>
+              <div class="huzaifa-testimonial-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+          </article>
+          <article class="huzaifa-testimonial-card">
+            <div class="huzaifa-testimonial-card-top"><span class="huzaifa-testimonial-number">09 / 12</span><div class="huzaifa-testimonial-quote">“</div></div>
+            <p class="huzaifa-testimonial-review">Huzaifa combines strong development skills with a great eye for design. The interface was modern, responsive and exactly aligned with our brand.</p>
+            <div class="huzaifa-testimonial-bigquote">“</div>
+            <div class="huzaifa-testimonial-divider"></div>
+            <div class="huzaifa-testimonial-client">
+              <div class="huzaifa-client-details"><h6 class="huzaifa-client-name">James Anderson</h6><span class="huzaifa-client-role">Founder · UK</span></div>
+              <div class="huzaifa-testimonial-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+          </article>
+          <article class="huzaifa-testimonial-card">
+            <div class="huzaifa-testimonial-card-top"><span class="huzaifa-testimonial-number">10 / 12</span><div class="huzaifa-testimonial-quote">“</div></div>
+            <p class="huzaifa-testimonial-review">Great communication, fast delivery and excellent technical execution. The project was completed smoothly and exceeded our expectations.</p>
+            <div class="huzaifa-testimonial-bigquote">“</div>
+            <div class="huzaifa-testimonial-divider"></div>
+            <div class="huzaifa-testimonial-client">
+              <div class="huzaifa-client-details"><h6 class="huzaifa-client-name">Lucas Martin</h6><span class="huzaifa-client-role">Agency Owner · Canada</span></div>
+              <div class="huzaifa-testimonial-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+          </article>
+          <article class="huzaifa-testimonial-card">
+            <div class="huzaifa-testimonial-card-top"><span class="huzaifa-testimonial-number">11 / 12</span><div class="huzaifa-testimonial-quote">“</div></div>
+            <p class="huzaifa-testimonial-review">Very professional throughout the project. Huzaifa paid attention to the smallest details and delivered a polished final product.</p>
+            <div class="huzaifa-testimonial-bigquote">“</div>
+            <div class="huzaifa-testimonial-divider"></div>
+            <div class="huzaifa-testimonial-client">
+              <div class="huzaifa-client-details"><h6 class="huzaifa-client-name">Noah Williams</h6><span class="huzaifa-client-role">Startup Founder · UK</span></div>
+              <div class="huzaifa-testimonial-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+          </article>
+          <article class="huzaifa-testimonial-card">
+            <div class="huzaifa-testimonial-card-top"><span class="huzaifa-testimonial-number">12 / 12</span><div class="huzaifa-testimonial-quote">“</div></div>
+            <p class="huzaifa-testimonial-review">A reliable developer with strong technical knowledge and creative thinking. Would definitely recommend Huzaifa for future projects.</p>
+            <div class="huzaifa-testimonial-bigquote">“</div>
+            <div class="huzaifa-testimonial-divider"></div>
+            <div class="huzaifa-testimonial-client">
+              <div class="huzaifa-client-details"><h6 class="huzaifa-client-name">Amelia Clark</h6><span class="huzaifa-client-role">Digital Director · Dubai</span></div>
+              <div class="huzaifa-testimonial-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+          </article>
+          <article class="huzaifa-testimonial-card">
+            <div class="huzaifa-testimonial-card-top"><span class="huzaifa-testimonial-number">07 / 12</span><div class="huzaifa-testimonial-quote">“</div></div>
+            <p class="huzaifa-testimonial-review">Working with Huzaifa was an excellent experience. He understood the project requirements quickly and converted them into a clean and modern digital product.</p>
+            <div class="huzaifa-testimonial-bigquote">“</div>
+            <div class="huzaifa-testimonial-divider"></div>
+            <div class="huzaifa-testimonial-client">
+              <div class="huzaifa-client-details"><h6 class="huzaifa-client-name">Ethan Miller</h6><span class="huzaifa-client-role">Product Manager · USA</span></div>
+              <div class="huzaifa-testimonial-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+          </article>
+          <article class="huzaifa-testimonial-card">
+            <div class="huzaifa-testimonial-card-top"><span class="huzaifa-testimonial-number">08 / 12</span><div class="huzaifa-testimonial-quote">“</div></div>
+            <p class="huzaifa-testimonial-review">The development quality was excellent. Everything was structured professionally and the final website delivered a much better experience for our users.</p>
+            <div class="huzaifa-testimonial-bigquote">“</div>
+            <div class="huzaifa-testimonial-divider"></div>
+            <div class="huzaifa-testimonial-client">
+              <div class="huzaifa-client-details"><h6 class="huzaifa-client-name">Emma Taylor</h6><span class="huzaifa-client-role">Business Consultant · UAE</span></div>
+              <div class="huzaifa-testimonial-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+          </article>
+          <article class="huzaifa-testimonial-card">
+            <div class="huzaifa-testimonial-card-top"><span class="huzaifa-testimonial-number">09 / 12</span><div class="huzaifa-testimonial-quote">“</div></div>
+            <p class="huzaifa-testimonial-review">Huzaifa combines strong development skills with a great eye for design. The interface was modern, responsive and exactly aligned with our brand.</p>
+            <div class="huzaifa-testimonial-bigquote">“</div>
+            <div class="huzaifa-testimonial-divider"></div>
+            <div class="huzaifa-testimonial-client">
+              <div class="huzaifa-client-details"><h6 class="huzaifa-client-name">James Anderson</h6><span class="huzaifa-client-role">Founder · UK</span></div>
+              <div class="huzaifa-testimonial-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+          </article>
+        </div>
+      </div>
+      <div class="huzaifa-testimonial-bottom" data-aos="fade-up">
+        <div class="huzaifa-bottom-features">
+          <div class="huzaifa-bottom-feature"><span class="huzaifa-bottom-icon"><i class="fa-solid fa-circle-check"></i></span><span>Good Work</span></div>
+          <span class="huzaifa-bottom-dot">•</span>
+          <div class="huzaifa-bottom-feature"><span class="huzaifa-bottom-icon"><i class="fa-solid fa-comments"></i></span><span>Clear Communication</span></div>
+          <span class="huzaifa-bottom-dot">•</span>
+          <div class="huzaifa-bottom-feature"><span class="huzaifa-bottom-icon"><i class="fa-solid fa-handshake"></i></span><span>Long-Term Relationships</span></div>
+        </div>
+        <a href="#contact" class="huzaifa-testimonial-action" aria-label="Let's Talk">
+          <span class="huzaifa-action-circle"><i class="fa-solid fa-arrow-up-right"></i></span>
+          <span class="huzaifa-action-label">Let's Talk</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PREMIUM FAQ SECTION ===== -->
+  <section id="faq" class="huzaifa-faq">
+    <div class="huzaifa-faq-container">
+      <div class="huzaifa-faq-top" data-aos="fade-up">
+        <div class="huzaifa-faq-label">Frequently Asked Questions</div>
+        <div class="huzaifa-faq-index">04 / 05</div>
+      </div>
+      <div class="huzaifa-faq-heading">
+        <div class="huzaifa-faq-mini" data-aos="fade-right">Got Questions?</div>
+        <div data-aos="fade-left">
+          <h2>Everything you need to <span>know.</span></h2>
+          <p class="huzaifa-faq-description">Here are answers to the most common questions about my process, timeline, pricing and how we can work together.</p>
+        </div>
+      </div>
+      <div class="huzaifa-faq-grid">
+        <div class="huzaifa-faq-item open" style="animation-delay:0.05s" data-aos="flip-up" data-aos-delay="50">
+          <div class="huzaifa-faq-item-header">
+            <h3>What is your development process?</h3>
+            <span class="huzaifa-faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
+          </div>
+          <div class="huzaifa-faq-item-answer">
+            <p>I start with a discovery phase to understand your goals, then design a solution, build it with clean code, test thoroughly, and deliver a polished product. I keep you updated at every stage.</p>
+          </div>
+        </div>
+        <div class="huzaifa-faq-item" style="animation-delay:0.10s" data-aos="flip-up" data-aos-delay="100">
+          <div class="huzaifa-faq-item-header">
+            <h3>How long does a project take?</h3>
+            <span class="huzaifa-faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
+          </div>
+          <div class="huzaifa-faq-item-answer">
+            <p>It depends on the scope. A simple business website can take 2–4 weeks, while a complex e-commerce or custom application may take 6–12 weeks. I provide a timeline after understanding your requirements.</p>
+          </div>
+        </div>
+        <div class="huzaifa-faq-item" style="animation-delay:0.15s" data-aos="flip-up" data-aos-delay="150">
+          <div class="huzaifa-faq-item-header">
+            <h3>Do you offer maintenance and support?</h3>
+            <span class="huzaifa-faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
+          </div>
+          <div class="huzaifa-faq-item-answer">
+            <p>Yes. I offer ongoing maintenance, updates, and support packages to ensure your website stays secure, fast and up-to-date after launch.</p>
+          </div>
+        </div>
+        <div class="huzaifa-faq-item" style="animation-delay:0.20s" data-aos="flip-up" data-aos-delay="200">
+          <div class="huzaifa-faq-item-header">
+            <h3>What technologies do you work with?</h3>
+            <span class="huzaifa-faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
+          </div>
+          <div class="huzaifa-faq-item-answer">
+            <p>I work with HTML5, CSS3, JavaScript, React.js, Node.js, PHP & Laravel, WordPress, and more. I choose the right technology based on your project needs.</p>
+          </div>
+        </div>
+        <div class="huzaifa-faq-item" style="animation-delay:0.25s" data-aos="flip-up" data-aos-delay="250">
+          <div class="huzaifa-faq-item-header">
+            <h3>How much does a project cost?</h3>
+            <span class="huzaifa-faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
+          </div>
+          <div class="huzaifa-faq-item-answer">
+            <p>Costs vary based on project complexity. I provide transparent quotes after understanding your requirements. I offer flexible options to fit different budgets.</p>
+          </div>
+        </div>
+        <div class="huzaifa-faq-item" style="animation-delay:0.30s" data-aos="flip-up" data-aos-delay="300">
+          <div class="huzaifa-faq-item-header">
+            <h3>Can you redesign an existing website?</h3>
+            <span class="huzaifa-faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
+          </div>
+          <div class="huzaifa-faq-item-answer">
+            <p>Absolutely. I can refresh your existing website with a modern design, improved performance, better user experience, and updated technology stack.</p>
+          </div>
+        </div>
+      </div>
+      <div class="huzaifa-faq-bottom" data-aos="fade-up">
+        <div class="huzaifa-faq-bottom-text">
+          <strong>Still have questions?</strong>
+          I'm happy to help. Reach out anytime.
+        </div>
+        <a href="#contact" class="huzaifa-faq-button">Contact Me <span>↗</span></a>
+      </div>
+    </div>
+
+    <script>
+      document.querySelectorAll('.huzaifa-faq-item').forEach(item => {
+        const header = item.querySelector('.huzaifa-faq-item-header');
+        header.addEventListener('click', function() {
+          const isOpen = item.classList.contains('open');
+          document.querySelectorAll('.huzaifa-faq-item').forEach(i => i.classList.remove('open'));
+          if (!isOpen) item.classList.add('open');
+        });
+      });
+    </script>
+  </section>
+
+  <!-- ===== PREMIUM CONTACT SECTION ===== -->
+  <section id="contact" class="huzaifa-contact">
+    <div class="huzaifa-contact-container">
+      <div class="huzaifa-contact-top" data-aos="fade-up">
+        <div class="huzaifa-contact-label">Get In Touch</div>
+        <div class="huzaifa-contact-index">05 / 05</div>
+      </div>
+      <div class="huzaifa-contact-heading">
+        <div class="huzaifa-contact-mini" data-aos="fade-right">Let's Connect</div>
+        <div data-aos="fade-left">
+          <h2>Let's build something <span>amazing.</span></h2>
+          <p class="huzaifa-contact-description">Have a project in mind or want to discuss an idea? Reach out and let's create something exceptional together.</p>
+        </div>
+      </div>
+      <div class="huzaifa-contact-content">
+        <div class="huzaifa-contact-info" data-aos="fade-right">
+          <h3>Let's talk.</h3>
+          <p>I'm always open to discussing new projects, creative ideas or opportunities to be part of your vision.</p>
+          <div class="huzaifa-contact-detail">
+            <div class="huzaifa-contact-detail-icon"><i class="fa-solid fa-envelope"></i></div>
+            <div class="huzaifa-contact-detail-text">
+              <h6>Email</h6>
+              <p>huzaifaumeransari@gmail.com</p>
+            </div>
+          </div>
+          <div class="huzaifa-contact-detail">
+            <div class="huzaifa-contact-detail-icon"><i class="fa-brands fa-whatsapp"></i></div>
+            <div class="huzaifa-contact-detail-text">
+              <h6>WhatsApp</h6>
+              <p>+92 313 2667528</p>
+            </div>
+          </div>
+          <div class="huzaifa-contact-detail">
+            <div class="huzaifa-contact-detail-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div class="huzaifa-contact-detail-text">
+              <h6>Location</h6>
+              <p>Karachi, Pakistan</p>
+            </div>
+          </div>
+          <div class="huzaifa-contact-social">
+            <a href="mailto:huzaifaumeransari@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+            <a href="https://www.linkedin.com/in/huzaifa-umer-ansari/" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://github.com/huzaifaum/" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://behance.net/huzaifaansari13" target="_blank" aria-label="Behance"><i class="fa-brands fa-behance"></i></a>
+            <a href="https://wa.me/923132667528" target="_blank" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+        </div>
+        <div class="huzaifa-contact-form" data-aos="fade-left">
+          <h4>Send a Message</h4>
+          <p class="sub">Fill in the details and I'll get back to you within 24 hours.</p>
+          <form id="premiumContactForm">
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <textarea placeholder="Tell me about your project..." required></textarea>
+            <button type="submit">Send Message <span>↗</span></button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById('premiumContactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = this.querySelector('input[placeholder="Your Name"]').value;
+        const email = this.querySelector('input[placeholder="Your Email"]').value;
+        const message = this.querySelector('textarea').value;
+        const whatsappNumber = '923132667528';
+        const text = `*New Message from Portfolio*%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Email:* ${encodeURIComponent(email)}%0A*Message:* ${encodeURIComponent(message)}`;
+        window.open(`https://wa.me/${whatsappNumber}?text=${text}`, '_blank');
+        this.reset();
+        alert('Thank you! Your message has been sent via WhatsApp.');
+      });
+    </script>
+  </section>
+
+  <!-- ===== MODAL ===== -->
+  <div class="modal-overlay" id="modalOverlay">
+    <style>
+      .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(6px); z-index: 9999; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+      .modal-overlay.active { opacity: 1; visibility: visible; }
+      .modal-box { background: #ffffff; max-width: 440px; width: 92%; padding: 36px 28px; border-radius: 32px; border: 1px solid var(--border-light); position: relative; box-shadow: 0 24px 60px rgba(0,0,0,0.08); transform: scale(0.9); transition: transform 0.3s ease; }
+      .modal-overlay.active .modal-box { transform: scale(1); }
+      .modal-box .close-btn { position: absolute; top: 14px; right: 20px; font-size: 2rem; background: transparent; border: none; color: #64748b; cursor: pointer; transition: color 0.3s ease, transform 0.3s ease; }
+      .modal-box .close-btn:hover { color: var(--primary); transform: rotate(90deg); }
+      .modal-box h3 { font-weight: 600; margin-bottom: 22px; color: #0b0f19; }
+      .modal-box input, .modal-box textarea { background: #f1f5f9; border: 1px solid #e2e8f0; color: #0b0f19; border-radius: 14px; padding: 12px 16px; width: 100%; outline: none; margin-bottom: 16px; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+      .modal-box input:focus, .modal-box textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-dim); }
+      .submit-whatsapp { background: #22c55e; color: #fff; border: none; padding: 14px; border-radius: 40px; font-weight: 600; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; transition: transform 0.25s ease, opacity 0.25s ease; cursor: pointer; }
+      .submit-whatsapp:hover { opacity: 0.9; transform: scale(1.02); }
+    </style>
+    <div class="modal-box">
+      <button class="close-btn" id="closeModalBtn">&times;</button>
+      <h3>Let's Build Something Great</h3>
+      <form id="whatsappForm">
+        <input type="text" id="modalName" placeholder="Your Name" required>
+        <input type="email" id="modalEmail" placeholder="Your Email" required>
+        <textarea id="modalMessage" rows="3" placeholder="Your Message" required></textarea>
+        <button type="submit" class="submit-whatsapp"><i class="fa-brands fa-whatsapp"></i> Send to WhatsApp</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER WITH BACKGROUND IMAGE ===== -->
+  <footer class="footer">
+    <div class="footer-container">
+      <!-- Centered Large Logo -->
+      <div class="footer-logo-link" data-aos="fade-up">
+        <a class="navbar-brand" href="#">
+          <div class="logo-main">
+            <img src="logo.png" alt="Huzaifa Logo" class="navbar-logo">
+            <span class="logo-text">Huzaifa</span>
+        </div>
+        </a>
+      </div>
+      
+      <div class="footer-col" data-aos="fade-up" data-aos-delay="100">
+        <p>Creating seamless digital solutions, custom web applications, and stunning user interfaces.</p>
+      </div>
+      
+      <div class="footer-col" data-aos="fade-up" data-aos-delay="200">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col" data-aos="fade-up" data-aos-delay="300">
+        <h4>Connect With Me</h4>
+        <div class="social-icons">
+          <a href="mailto:huzaifaumeransari@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
+          <a href="https://www.linkedin.com/in/huzaifa-umer-ansari/" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="https://github.com/huzaifaum/" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a href="https://behance.net/huzaifaansari13" target="_blank" title="Behance"><i class="fa-brands fa-behance"></i></a>
+          <a href="https://wa.me/923132667528" target="_blank" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom" data-aos="fade-up">
+      <p>&copy; 2026 Huzaifa Umer Ansari. Designed with <i class="fa-solid fa-heart highlight"></i>. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize AOS with animation settings
+      AOS.init({
+        duration: 800,
+        once: true,
+        offset: 60,
+        easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+        delay: 0
+      });
+
+      // Modal
+      const modalOverlay = document.getElementById('modalOverlay');
+      document.getElementById('openModalBtn').addEventListener('click', () => modalOverlay.classList.add('active'));
+      document.getElementById('closeModalBtn').addEventListener('click', () => modalOverlay.classList.remove('active'));
+      modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) modalOverlay.classList.remove('active'); });
+
+      document.getElementById('whatsappForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('modalName').value;
+        const email = document.getElementById('modalEmail').value;
+        const msg = document.getElementById('modalMessage').value;
+        const whatsappNumber = '923132667528';
+        const text = `*New Inquiry from Portfolio*%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Email:* ${encodeURIComponent(email)}%0A*Message:* ${encodeURIComponent(msg)}`;
+        window.open(`https://wa.me/${whatsappNumber}?text=${text}`, '_blank');
+        this.reset();
+        modalOverlay.classList.remove('active');
+      });
+
+      // Add animation class to hero stats on hover
+      document.querySelectorAll('.fresh-stat').forEach(stat => {
+        stat.addEventListener('mouseenter', function() {
+          this.querySelector('.fresh-stat-number').style.color = '#FF3B30';
+        });
+        stat.addEventListener('mouseleave', function() {
+          this.querySelector('.fresh-stat-number').style.color = '';
+        });
+      });
+
+      // Add scroll reveal for skill progress bars
+      const skillItems = document.querySelectorAll('.premium-skill-item');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const progress = entry.target.querySelector('.skill-progress span');
+            if (progress) {
+              const width = entry.target.style.getPropertyValue('--skill-width');
+              progress.style.width = width;
+            }
+          }
+        });
+      }, { threshold: 0.3 });
+
+      skillItems.forEach(item => observer.observe(item));
+    });
+  </script>
 </body>
 </html>
